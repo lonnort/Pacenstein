@@ -34,7 +34,7 @@ build: main
 rerun: clean run
 rebuild: clean build
 
-run: $(PROJECT_NAME)
+run: main
 	ifneq ($(OS), Windows_NT)
 		chmod u+x ./$(PROJECT_NAME).exe
 	endif
