@@ -14,7 +14,7 @@ SOURCES :=
 
 OBJECTS := $(SOURCES:%.cpp=%.o)
 
-PROJECT_NAME := Doom
+PROJECT_NAME := mooD
 
 main: main.o $(OBJECTS) $(HEADERS)
 	$(GXX) main.o $(OBJECTS) $(LINKER_FLAGS) -o $(PROJECT_NAME).exe
@@ -35,7 +35,4 @@ rerun: clean run
 rebuild: clean build
 
 run: main
-	ifneq ($(OS), Windows_NT)
-		chmod u+x ./$(PROJECT_NAME).exe
-	endif
 	@./$(PROJECT_NAME).exe
