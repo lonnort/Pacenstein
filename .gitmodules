@@ -1,0 +1,3 @@
+[submodule "examples/flappy"]
+	path = examples/flappy
+	url = https://github.com/baihuirong/Flappy-Bird-SFML-Learning
