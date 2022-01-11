@@ -5,6 +5,7 @@ ifeq ($(OS), Windows_NT)
 	CFLAGS := -I$(SFML_DIR)/include -DSFML_STATIC
 	LFLAGS := -L$(SFML_DIR)/lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lwinmm -lgdi32
 else
+# 	When on linux, static linking is not a requirement unlike some other OS's (*cough* windows *cough*), the Path actually works like you'd expect.
 	CFLAGS :=
 	LFLAGS := -lsfml-graphics -lsfml-window -lsfml-system
 endif
@@ -21,7 +22,6 @@ BUILD_DIR  := obj
 SOURCES := $(wildcard $(SOURCE_DIR)/*.cpp)
 HEADERS := $(wildcard $(SOURCE_DIR)/*.hpp)
 
-# OBJECTS := $(SOURCES:%.cpp=%.o)
 OBJECTS := $(patsubst $(SOURCE_DIR)/%,$(BUILD_DIR)/%,$(SOURCES:%.cpp=%.o))
 
 # include existing .o files as dependencies
@@ -44,7 +44,7 @@ run: build
 	@./$(PROJECT_NAME).exe
 
 $(BUILD_DIR)/main.o: $(SOURCE_DIR)/main.cpp
-	$(GXX) $(COMPILER_FLAGS) -c $(SOURCE_DIR)/main.cpp -o $(BUILD_DIR)/main.o
+	$(GXX) $(CFLAGS) -c $(SOURCE_DIR)/main.cpp -o $(BUILD_DIR)/main.o
 
 # Compile
 $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp $(SOURCE_DIR)/%.hpp

@@ -1,3 +1,7 @@
+# Lennard
+*.sublime-project
+*.sublime-workspace
+
 # hwlib
 *_flags
 *.bin
