@@ -47,7 +47,7 @@ $(BUILD_DIR)/main.o: $(SOURCE_DIR)/main.cpp
 	$(GXX) -c $(SOURCE_DIR)/main.cpp -o $(BUILD_DIR)/main.o $(CFLAGS)
 
 # Compile
-$(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp $(SOURCE_DIR)/%.hpp
+$(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp
 	$(GXX) -c -o $@ $< $(CFLAGS)
 
 .PHONY: build clean run rerun rebuild
