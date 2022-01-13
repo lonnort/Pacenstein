@@ -5,7 +5,7 @@ ifeq ($(OS), Windows_NT)
 	CFLAGS := -I"$(SFML_DIR)/include" -DSFML_STATIC
 	LFLAGS := -L"$(SFML_DIR)/lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lfreetype -lopengl32 -lwinmm -lgdi32
 	SEP := \\
-	MKDIR := -mkdir
+	MKDIR := mkdir
 else
 # 	When on linux, static linking is not a requirement unlike some other OS's (*cough* windows *cough*), Path actually works on runtime for any software you want to run.
 	CFLAGS :=
@@ -40,19 +40,19 @@ $(1)/%.o: %.cpp
 	$(CC) -c $$(INCLUDES) $$(CFLAGS) -o $$@ $$<
 endef
 
-.PHONY: build clean run rerun rebuild
+.PHONY: build dirs clean run rerun rebuild
 
 -include $(DEPS)
 
 $(foreach targetdir, $(TARGET_DIRS), $(eval $(call generateRules, $(targetdir))))
 
-build: dirs $(TARGET)
-
 $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $(TARGET) $(LFLAGS)
 
+build: dirs $(TARGET)
+
 dirs:
-	-$(MKDIR) $(TARGET_DIRS)
+	$(MKDIR) $(TARGET_DIRS)
 
 clean:
 	-@rm -r $(BUILD_DIR)/* $(PROJECT_NAME).exe
