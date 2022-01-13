@@ -32,7 +32,7 @@ build: dirs $(BUILD_DIR)/main.o $(OBJECTS) $(HEADERS)
 	$(GXX) $(OBJECTS) -o $(PROJECT_NAME).exe $(LFLAGS)
 
 dirs:
-	@mkdir -p $(BUILD_DIR)
+	-@mkdir -p $(BUILD_DIR)
 
 clean:
 	-@rm -r $(BUILD_DIR) $(PROJECT_NAME).exe
