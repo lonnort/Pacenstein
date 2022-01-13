@@ -10,7 +10,7 @@ namespace Pacenstein
 	void MainMenuState::init()
 	{
         //Update to main menu background
-		this->data->assets.loadTexture("Main Menu Background", SPLASH_BACKGROUND_FILEPATH);
+		this->data->assets.loadTexture("Main Menu Background", blinky_middel_one_FILEPATH);
 		//add sprites for title and start button
 		//this->data->assets.LoadTexture("Game Title", GAME_TITLE_FILEPATH);
 		//this->data->assets.LoadTexture("Play Button", PLAY_BUTTON_FILEPATH);
@@ -49,7 +49,7 @@ namespace Pacenstein
 	void MainMenuState::draw(float dt)
 	{
 		this->data->window.clear();
-
+		this->background.setScale(20,20);
 		this->data->window.draw(this->background);
 		//this->data->window.draw(this->title);
 		//this->data->window.draw(this->playButton);
