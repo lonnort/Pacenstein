@@ -1,4 +1,3 @@
-#include <sstream>
 #include "Definitions.hpp"
 #include "MainMenuState.hpp"
 
@@ -10,7 +9,7 @@ namespace Pacenstein
 
 	void MainMenuState::init()
 	{
-                //Update to main menu background
+        //Update to main menu background
 		this->data->assets.loadTexture("Main Menu Background", SPLASH_BACKGROUND_FILEPATH);
 		//add sprites for title and start button
 		//this->data->assets.LoadTexture("Game Title", GAME_TITLE_FILEPATH);
