@@ -1,13 +1,15 @@
 #include <iostream>
 #include "SplashState.hpp"
+#include "Definitions.hpp"
+#include "MainMenuState.hpp"
 
-#define GAME_BACKGROUND_FILEPATH "res/splash/background.png"
+//#define SPLASH_BACKGROUND_FILEPATH "res/splash/background.png"
 
 namespace Pacenstein {
     SplashState::SplashState(game_data_ref_t data) : data(data) {}
 
     void SplashState::init() {
-        this->data->assets.loadTexture("Splash Background", GAME_BACKGROUND_FILEPATH);
+        this->data->assets.loadTexture("Splash Background", SPLASH_BACKGROUND_FILEPATH);
         this->background.setTexture(this->data->assets.getTexture("Splash Background"));
     }
 
@@ -22,7 +24,7 @@ namespace Pacenstein {
 
     void SplashState::update(float dt) {
         if (this->clock.getElapsedTime().asSeconds() > 3)
-            std::cout << dt << " <-- de dt?\n";
+            this->data->machine.addState(state_ref_t(new MainMenuState(data)), true);
     }
 
     void SplashState::draw(float dt) {
