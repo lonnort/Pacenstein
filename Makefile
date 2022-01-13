@@ -52,7 +52,7 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $(TARGET) $(LFLAGS)
 
 dirs:
-	$(MKDIR) $(TARGET_DIRS)
+	-$(MKDIR) $(TARGET_DIRS)
 
 clean:
 	-@rm -r $(BUILD_DIR)/* $(PROJECT_NAME).exe
