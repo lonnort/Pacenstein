@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "SplashState.hpp"
+#include "iostream"
 
 namespace Pacenstein {
     Game::Game(const unsigned int width, const unsigned int height, const std::string title) {

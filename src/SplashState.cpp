@@ -22,7 +22,7 @@ namespace Pacenstein {
 
     void SplashState::update(float dt) {
         if (this->clock.getElapsedTime().asSeconds() > 3)
-            std::cout << dt << std::endl;
+            std::cout << dt << " <-- de dt?\n";
     }
 
     void SplashState::draw(float dt) {

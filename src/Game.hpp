@@ -21,7 +21,7 @@ namespace Pacenstein {
         Game(const unsigned int width, const unsigned int height, const std::string title);
 
     private:
-        const float dt = 1 / 60;
+        const float dt = 0.02;
         sf::Clock clock;
         game_data_ref_t data = std::make_shared<GameData>();
 
