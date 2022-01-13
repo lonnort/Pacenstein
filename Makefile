@@ -1,7 +1,7 @@
 GXX := g++ --std=c++17
 
 ifeq ($(OS), Windows_NT)
-	SFML_DIR := C:/Program\ Files/SFML-2.5.1
+	SFML_DIR := C:/Program Files/SFML-2.5.1
 	CFLAGS := -I"$(SFML_DIR)/include -DSFML_STATIC"
 	LFLAGS := -L"$(SFML_DIR)/lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lfreetype -lopengl32 -lwinmm -lgdi32
 else
@@ -19,7 +19,7 @@ BUILD_DIR  := obj
 # No touchie below here
 #------------------------------------
 
-SOURCES := $(wildcard $(SOURCE_DIR)/*.cpp)
+SOURCES := $(wildcard *.cpp $(foreach dir, $(SOURCE_DIR)/$(SUB), $(dir)/*.cpp))
 HEADERS := $(wildcard $(SOURCE_DIR)/*.hpp)
 
 OBJECTS := $(patsubst $(SOURCE_DIR)/%,$(BUILD_DIR)/%,$(SOURCES:%.cpp=%.o))
