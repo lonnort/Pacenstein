@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Game.hpp"
+#include "Blinky.hpp"
 
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
