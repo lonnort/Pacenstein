@@ -2,8 +2,8 @@ GXX := g++ --std=c++17
 
 ifeq ($(OS), Windows_NT)
 	SFML_DIR := C:/Program\ Files/SFML-2.5.1
-	CFLAGS := -I$(SFML_DIR)/include -DSFML_STATIC
-	LFLAGS := -L$(SFML_DIR)/lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lfreetype -lopengl32 -lwinmm -lgdi32
+	CFLAGS := -I"$(SFML_DIR)/include -DSFML_STATIC"
+	LFLAGS := -L"$(SFML_DIR)/lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lfreetype -lopengl32 -lwinmm -lgdi32
 else
 # 	When on linux, static linking is not a requirement unlike some other OS's (*cough* windows *cough*), Path actually works on runtime for any software you want to run.
 	CFLAGS :=
