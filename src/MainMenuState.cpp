@@ -1,5 +1,5 @@
 #include <sstream>
-#include "DEFINITIONS.hpp"
+#include "Definitions.hpp"
 #include "MainMenuState.hpp"
 
 #include <iostream>
