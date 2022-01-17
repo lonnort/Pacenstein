@@ -26,6 +26,6 @@ namespace Pacenstein
 		sf::Sprite highscoreText;
 		sf::Sprite giveUpButton;
 		sf::Sprite continueButton;
-		sf::Sprite keybindsButton;
+		sf::Sprite settingsButton;
 	};
 }

@@ -17,20 +17,20 @@ namespace Pacenstein {
 		this->data->assets.loadTexture("Highscore Text", "res/ui/button.png");
 		this->data->assets.loadTexture("Give Up Button", "res/ui/button.png");
 		this->data->assets.loadTexture("Continue Button", "res/ui/button.png");
-		this->data->assets.loadTexture("Keybinds Button", "res/ui/button.png");
+		this->data->assets.loadTexture("Settings Button", (BUTTONS_FILEPATH "settings.png"));
 
 		background.setTexture(this->data->assets.getTexture("Pause Background"));
 		title.setTexture(this->data->assets.getTexture("Pause Title"));
 		highscoreText.setTexture(this->data->assets.getTexture("Highscore Text"));
 		giveUpButton.setTexture(this->data->assets.getTexture("Give Up Button"));
 		continueButton.setTexture(this->data->assets.getTexture("Continue Button"));
-		keybindsButton.setTexture(this->data->assets.getTexture("Keybinds Button"));
+		settingsButton.setTexture(this->data->assets.getTexture("Settings Button"));
 
 		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
 		highscoreText.setPosition((SCREEN_WIDTH / 2) - (highscoreText.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (highscoreText.getGlobalBounds().height / 2));
 		continueButton.setPosition((SCREEN_WIDTH / 2) - (continueButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
 		giveUpButton.setPosition((SCREEN_WIDTH / 2) - (giveUpButton.getGlobalBounds().width / 2) - 2*(giveUpButton.getGlobalBounds().width), (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
-		keybindsButton.setPosition((SCREEN_WIDTH / 2) - (keybindsButton.getGlobalBounds().width / 2) + 2*(continueButton.getGlobalBounds().width), (SCREEN_HEIGHT / 2) - (keybindsButton.getGlobalBounds().height / 2) + 2*(keybindsButton.getGlobalBounds().height));
+		settingsButton.setPosition((SCREEN_WIDTH / 2) - (settingsButton.getGlobalBounds().width / 2) + 2*(continueButton.getGlobalBounds().width), 100 + (SCREEN_HEIGHT / 2) - (settingsButton.getGlobalBounds().height / 2) + 2*(settingsButton.getGlobalBounds().height));
 	}
 
 	void PauseState::handleInput(){
@@ -51,7 +51,7 @@ namespace Pacenstein {
 				this->data->machine.addState(state_ref_t(std::make_unique<GameOverState>(this->data)), true);
 			}
 
-			if (this->data->input.isSpriteClicked(this->keybindsButton, sf::Mouse::Left, this->data->window)){
+			if (this->data->input.isSpriteClicked(this->settingsButton, sf::Mouse::Left, this->data->window)){
 				std::cout << "Go To Settings Screen" << std::endl;
 				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)), false);
 			}
@@ -79,7 +79,7 @@ namespace Pacenstein {
 		this->data->window.draw(this->highscoreText);
 		this->data->window.draw(this->giveUpButton);
 		this->data->window.draw(this->continueButton);
-		this->data->window.draw(this->keybindsButton);
+		this->data->window.draw(this->settingsButton);
 
 		this->data->window.display();
 	}
