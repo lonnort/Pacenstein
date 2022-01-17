@@ -18,6 +18,7 @@
 #define KEY_ALT_LEFT  Left
 #define KEY_ALT_RIGHT Right
 #define KEY_PAUSE     Escape
+#define KEY_ALT_PAUSE Pause
 #define KEY_EXIT      Delete
 
 // Map definitions
