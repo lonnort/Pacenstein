@@ -23,3 +23,6 @@
 // Map definitions
 #define MAP_WIDTH     19;
 #define MAP_HEIGHT    21;
+
+// buttons
+#define BUTTONS_FILEPATH "res/ui/"

@@ -17,10 +17,10 @@ namespace Pacenstein
 		// this->data->assets.loadTexture("Main Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
 		// add sprites for title and start button
 		this->data->assets.loadTexture("Game Title", (GHOSTS_FILEPATH "blinky_middle_one.png"));
-		this->data->assets.loadTexture("Start Game Button", "res/ui/button.png");
-		this->data->assets.loadTexture("Leaderboard Button", "res/ui/button.png");
-		this->data->assets.loadTexture("Settings Button", "res/ui/button.png");
-		this->data->assets.loadTexture("Quit Game Button", "res/ui/button.png");
+		this->data->assets.loadTexture("Start Game Button", (BUTTONS_FILEPATH "start_game.png"));
+		this->data->assets.loadTexture("Leaderboard Button", (BUTTONS_FILEPATH "leaderboard.png"));
+		this->data->assets.loadTexture("Settings Button", (BUTTONS_FILEPATH "settings.png"));
+		this->data->assets.loadTexture("Quit Game Button", (BUTTONS_FILEPATH "quit_game.png"));
 		this->data->assets.loadTexture("Credits Button", (GHOSTS_FILEPATH "clyde_middle_one.png"));
 
 		// background.setTexture(this->data->assets.getTexture("Main Menu Background"));
