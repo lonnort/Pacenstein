@@ -21,7 +21,8 @@ namespace Pacenstein {
         float frameTime     = 0;
         float interpolation = 0;
         float accumulator   = 0;
-        int   waiting       = 2000;
+        int   waiting       = 500;
+        bool  loaded        = false;
         float currentTime   = this->clock.getElapsedTime().asSeconds();
 
         while (this->data->window.isOpen()) {
@@ -44,9 +45,16 @@ namespace Pacenstein {
             interpolation = accumulator / this->dt;
             this->data->machine.getActiveState()->draw(interpolation);
 
-            if(waiting <= 0){ // switch to main state after 2000 loops
+            if(waiting <= 0 and !loaded){ // switch to main state after 2000 loops
                 this->data->machine.removeState();
                 this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(this->data)));
+                loaded = true;
+                waiting = 100;
+            }else if(waiting <= 0 and loaded){
+                this->data->machine.removeState();
+                this->data->machine.addState(state_ref_t(std::make_unique<InGameState>(this->data)));
+                loaded = false;
+                waiting = 100;
             }else{
                 waiting--;
             }

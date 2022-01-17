@@ -24,7 +24,7 @@ namespace Pacenstein {
 
     void SplashState::update(float dt) {
         if (this->clock.getElapsedTime().asSeconds() > 3)
-            this->data->machine.addState(state_ref_t(new MainMenuState(data)), true);
+            this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(data)), true);
     }
 
     void SplashState::draw(float dt) {
