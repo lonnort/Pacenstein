@@ -10,17 +10,19 @@ namespace Pacenstein
 	void MainMenuState::init()
 	{
         //Update to main menu background
-		this->data->assets.loadTexture("Main Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
-		//add sprites for title and start button
-		//this->data->assets.LoadTexture("Game Title", GAME_TITLE_FILEPATH);
-		//this->data->assets.LoadTexture("Play Button", PLAY_BUTTON_FILEPATH);
+		// this->data->assets.loadTexture("Main Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+		// add sprites for title and start button
+		this->data->assets.loadTexture("Game Title", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+		// this->data->assets.loadTexture("Play Button", PLAY_BUTTON_FILEPATH);
 
-		background.setTexture(this->data->assets.getTexture("Main Menu Background"));
-		//title.setTexture(this->data->assets.GetTexture("Game Title"));
-		//playButton.setTexture(this->data->assets.GetTexture("Play Button"));
+		// background.setTexture(this->data->assets.getTexture("Main Menu Background"));
+		title.setTexture(this->data->assets.getTexture("Game Title"));
+		// playButton.setTexture(this->data->assets.GetTexture("Play Button"));
 
-		//title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
-		//playButton.setPosition((SCREEN_WIDTH / 2) - (playButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (playButton.getGlobalBounds().height / 2));
+		title.setPosition((SCREEN_WIDTH / 2) - ((title.getGlobalBounds().width / 2) * 20), title.getGlobalBounds().height / 2);
+		// playButton.setPosition((SCREEN_WIDTH / 2) - (playButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (playButton.getGlobalBounds().height / 2));
+
+		std::cout << "main created!\n";
 	}
 
 	void MainMenuState::handleInput()
@@ -34,10 +36,10 @@ namespace Pacenstein
 				this->data->window.close();
 			}
 
-			/*if (this->data->input.isSpriteClicked(this->playButton, sf::Mouse::Left, this->data->window))
+			if (this->data->input.isSpriteClicked(this->title, sf::Mouse::KEY_ALT_LEFT, this->data->window))
 			{
 				std::cout << "Go To Game Screen" << std::endl;
-			}*/
+			}
 		}
 	}
 
@@ -49,9 +51,9 @@ namespace Pacenstein
 	void MainMenuState::draw(float dt)
 	{
 		this->data->window.clear();
-		this->background.setScale(20,20);
-		this->data->window.draw(this->background);
-		//this->data->window.draw(this->title);
+		this->title.setScale(20,20);
+		// this->data->window.draw(this->background);
+		this->data->window.draw(this->title);
 		//this->data->window.draw(this->playButton);
 
 		this->data->window.display();

@@ -20,9 +20,9 @@ namespace Pacenstein
 	private:
 		game_data_ref_t data;
 
-		sf::Sprite background;
+		// sf::Sprite background;
 		//add sprites for title and start button
-		//sf::Sprite title;
+		sf::Sprite title;
 		//sf::Sprite playButton;
 	};
 }
