@@ -18,4 +18,8 @@ namespace Pacenstein {
     sf::Font& AssetManager::getFont(std::string name) {
         return this->fonts.at(name);
     }
+
+    sf::Vertex& AssetManager::getVertex(std::string name) {
+        return this->vertexes.at(name);
+    }
 }
