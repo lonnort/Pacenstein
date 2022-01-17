@@ -1,6 +1,7 @@
 #include <sstream>
 #include "Definitions.hpp"
 #include "InGameState.hpp"
+#include "PauseState.hpp"
 
 #include <iostream>
 
@@ -39,6 +40,9 @@ namespace Pacenstein
 			{
 				std::cout << "Go To Game Screen" << std::endl;
 			}*/
+			if (sf::Event::KeyPressed == event.type) {
+ 				 if (sf::Keyboard::Key::KEY_PAUSE==event.key.code) this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
+			}
 		}
 	}
 
