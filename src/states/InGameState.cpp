@@ -44,6 +44,7 @@ namespace Pacenstein {
                     case sf::Keyboard::Key::KEY_ALT_PAUSE:
                         this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
                         break;
+                        
                 }
             }
         }

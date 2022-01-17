@@ -39,8 +39,14 @@ namespace Pacenstein
 			{
 				std::cout << "Go To Game Screen" << std::endl;
 			}*/
+
 			if (sf::Event::KeyPressed == event.type) {
-				if (sf::Keyboard::Key::KEY_EXIT == event.key.code) this->data->window.close();
+    			switch (event.key.code) {
+					case sf::Keyboard::Key::KEY_EXIT:
+						this->data->window.close();
+						break;
+						
+				}
 			}
 		}
 	}

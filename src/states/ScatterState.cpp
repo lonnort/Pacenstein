@@ -1,15 +1,14 @@
 #include <sstream>
 #include "Definitions.hpp"
 #include "ScatterState.hpp"
+#include "PauseState.hpp"
 
 #include <iostream>
 
-namespace Pacenstein
-{
+namespace Pacenstein {
 	ScatterState::ScatterState(game_data_ref_t data) : data(data) { }
 
-	void ScatterState::init()
-	{
+	void ScatterState::init(){
                 //Update to main menu background
 		this->data->assets.loadTexture("Scatter Background", SPLASH_BACKGROUND_FILEPATH);
 		//add sprites for title and start button
@@ -24,14 +23,11 @@ namespace Pacenstein
 		//playButton.setPosition((SCREEN_WIDTH / 2) - (playButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (playButton.getGlobalBounds().height / 2));
 	}
 
-	void ScatterState::handleInput()
-	{
+	void ScatterState::handleInput(){
 		sf::Event event;
 
-		while (this->data->window.pollEvent(event))
-		{
-			if (sf::Event::Closed == event.type)
-			{
+		while (this->data->window.pollEvent(event)){
+			if (sf::Event::Closed == event.type){
 				this->data->window.close();
 			}
 
@@ -39,19 +35,28 @@ namespace Pacenstein
 			{
 				std::cout << "Go To Game Screen" << std::endl;
 			}*/
+
 			if (sf::Event::KeyPressed == event.type) {
-				if (sf::Keyboard::Key::KEY_EXIT == event.key.code) this->data->window.close();
+    			switch (event.key.code) {
+					case sf::Keyboard::Key::KEY_EXIT:
+						this->data->window.close();
+						break;
+
+					case sf::Keyboard::Key::KEY_PAUSE:
+					case sf::Keyboard::Key::KEY_ALT_PAUSE:
+						this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
+						break;
+
+				}
 			}
 		}
 	}
 
-	void ScatterState::update(float dt)
-	{
+	void ScatterState::update(float dt){
 		std::cout << "Scattering" << std::endl;
 	}
 
-	void ScatterState::draw(float dt)
-	{
+	void ScatterState::draw(float dt){
 		this->data->window.clear();
 
 		this->data->window.draw(this->background);

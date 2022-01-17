@@ -35,8 +35,14 @@ namespace Pacenstein {
 			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)){
 				this->data->machine.removeState();
 			}
+
 			if (sf::Event::KeyPressed == event.type) {
-				if (sf::Keyboard::Key::KEY_EXIT == event.key.code) this->data->window.close();
+    			switch (event.key.code) {
+					case sf::Keyboard::Key::KEY_EXIT:
+						this->data->window.close();
+						break;
+						
+				}
 			}
 		}
 	}
