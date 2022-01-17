@@ -49,12 +49,6 @@ namespace Pacenstein {
                 this->data->machine.removeState();
                 this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(this->data)));
                 loaded = true;
-                waiting = 10000000;
-            // }else if(waiting <= 0 and loaded){
-            //     this->data->machine.removeState();
-            //     this->data->machine.addState(state_ref_t(std::make_unique<InGameState>(this->data)));
-            //     loaded = false;
-            //     waiting = 100;
             }else{
                 waiting--;
             }
