@@ -53,7 +53,7 @@ namespace Pacenstein {
 
 			if (this->data->input.isSpriteClicked(this->keybindsButton, sf::Mouse::Left, this->data->window)){
 				std::cout << "Go To Settings Screen" << std::endl;
-				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)), true);
+				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)), false);
 			}
 
 			if (sf::Event::KeyPressed == event.type) {
