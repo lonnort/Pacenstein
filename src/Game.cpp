@@ -49,7 +49,7 @@ namespace Pacenstein {
                 this->data->machine.removeState();
                 this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(this->data)));
                 loaded = true;
-            }else{
+            }else if(!loaded){
                 waiting--;
             }
         }
