@@ -4,13 +4,10 @@ ifeq ($(OS), Windows_NT)
 	SFML_DIR := C:/Program Files/SFML-2.5.1
 	CFLAGS := -I"$(SFML_DIR)/include" -DSFML_STATIC
 	LFLAGS := -L"$(SFML_DIR)/lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lfreetype -lopengl32 -lwinmm -lgdi32
-	SEP := \\
 	MKDIR := mkdir
 else
-# 	When on linux, static linking is not a requirement unlike some other OS's (*cough* windows *cough*), Path actually works on runtime for any software you want to run.
 	CFLAGS :=
 	LFLAGS := -lsfml-system -lsfml-window -lsfml-graphics
-	SEP := /
 	MKDIR := mkdir -p
 endif
 
@@ -31,9 +28,7 @@ SOURCES = $(foreach dir, $(SOURCE_DIRS), $(wildcard $(dir)/*.cpp))
 OBJECTS = $(subst $(SOURCE_DIR), $(BUILD_DIR), $(SOURCES:.c=.o))
 DEPS    = $(OBJECTS:.o=.d)
 
-OBJECTS := $(patsubst $(SOURCE_DIR)/%,$(BUILD_DIR)/%,$(SOURCES:%.cpp=%.o))
-
-PSEP = $(strip $(SEP))
+OBJECTS := $(patsubst $(SOURCE_DIR)/%, $(BUILD_DIR)/%, $(SOURCES:%.cpp=%.o))
 
 define generateRules
 $(1)/%.o: %.cpp
