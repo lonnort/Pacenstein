@@ -45,13 +45,23 @@ namespace Pacenstein {
                         this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
                         break;
 
+                    case sf::Keyboard::Key::KEY_UP:
+                    case sf::Keyboard::Key::KEY_DOWN:
+                    case sf::Keyboard::Key::KEY_LEFT:
+                    case sf::Keyboard::Key::KEY_RIGHT:
+                    case sf::Keyboard::Key::KEY_ALT_UP:
+                    case sf::Keyboard::Key::KEY_ALT_DOWN:
+                    case sf::Keyboard::Key::KEY_ALT_LEFT:
+                    case sf::Keyboard::Key::KEY_ALT_RIGHT:
+                        this->data->machine.addState(state_ref_t(std::make_unique<HuntingState>(this->data)), true);
+                        break;
                 }
             }
         }
     }
 
     void InGameState::update(float dt) {
-        std::cout << ": In game" << std::endl;
+        std::cout << "In game" << std::endl;
     }
 
     void InGameState::draw(float dt) {
