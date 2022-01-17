@@ -44,15 +44,14 @@ namespace Pacenstein {
                     case sf::Keyboard::Key::KEY_ALT_PAUSE:
                         this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
                         break;
-                        
+
                 }
             }
         }
     }
 
     void InGameState::update(float dt) {
-        static int i = 0;
-        std::cout << i++ << ": In game" << std::endl;
+        std::cout << ": In game" << std::endl;
     }
 
     void InGameState::draw(float dt) {
