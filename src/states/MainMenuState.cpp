@@ -50,19 +50,19 @@ namespace Pacenstein
 			}
 
 			if (this->data->input.isSpriteClicked(this->StartButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<InGameState>(this->data)));
+				this->data->machine.addState(state_ref_t(std::make_unique<InGameState>(this->data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->LeaderboardButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<LeaderboardMenuState>(this->data)));
+				this->data->machine.addState(state_ref_t(std::make_unique<LeaderboardMenuState>(this->data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->SettingsButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)));
+				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->QuitButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
 				this->data->window.close();
 			}
 			if (this->data->input.isSpriteClicked(this->CreditsButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<CreditsMenuState>(this->data)));
+				this->data->machine.addState(state_ref_t(std::make_unique<CreditsMenuState>(this->data)), false);
 			}
 		}
 	}

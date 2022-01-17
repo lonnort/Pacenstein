@@ -31,7 +31,7 @@ namespace Pacenstein {
 			}
 
 			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(data)), true);
+				this->data->machine.removeState();
 			}
 		}
 	}
@@ -43,7 +43,7 @@ namespace Pacenstein {
 	void CreditsMenuState::draw(float dt){
 		this->data->window.clear();
 		this->background.setScale(20,20);
-		
+
 		this->data->window.draw(this->background);
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->backButton);
