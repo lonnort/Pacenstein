@@ -1,6 +1,8 @@
 #include <sstream>
 #include "Definitions.hpp"
 #include "PauseState.hpp"
+#include "GameOverState.hpp"
+#include "SettingsMenuState.hpp"
 
 #include <iostream>
 
@@ -11,17 +13,26 @@ namespace Pacenstein
 	void PauseState::init()
 	{
                 //Update to main menu background
-		this->data->assets.loadTexture("Pause Background", SPLASH_BACKGROUND_FILEPATH);
+		this->data->assets.loadTexture("Pause Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
 		//add sprites for title and start button
-		//this->data->assets.LoadTexture("Game Title", GAME_TITLE_FILEPATH);
-		//this->data->assets.LoadTexture("Play Button", PLAY_BUTTON_FILEPATH);
+		this->data->assets.loadTexture("Pause Title", "res/ui/button.png");
+		this->data->assets.loadTexture("Highscore Text", "res/ui/button.png");
+		this->data->assets.loadTexture("Give Up Button", "res/ui/button.png");
+		this->data->assets.loadTexture("Continue Button", "res/ui/button.png");
+		this->data->assets.loadTexture("Keybinds Button", "res/ui/button.png");
 
 		background.setTexture(this->data->assets.getTexture("Pause Background"));
-		//title.setTexture(this->data->assets.GetTexture("Game Title"));
-		//playButton.setTexture(this->data->assets.GetTexture("Play Button"));
+		title.setTexture(this->data->assets.getTexture("Pause Title"));
+		highscoreText.setTexture(this->data->assets.getTexture("Highscore Text"));
+		giveUpButton.setTexture(this->data->assets.getTexture("Give Up Button"));
+		continueButton.setTexture(this->data->assets.getTexture("Continue Button"));
+		keybindsButton.setTexture(this->data->assets.getTexture("Keybinds Button"));
 
-		//title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
-		//playButton.setPosition((SCREEN_WIDTH / 2) - (playButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (playButton.getGlobalBounds().height / 2));
+		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
+		highscoreText.setPosition((SCREEN_WIDTH / 2) - (highscoreText.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (highscoreText.getGlobalBounds().height / 2));
+		continueButton.setPosition((SCREEN_WIDTH / 2) - (continueButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
+		giveUpButton.setPosition((SCREEN_WIDTH / 2) - (giveUpButton.getGlobalBounds().width / 2) - 2*(giveUpButton.getGlobalBounds().width), (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
+		keybindsButton.setPosition((SCREEN_WIDTH / 2) - (keybindsButton.getGlobalBounds().width / 2) + 2*(continueButton.getGlobalBounds().width), (SCREEN_HEIGHT / 2) - (keybindsButton.getGlobalBounds().height / 2) + 2*(keybindsButton.getGlobalBounds().height));
 	}
 
 	void PauseState::handleInput()
@@ -35,10 +46,23 @@ namespace Pacenstein
 				this->data->window.close();
 			}
 
-			/*if (this->data->input.isSpriteClicked(this->playButton, sf::Mouse::Left, this->data->window))
+			if (this->data->input.isSpriteClicked(this->continueButton, sf::Mouse::Left, this->data->window))
 			{
-				std::cout << "Go To Game Screen" << std::endl;
-			}*/
+				std::cout << "Continue game" << std::endl;
+				this->data->machine.removeState();
+			}
+
+			if (this->data->input.isSpriteClicked(this->giveUpButton, sf::Mouse::Left, this->data->window))
+			{
+				std::cout << "Go To Game Over Screen" << std::endl;
+				this->data->machine.addState(state_ref_t(std::make_unique<GameOverState>(this->data)), true);
+			}
+
+			if (this->data->input.isSpriteClicked(this->keybindsButton, sf::Mouse::Left, this->data->window))
+			{
+				std::cout << "Go To Settings Screen" << std::endl;
+				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)), true);
+			}
 		}
 	}
 
@@ -52,8 +76,11 @@ namespace Pacenstein
 		this->data->window.clear();
 
 		this->data->window.draw(this->background);
-		//this->data->window.draw(this->title);
-		//this->data->window.draw(this->playButton);
+		this->data->window.draw(this->title);
+		this->data->window.draw(this->highscoreText);
+		this->data->window.draw(this->giveUpButton);
+		this->data->window.draw(this->continueButton);
+		this->data->window.draw(this->keybindsButton);
 
 		this->data->window.display();
 	}

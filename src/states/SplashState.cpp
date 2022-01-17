@@ -17,8 +17,12 @@ namespace Pacenstein {
         sf::Event event;
 
         while (this->data->window.pollEvent(event)) {
-            if (sf::Event::Closed == event.type)
+            if (sf::Event::Closed == event.type){
                 this->data->window.close();
+            }
+            if (sf::Event::KeyPressed == event.type) {
+				if (sf::Keyboard::Key::KEY_EXIT == event.key.code) this->data->window.close();
+			}
         }
     }
 
