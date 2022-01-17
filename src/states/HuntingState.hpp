@@ -6,10 +6,10 @@
 
 namespace Pacenstein
 {
-	class GlobalState : public State
+	class HuntingState : public State
 	{
 	public:
-		GlobalState(game_data_ref_t data);
+		HuntingState(game_data_ref_t data);
 
 		void init();
 

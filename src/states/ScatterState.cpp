@@ -1,21 +1,22 @@
+#include <sstream>
 #include "Definitions.hpp"
-#include "MainMenuState.hpp"
+#include "ScatterState.hpp"
 
 #include <iostream>
 
 namespace Pacenstein
 {
-	MainMenuState::MainMenuState(game_data_ref_t data) : data(data) { }
+	ScatterState::ScatterState(game_data_ref_t data) : data(data) { }
 
-	void MainMenuState::init()
+	void ScatterState::init()
 	{
-        //Update to main menu background
-		this->data->assets.loadTexture("Main Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+                //Update to main menu background
+		this->data->assets.loadTexture("Scatter Background", SPLASH_BACKGROUND_FILEPATH);
 		//add sprites for title and start button
 		//this->data->assets.LoadTexture("Game Title", GAME_TITLE_FILEPATH);
 		//this->data->assets.LoadTexture("Play Button", PLAY_BUTTON_FILEPATH);
 
-		background.setTexture(this->data->assets.getTexture("Main Menu Background"));
+		background.setTexture(this->data->assets.getTexture("Scatter Background"));
 		//title.setTexture(this->data->assets.GetTexture("Game Title"));
 		//playButton.setTexture(this->data->assets.GetTexture("Play Button"));
 
@@ -23,7 +24,7 @@ namespace Pacenstein
 		//playButton.setPosition((SCREEN_WIDTH / 2) - (playButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (playButton.getGlobalBounds().height / 2));
 	}
 
-	void MainMenuState::handleInput()
+	void ScatterState::handleInput()
 	{
 		sf::Event event;
 
@@ -41,15 +42,15 @@ namespace Pacenstein
 		}
 	}
 
-	void MainMenuState::update(float dt)
+	void ScatterState::update(float dt)
 	{
-		std::cout << "In main menu" << std::endl;
+		std::cout << "Scattering" << std::endl;
 	}
 
-	void MainMenuState::draw(float dt)
+	void ScatterState::draw(float dt)
 	{
 		this->data->window.clear();
-		this->background.setScale(20,20);
+
 		this->data->window.draw(this->background);
 		//this->data->window.draw(this->title);
 		//this->data->window.draw(this->playButton);

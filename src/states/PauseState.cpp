@@ -1,22 +1,22 @@
 #include <sstream>
 #include "Definitions.hpp"
-#include "GlobalState.hpp"
+#include "PauseState.hpp"
 
 #include <iostream>
 
 namespace Pacenstein
 {
-	GlobalState::GlobalState(game_data_ref_t data) : data(data) { }
+	PauseState::PauseState(game_data_ref_t data) : data(data) { }
 
-	void GlobalState::init()
+	void PauseState::init()
 	{
                 //Update to main menu background
-		this->data->assets.loadTexture("Global Background", SPLASH_BACKGROUND_FILEPATH);
+		this->data->assets.loadTexture("Pause Background", SPLASH_BACKGROUND_FILEPATH);
 		//add sprites for title and start button
 		//this->data->assets.LoadTexture("Game Title", GAME_TITLE_FILEPATH);
 		//this->data->assets.LoadTexture("Play Button", PLAY_BUTTON_FILEPATH);
 
-		background.setTexture(this->data->assets.getTexture("Global Background"));
+		background.setTexture(this->data->assets.getTexture("Pause Background"));
 		//title.setTexture(this->data->assets.GetTexture("Game Title"));
 		//playButton.setTexture(this->data->assets.GetTexture("Play Button"));
 
@@ -24,7 +24,7 @@ namespace Pacenstein
 		//playButton.setPosition((SCREEN_WIDTH / 2) - (playButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (playButton.getGlobalBounds().height / 2));
 	}
 
-	void GlobalState::handleInput()
+	void PauseState::handleInput()
 	{
 		sf::Event event;
 
@@ -42,12 +42,12 @@ namespace Pacenstein
 		}
 	}
 
-	void GlobalState::update(float dt)
+	void PauseState::update(float dt)
 	{
-		std::cout << "In Global" << std::endl;
+		std::cout << "Pause" << std::endl;
 	}
 
-	void GlobalState::draw(float dt)
+	void PauseState::draw(float dt)
 	{
 		this->data->window.clear();
 
