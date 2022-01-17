@@ -22,8 +22,8 @@ namespace Pacenstein
 
 		sf::Sprite background;
 		//add sprites for title and start button
-		//sf::Sprite title;
-		//sf::Sprite playButton;
+		sf::Sprite title;
+		sf::Sprite backButton;
 	};
 }
 
