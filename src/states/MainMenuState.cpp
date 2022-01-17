@@ -16,7 +16,7 @@ namespace Pacenstein
         //Update to main menu background
 		// this->data->assets.loadTexture("Main Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
 		// add sprites for title and start button
-		this->data->assets.loadTexture("Game Title", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+		this->data->assets.loadTexture("Game Title", "res/pacenstein.png");
 		this->data->assets.loadTexture("Start Game Button", (BUTTONS_FILEPATH "start_game.png"));
 		this->data->assets.loadTexture("Leaderboard Button", (BUTTONS_FILEPATH "leaderboard.png"));
 		this->data->assets.loadTexture("Settings Button", (BUTTONS_FILEPATH "settings.png"));
@@ -31,7 +31,7 @@ namespace Pacenstein
 		QuitButton.setTexture(this->data->assets.getTexture("Quit Game Button"));
 		CreditsButton.setTexture(this->data->assets.getTexture("Credits Button"));
 
-		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
+		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2 * 0.3), title.getGlobalBounds().height / 2 * 0.3);
 		StartButton.setPosition((SCREEN_WIDTH / 2) - (StartButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (StartButton.getGlobalBounds().height / 2));
 		LeaderboardButton.setPosition((SCREEN_WIDTH / 2) - (LeaderboardButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (LeaderboardButton.getGlobalBounds().height / 2) + 75);
 		SettingsButton.setPosition((SCREEN_WIDTH / 2) - (SettingsButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (SettingsButton.getGlobalBounds().height / 2) + 150);
@@ -75,7 +75,7 @@ namespace Pacenstein
 	void MainMenuState::draw(float dt)
 	{
 		this->data->window.clear();
-		// this->title.setScale(20,20);
+		this->title.setScale(0.3,0.3);
 		// this->data->window.draw(this->background);
 
 		this->data->window.draw(this->title);
