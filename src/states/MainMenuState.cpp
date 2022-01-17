@@ -17,10 +17,10 @@ namespace Pacenstein
 		// this->data->assets.loadTexture("Main Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
 		// add sprites for title and start button
 		this->data->assets.loadTexture("Game Title", (GHOSTS_FILEPATH "blinky_middle_one.png"));
-		this->data->assets.loadTexture("Start Game Button", "res/ui/button.png");
-		this->data->assets.loadTexture("Leaderboard Button", "res/ui/button.png");
-		this->data->assets.loadTexture("Settings Button", "res/ui/button.png");
-		this->data->assets.loadTexture("Quit Game Button", "res/ui/button.png");
+		this->data->assets.loadTexture("Start Game Button", (BUTTONS_FILEPATH "start_game.png"));
+		this->data->assets.loadTexture("Leaderboard Button", (BUTTONS_FILEPATH "leaderboard.png"));
+		this->data->assets.loadTexture("Settings Button", (BUTTONS_FILEPATH "settings.png"));
+		this->data->assets.loadTexture("Quit Game Button", (BUTTONS_FILEPATH "quit_game.png"));
 		this->data->assets.loadTexture("Credits Button", (GHOSTS_FILEPATH "clyde_middle_one.png"));
 
 		// background.setTexture(this->data->assets.getTexture("Main Menu Background"));
@@ -50,19 +50,19 @@ namespace Pacenstein
 			}
 
 			if (this->data->input.isSpriteClicked(this->StartButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<InGameState>(this->data)));
+				this->data->machine.addState(state_ref_t(std::make_unique<InGameState>(this->data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->LeaderboardButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<LeaderboardMenuState>(this->data)));
+				this->data->machine.addState(state_ref_t(std::make_unique<LeaderboardMenuState>(this->data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->SettingsButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)));
+				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)), false);
 			}
 			if (this->data->input.isSpriteClicked(this->QuitButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
 				this->data->window.close();
 			}
 			if (this->data->input.isSpriteClicked(this->CreditsButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<CreditsMenuState>(this->data)));
+				this->data->machine.addState(state_ref_t(std::make_unique<CreditsMenuState>(this->data)), false);
 			}
 		}
 	}

@@ -9,16 +9,18 @@ namespace Pacenstein {
 
 	void LeaderboardMenuState::init(){
         //Update to main menu background
-		this->data->assets.loadTexture("Leaderboard Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+		// this->data->assets.loadTexture("Leaderboard Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+
 		//add sprites for title and start button
-		this->data->assets.loadTexture("Leaderboard Title", "res/ui/button.png");
+		this->data->assets.loadTexture("Leaderboard Title", (BUTTONS_FILEPATH "leaderboard.png"));
 		this->data->assets.loadTexture("Back Button", "res/ui/button.png");
 
-		background.setTexture(this->data->assets.getTexture("Leaderboard Menu Background"));
+		// background.setTexture(this->data->assets.getTexture("Leaderboard Menu Background"));
+
 		title.setTexture(this->data->assets.getTexture("Leaderboard Title"));
 		backButton.setTexture(this->data->assets.getTexture("Back Button"));
 
-		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
+		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
 		backButton.setPosition((backButton.getGlobalBounds().width / 2), (backButton.getGlobalBounds().height / 2));
 	}
 
@@ -31,7 +33,7 @@ namespace Pacenstein {
 			}
 
 			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)){
-				this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(data)), true);
+				this->data->machine.removeState();
 			}
 		}
 	}
@@ -44,7 +46,8 @@ namespace Pacenstein {
 		this->data->window.clear();
 		this->background.setScale(20,20);
 		
-		this->data->window.draw(this->background);
+		// this->data->window.draw(this->background);
+
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->backButton);
 
