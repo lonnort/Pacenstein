@@ -64,6 +64,9 @@ namespace Pacenstein
 			if (this->data->input.isSpriteClicked(this->CreditsButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
 				this->data->machine.addState(state_ref_t(std::make_unique<CreditsMenuState>(this->data)), false);
 			}
+			if (sf::Event::KeyPressed == event.type) {
+				if (sf::Keyboard::Key::KEY_EXIT == event.key.code) this->data->window.close();
+			}
 		}
 	}
 
