@@ -9,12 +9,14 @@ namespace Pacenstein {
 
 	void CreditsMenuState::init(){
         //Update to main menu background
-		this->data->assets.loadTexture("Credits Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+		// this->data->assets.loadTexture("Credits Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+		
 		//add sprites for title and start button
 		this->data->assets.loadTexture("Leaderboard Title", "res/ui/button.png");
 		this->data->assets.loadTexture("Back Button", "res/ui/button.png");
 
-		background.setTexture(this->data->assets.getTexture("Credits Menu Background"));
+		// background.setTexture(this->data->assets.getTexture("Credits Menu Background"));
+
 		title.setTexture(this->data->assets.getTexture("Leaderboard Title"));
 		backButton.setTexture(this->data->assets.getTexture("Back Button"));
 
@@ -44,7 +46,8 @@ namespace Pacenstein {
 		this->data->window.clear();
 		this->background.setScale(20,20);
 
-		this->data->window.draw(this->background);
+		// this->data->window.draw(this->background);
+
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->backButton);
 
