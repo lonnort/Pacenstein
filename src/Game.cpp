@@ -1,5 +1,11 @@
 #include "Game.hpp"
 #include "SplashState.hpp"
+#include "GameOverState.hpp"
+#include "HuntingState.hpp"
+#include "InGameState.hpp"
+#include "MainMenuState.hpp"
+#include "PauseState.hpp"
+#include "ScatterState.hpp"
 #include "iostream"
 
 namespace Pacenstein {
@@ -15,6 +21,7 @@ namespace Pacenstein {
         float frameTime     = 0;
         float interpolation = 0;
         float accumulator   = 0;
+        int   waiting       = 2000;
         float currentTime   = this->clock.getElapsedTime().asSeconds();
 
         while (this->data->window.isOpen()) {
@@ -36,6 +43,13 @@ namespace Pacenstein {
 
             interpolation = accumulator / this->dt;
             this->data->machine.getActiveState()->draw(interpolation);
+
+            if(waiting <= 0){ // switch to main state after 2000 loops
+                this->data->machine.removeState();
+                this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(this->data)));
+            }else{
+                waiting--;
+            }
         }
     }
 }
