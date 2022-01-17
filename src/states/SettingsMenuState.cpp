@@ -37,8 +37,8 @@ namespace Pacenstein
 
 			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window))
 			{
-				std::cout << "Go To Main Menu Screen" << std::endl;
-				this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(data)), true);
+				std::cout << "Go To Previous Screen" << std::endl;
+				this->data->machine.removeState();
 			}
 		}
 	}
