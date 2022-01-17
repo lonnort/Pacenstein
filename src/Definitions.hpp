@@ -1,5 +1,9 @@
 #pragma once
 
+// screen
+#define SCREEN_WIDTH 1200
+#define SCREEN_HEIGHT 720
+
 // File paths
 #define SPLASH_BACKGROUND_FILEPATH "res/splash/background.png"
 #define GHOSTS_FILEPATH "res/sprites/ghosts/"
@@ -15,3 +19,7 @@
 #define KEY_ALT_RIGHT Right
 #define KEY_PAUSE     Escape
 #define KEY_EXIT      Delete
+
+// Map definitions
+#define MAP_WIDTH     19;
+#define MAP_HEIGHT    21;
