@@ -19,3 +19,7 @@
 #define KEY_ALT_RIGHT Right
 #define KEY_PAUSE     Escape
 #define KEY_EXIT      Delete
+
+// Map definitions
+#define MAP_WIDTH     19;
+#define MAP_HEIGHT    21;
