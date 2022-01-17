@@ -13,7 +13,7 @@ namespace Pacenstein {
 
 		//add sprites for title and start button
 		this->data->assets.loadTexture("Leaderboard Title", (BUTTONS_FILEPATH "leaderboard.png"));
-		this->data->assets.loadTexture("Back Button", "res/ui/button.png");
+		this->data->assets.loadTexture("Back Button", (BUTTONS_FILEPATH "back.png"));
 
 		// background.setTexture(this->data->assets.getTexture("Leaderboard Menu Background"));
 
@@ -21,7 +21,7 @@ namespace Pacenstein {
 		backButton.setTexture(this->data->assets.getTexture("Back Button"));
 
 		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
-		backButton.setPosition((backButton.getGlobalBounds().width / 2), (backButton.getGlobalBounds().height / 2));
+		backButton.setPosition((backButton.getGlobalBounds().width / 2) + 50, (backButton.getGlobalBounds().height / 2) + 50);
 	}
 
 	void LeaderboardMenuState::handleInput(){

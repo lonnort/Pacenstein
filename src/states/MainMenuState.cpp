@@ -21,7 +21,7 @@ namespace Pacenstein
 		this->data->assets.loadTexture("Leaderboard Button", (BUTTONS_FILEPATH "leaderboard.png"));
 		this->data->assets.loadTexture("Settings Button", (BUTTONS_FILEPATH "settings.png"));
 		this->data->assets.loadTexture("Quit Game Button", (BUTTONS_FILEPATH "quit_game.png"));
-		this->data->assets.loadTexture("Credits Button", (GHOSTS_FILEPATH "clyde_middle_one.png"));
+		this->data->assets.loadTexture("Credits Button", (BUTTONS_FILEPATH "question.png"));
 
 		// background.setTexture(this->data->assets.getTexture("Main Menu Background"));
 		title.setTexture(this->data->assets.getTexture("Game Title"));
