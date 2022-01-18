@@ -1,7 +1,5 @@
-#include <sstream>
 #include "Definitions.hpp"
 #include "GameOverState.hpp"
-
 #include <iostream>
 
 namespace Pacenstein
