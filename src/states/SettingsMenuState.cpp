@@ -74,7 +74,6 @@ namespace Pacenstein {
 			super_long_string += item[0];
 			if (item != *(this->settings.end()-1)) super_long_string += "\n\n";
 		}
-		std::cout << this->super_long_string << "\n";
 
 		// background.setTexture(this->data->assets.getTexture("Settings Menu Background"));
 
