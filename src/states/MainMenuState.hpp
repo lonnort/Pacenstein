@@ -28,5 +28,8 @@ namespace Pacenstein
 		sf::Sprite SettingsButton;
 		sf::Sprite QuitButton;
 		sf::Sprite CreditsButton;
+
+		sf::Cursor cursorHand;
+		sf::Cursor cursorArrow;
 	};
 }

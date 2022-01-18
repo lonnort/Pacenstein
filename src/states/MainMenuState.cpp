@@ -35,6 +35,9 @@ namespace Pacenstein {
 		SettingsButton.setPosition((SCREEN_WIDTH / 2) - (SettingsButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (SettingsButton.getGlobalBounds().height / 2) + 150);
 		QuitButton.setPosition((SCREEN_WIDTH / 2) - (QuitButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (QuitButton.getGlobalBounds().height / 2) + 225);
 		CreditsButton.setPosition(100, (SCREEN_HEIGHT - 100) - (CreditsButton.getGlobalBounds().height));
+
+		cursorHand.loadFromSystem(sf::Cursor::Hand);
+		cursorArrow.loadFromSystem(sf::Cursor::Arrow);
 	}
 
 	void MainMenuState::handleInput(){
@@ -43,6 +46,30 @@ namespace Pacenstein {
 		while (this->data->window.pollEvent(event)){
 			if (sf::Event::Closed == event.type){
 				this->data->window.close();
+			}
+
+			if(this->data->input.isSpriteHovered(this->StartButton, this->data->window)){
+				this->data->window.setMouseCursor(cursorHand);
+			}
+
+			if(!this->data->input.isSpriteHovered(this->StartButton, this->data->window)){
+				this->data->window.setMouseCursor(cursorArrow);
+			}
+
+			if(this->data->input.isSpriteHovered(this->LeaderboardButton, this->data->window)){
+				this->data->window.setMouseCursor(cursorHand);
+			}
+
+			if(this->data->input.isSpriteHovered(this->SettingsButton, this->data->window)){
+				this->data->window.setMouseCursor(cursorHand);
+			}
+
+			if(this->data->input.isSpriteHovered(this->QuitButton, this->data->window)){
+				this->data->window.setMouseCursor(cursorHand);
+			}
+
+			if(this->data->input.isSpriteHovered(this->CreditsButton, this->data->window)){
+				this->data->window.setMouseCursor(cursorHand);
 			}
 
 			if (this->data->input.isSpriteClicked(this->StartButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
