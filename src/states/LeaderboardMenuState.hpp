@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include "State.hpp"
 #include "Game.hpp"
+#include <vector>
+#include <utility> // bevat std::pair
+#include <string>
 
 namespace Pacenstein
 {
@@ -25,10 +28,12 @@ namespace Pacenstein
 		sf::Sprite title;
 		sf::Sprite backButton;
 
-		std::vector<sf::Text> leaderboard_text;
+		// std::vector<sf::Text> leaderboard_text;
+		std::string super_long_string = "";
+
 		std::vector<std::pair<std::string, int>> scores;
 
-		std::vector<std::pair<std::string, int>> parseScores(std::vector<std::string> file_content);
+		void parseScores(std::vector<std::string> file_content);
 	};
 
 }

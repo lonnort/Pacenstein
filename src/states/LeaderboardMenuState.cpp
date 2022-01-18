@@ -8,16 +8,17 @@
 namespace Pacenstein {
 	LeaderboardMenuState::LeaderboardMenuState(game_data_ref_t data) : data(data) {}
 
-	std::vector<std::pair<std::string, int>> LeaderboardMenuState::parseScores(std::vector<std::string> file_content) {
+	void LeaderboardMenuState::parseScores(std::vector<std::string> file_content) {
 		for (auto& line : file_content) {
 			std::string player_name = "";
 			int points = 0;
 
 			std::stringstream ss(line);
 			ss >> player_name >> points;
+			player_name.pop_back();
 			this->scores.push_back({player_name, points});
 		}
-		std::sort(scores.begin(), scores.end(), [](auto& l, auto& r){ return l.second, r.second; });
+		std::sort(scores.begin(), scores.end(), [](auto& l, auto& r){ return l.second > r.second; });
 	}
 
 	void LeaderboardMenuState::init() {
@@ -25,9 +26,19 @@ namespace Pacenstein {
 		// this->data->assets.loadTexture("Leaderboard Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
 
 		//add sprites for title and start button
-		this->data->assets.loadTexture("Leaderboard Title", (BUTTONS_FILEPATH "leaderboard.png"));
-		this->data->assets.loadTexture("Back Button", (BUTTONS_FILEPATH "back.png"));
-		this->data->assets.loadFont("Font", (FONT_PATH "VT232-Regular.ttf"));
+		this->data->assets.loadTexture ("Leaderboard Title", (BUTTONS_FILEPATH "leaderboard.png"));
+		this->data->assets.loadTexture ("Back Button", (BUTTONS_FILEPATH "back.png"));
+		this->data->assets.loadTextFile("Scores", SCORE_FILEPATH);
+		this->data->assets.loadFont("Font", FONT);
+
+		sf::Font font = this->data->assets.getFont("Font");
+
+		this->parseScores(this->data->assets.getTextFile("Scores"));
+
+		for (auto& item : this->scores) {
+			super_long_string += item.first + " " + std::to_string(item.second);
+			if (item != *(this->scores.end()-1)) super_long_string += '\n';
+		}
 
 		// background.setTexture(this->data->assets.getTexture("Leaderboard Menu Background"));
 
@@ -68,6 +79,12 @@ namespace Pacenstein {
 
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->backButton);
+
+		sf::Text text(this->super_long_string, this->data->assets.getFont("Font"));
+		text.setOrigin(text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2);
+		text.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+
+		this->data->window.draw(text);
 
 		this->data->window.display();
 	}

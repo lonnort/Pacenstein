@@ -17,6 +17,7 @@ namespace Pacenstein {
         std::string str;
         std::ifstream input(file);
         while (getline(input, str)) this->files[name].push_back(str);
+        input.close();
     }
 
     sf::Texture&              AssetManager::getTexture  (std::string name) { return this->textures.at(name); }
