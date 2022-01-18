@@ -5,6 +5,8 @@
 #include "State.hpp"
 #include "Game.hpp"
 
+#include "Definitions.hpp"
+
 namespace Pacenstein {
     class InGameState : public State {
     public:
@@ -22,6 +24,7 @@ namespace Pacenstein {
 	sf::Sprite background;
 	sf::Vertex lines[2];
 	sf::Vertex vertices[4];
+	int worldMap[21][19];
 	//add sprites for title and start button
 	//sf::Sprite title;
 	//sf::Sprite playButton;
