@@ -1,4 +1,3 @@
-#include <sstream>
 #include "Definitions.hpp"
 #include "PauseState.hpp"
 #include "GameOverState.hpp"

@@ -22,7 +22,13 @@ namespace Pacenstein
 
 		sf::Sprite background;
 		//add sprites for title and start button
-		//sf::Sprite title;
-		//sf::Sprite playButton;
+		sf::Sprite title;
+		sf::Sprite scoreText;
+		sf::Sprite leaderboardText;
+		sf::Sprite leaderboardPosition;
+		sf::Sprite leaderboardName;
+		sf::Sprite leaderboardScore;
+		sf::Sprite backButton;
+
 	};
 }
