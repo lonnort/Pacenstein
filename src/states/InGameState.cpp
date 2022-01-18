@@ -3,23 +3,22 @@
 #include "PauseState.hpp"
 #include "HuntingState.hpp"
 #include "ScatterState.hpp"
+#include "Definitions.hpp"
 
+#include <SFML/Graphics/PrimitiveType.hpp>
 #include <iostream>
+
+
 
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data) : data(data) {}
     
     void InGameState::init() {
-	this->data->assets.loadVertex("Vertex 1", sf::Vector2f(0,0),   sf::Vector2f(0,0),   sf::Color::Red);
-	this->data->assets.loadVertex("Vertex 2", sf::Vector2f(0,100), sf::Vector2f(0,10),  sf::Color::Red);
-	this->data->assets.loadVertex("Vertex 3", sf::Vector2f(100,100), sf::Vector2f(10,10), sf::Color::Red);
-	this->data->assets.loadVertex("Vertex 4", sf::Vector2f(100,0), sf::Vector2f(10,0),  sf::Color::Red);
-
+	this->data->assets.loadVertex("Vertex Top", sf::Vector2f(100,0),   sf::Color::Red);
+	this->data->assets.loadVertex("Vertex Bottom", sf::Vector2f(100,500),  sf::Color::Blue);
 	sf::Vertex vertices[4] = {
-	    this->data->assets.getVertex("Vertex 1"),
-	    this->data->assets.getVertex("Vertex 2"),
-	    this->data->assets.getVertex("Vertex 3"),
-	    this->data->assets.getVertex("Vertex 4")
+	    this->data->assets.getVertex("Vertex Top"),
+	    this->data->assets.getVertex("Vertex Bottom")
 	};
     }
 
@@ -68,12 +67,10 @@ namespace Pacenstein {
 	this->data->window.clear();
 	//std::vector<sf::Vertex> vertices = {
 	sf::Vertex vertices[4] = {
-	    sf::Vertex(this->data->assets.getVertex("Vertex 1")),
-	    sf::Vertex(this->data->assets.getVertex("Vertex 2")),
-	    sf::Vertex(this->data->assets.getVertex("Vertex 3")),
-	    sf::Vertex(this->data->assets.getVertex("Vertex 4"))
+	    sf::Vertex(this->data->assets.getVertex("Vertex Top")),
+	    sf::Vertex(this->data->assets.getVertex("Vertex Bottom"))
 	};
-	this->data->window.draw(vertices, 4, sf::Quads);
+	this->data->window.draw(vertices, 4, sf::Lines);
 	this->data->window.display();
     }
 }

@@ -15,7 +15,7 @@ namespace Pacenstein {
         void loadTexture (std::string name, std::string file);
         void loadFont    (std::string name, std::string file);
         void loadTextFile(std::string name, std::string file);
-	void loadVertex  (std::string name, sf::Vector2f location, sf::Vector2f location_2, sf::Color);
+	void loadVertex  (std::string name, sf::Vector2f location, sf::Color);
 
         sf::Texture& getTexture (std::string name);
         sf::Font&    getFont    (std::string name);

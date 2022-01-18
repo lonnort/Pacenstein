@@ -19,8 +19,8 @@ namespace Pacenstein {
         while (getline(input, str)) this->files[name].push_back(str);
     }
 
-    void AssetManager::loadVertex(std::string name, sf::Vector2f location, sf::Vector2f location_2, sf::Color color) {
-        sf::Vertex ver = sf::Vertex(location, color, location_2);
+    void AssetManager::loadVertex(std::string name, sf::Vector2f location, sf::Color color) {
+        sf::Vertex ver = sf::Vertex(location, color);
 	this->vertexes[name] = ver;
     }
 
