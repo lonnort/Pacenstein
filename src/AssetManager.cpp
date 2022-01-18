@@ -16,6 +16,7 @@ namespace Pacenstein {
     void AssetManager::loadTextFile(std::string name, std::string file) {
         std::string str;
         std::ifstream input(file);
+        files[name].clear();
         while (getline(input, str)) this->files[name].push_back(str);
         input.close();
     }

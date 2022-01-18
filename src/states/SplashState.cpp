@@ -26,14 +26,13 @@ namespace Pacenstein {
 					case sf::Keyboard::Key::KEY_EXIT:
 						this->data->window.close();
 						break;
-                        
 				}
 			}
         }
     }
 
     void SplashState::update(float dt) {
-        if (this->clock.getElapsedTime().asSeconds() > 3)
+        if (this->clock.getElapsedTime().asSeconds() > 1)
             this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(data)), true);
     }
 

@@ -8,18 +8,16 @@
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <iostream>
 
-
-
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data) : data(data) {}
     
     void InGameState::init() {
-	this->data->assets.loadVertex("Vertex Top", sf::Vector2f(100,0),   sf::Color::Red);
-	this->data->assets.loadVertex("Vertex Bottom", sf::Vector2f(100,500),  sf::Color::Blue);
-	sf::Vertex vertices[4] = {
-	    this->data->assets.getVertex("Vertex Top"),
-	    this->data->assets.getVertex("Vertex Bottom")
-	};
+    	this->data->assets.loadVertex("Vertex Top", sf::Vector2f(100,0),   sf::Color::Red);
+    	this->data->assets.loadVertex("Vertex Bottom", sf::Vector2f(100,500),  sf::Color::Blue);
+    	sf::Vertex vertices[4] = {
+    	    this->data->assets.getVertex("Vertex Top"),
+    	    this->data->assets.getVertex("Vertex Bottom")
+    	};
     }
 
     void InGameState::handleInput() {
