@@ -10,15 +10,15 @@ namespace Pacenstein {
 
 	void PauseState::init(){
                 //Update to main menu background
-		this->data->assets.loadTexture("Pause Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+		// this->data->assets.loadTexture("Pause Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
 		//add sprites for title and start button
-		this->data->assets.loadTexture("Pause Title", "res/ui/button.png");
-		this->data->assets.loadTexture("Highscore Text", "res/ui/button.png");
-		this->data->assets.loadTexture("Give Up Button", "res/ui/button.png");
-		this->data->assets.loadTexture("Continue Button", "res/ui/button.png");
+		this->data->assets.loadTexture("Pause Title", (BUTTONS_FILEPATH "paused.png"));
+		this->data->assets.loadTexture("Highscore Text", (BUTTONS_FILEPATH "highscore.png"));
+		this->data->assets.loadTexture("Give Up Button", (BUTTONS_FILEPATH "give_up.png"));
+		this->data->assets.loadTexture("Continue Button", (BUTTONS_FILEPATH "continue.png"));
 		this->data->assets.loadTexture("Settings Button", (BUTTONS_FILEPATH "settings.png"));
 
-		background.setTexture(this->data->assets.getTexture("Pause Background"));
+		// background.setTexture(this->data->assets.getTexture("Pause Background"));
 		title.setTexture(this->data->assets.getTexture("Pause Title"));
 		highscoreText.setTexture(this->data->assets.getTexture("Highscore Text"));
 		giveUpButton.setTexture(this->data->assets.getTexture("Give Up Button"));
@@ -26,10 +26,10 @@ namespace Pacenstein {
 		settingsButton.setTexture(this->data->assets.getTexture("Settings Button"));
 
 		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
-		highscoreText.setPosition((SCREEN_WIDTH / 2) - (highscoreText.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (highscoreText.getGlobalBounds().height / 2));
-		continueButton.setPosition((SCREEN_WIDTH / 2) - (continueButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
-		giveUpButton.setPosition((SCREEN_WIDTH / 2) - (giveUpButton.getGlobalBounds().width / 2) - 2*(giveUpButton.getGlobalBounds().width), (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
-		settingsButton.setPosition((SCREEN_WIDTH / 2) - (settingsButton.getGlobalBounds().width / 2) + 2*(continueButton.getGlobalBounds().width), 100 + (SCREEN_HEIGHT / 2) - (settingsButton.getGlobalBounds().height / 2) + 2*(settingsButton.getGlobalBounds().height));
+		highscoreText.setPosition((SCREEN_WIDTH / 2) - (highscoreText.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (highscoreText.getGlobalBounds().height / 2) - 200);
+		continueButton.setPosition((SCREEN_WIDTH / 2) - (continueButton.getGlobalBounds().width / 2), 105 + (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
+		giveUpButton.setPosition((SCREEN_WIDTH / 2) - (giveUpButton.getGlobalBounds().width / 2) - 200, 100 + (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
+		settingsButton.setPosition((SCREEN_WIDTH / 2) - (settingsButton.getGlobalBounds().width / 2) + 200, 100 + (SCREEN_HEIGHT / 2) - (settingsButton.getGlobalBounds().height / 2) + 2*(settingsButton.getGlobalBounds().height));
 	}
 
 	void PauseState::handleInput(){
@@ -73,7 +73,7 @@ namespace Pacenstein {
 	void PauseState::draw(float dt){
 		this->data->window.clear();
 
-		this->data->window.draw(this->background);
+		// this->data->window.draw(this->background);
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->highscoreText);
 		this->data->window.draw(this->giveUpButton);
