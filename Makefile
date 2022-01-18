@@ -4,7 +4,7 @@ ifeq ($(OS), Windows_NT)
 	SFML_DIR := C:/Program Files/SFML-2.5.1
 	CFLAGS := -I"$(SFML_DIR)/include" -DSFML_STATIC
 	LFLAGS := -L"$(SFML_DIR)/lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lfreetype -lopengl32 -lwinmm -lgdi32
-	MKDIR := mkdir
+	MKDIR := mkdir -p
 else
 	CFLAGS :=
 	LFLAGS := -lsfml-system -lsfml-window -lsfml-graphics
@@ -32,6 +32,7 @@ OBJECTS := $(patsubst $(SOURCE_DIR)/%, $(BUILD_DIR)/%, $(SOURCES:%.cpp=%.o))
 
 define generateRules
 $(1)/%.o: %.cpp
+	$-@$(MKDIR) $$(@D)
 	$(CC) -c $$(INCLUDES) $$(CFLAGS) -o $$@ $$<
 endef
 
@@ -44,13 +45,18 @@ $(foreach targetdir, $(TARGET_DIRS), $(eval $(call generateRules, $(targetdir)))
 $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $(TARGET) $(LFLAGS)
 
-build: dirs $(TARGET)
+$(SOURCE_DIR)/data/scores.csv:
+	@touch $(SOURCE_DIR)/data/scores.csv
 
-dirs:
-	-$(MKDIR) $(TARGET_DIRS)
+$(SOURCE_DIR)/data/settings.ini:
+	@touch $(SOURCE_DIR)/data/settings.ini
+
+build: $(TARGET) $(SOURCE_DIR)/data/scores.csv $(SOURCE_DIR)/data/settings.ini
 
 clean:
+	@echo "Cleaning"
 	-@rm -r $(BUILD_DIR)/* $(PROJECT_NAME).exe
+	@echo "Done"
 
 rerun: clean run
 rebuild: clean build
