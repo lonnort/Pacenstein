@@ -15,11 +15,11 @@ namespace Pacenstein {
         void loadTexture (std::string name, std::string file);
         void loadFont    (std::string name, std::string file);
         void loadTextFile(std::string name, std::string file);
-	    void loadVertex  ();
+	void loadVertex  (std::string name, sf::Vector2f location, sf::Color);
 
         sf::Texture& getTexture (std::string name);
         sf::Font&    getFont    (std::string name);
-	    sf::Vertex&  getVertex  (std::string name);
+	sf::Vertex&  getVertex  (std::string name);
         std::vector<std::string>& getTextFile(std::string name);
 
     private:

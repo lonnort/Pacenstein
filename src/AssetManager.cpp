@@ -20,6 +20,11 @@ namespace Pacenstein {
         input.close();
     }
 
+    void AssetManager::loadVertex(std::string name, sf::Vector2f location, sf::Color color) {
+        sf::Vertex ver = sf::Vertex(location, color);
+	this->vertexes[name] = ver;
+    }
+
     sf::Texture&              AssetManager::getTexture  (std::string name) { return this->textures.at(name); }
     sf::Font&                 AssetManager::getFont     (std::string name) { return this->fonts.at(name); }
     sf::Vertex&               AssetManager::getVertex   (std::string name) { return this->vertexes.at(name); }

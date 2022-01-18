@@ -3,25 +3,23 @@
 #include "PauseState.hpp"
 #include "HuntingState.hpp"
 #include "ScatterState.hpp"
+#include "Definitions.hpp"
 
+#include <SFML/Graphics/PrimitiveType.hpp>
 #include <iostream>
+
+
 
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data) : data(data) {}
-
+    
     void InGameState::init() {
-        //Update to main menu background
-        this->data->assets.loadTexture("In Game Background", (GHOSTS_FILEPATH "blinky_middle_two.png"));
-        //add sprites for title and start button
-        //this->data->assets.LoadTexture("Game Title", GAME_TITLE_FILEPATH);
-        //this->data->assets.LoadTexture("Play Button", PLAY_BUTTON_FILEPATH);
-
-        background.setTexture(this->data->assets.getTexture("In Game Background"));
-        //title.setTexture(this->data->assets.GetTexture("Game Title"));
-        //playButton.setTexture(this->data->assets.GetTexture("Play Button"));
-
-        //title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
-        //playButton.setPosition((SCREEN_WIDTH / 2) - (playButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (playButton.getGlobalBounds().height / 2));
+	this->data->assets.loadVertex("Vertex Top", sf::Vector2f(100,0),   sf::Color::Red);
+	this->data->assets.loadVertex("Vertex Bottom", sf::Vector2f(100,500),  sf::Color::Blue);
+	sf::Vertex vertices[4] = {
+	    this->data->assets.getVertex("Vertex Top"),
+	    this->data->assets.getVertex("Vertex Bottom")
+	};
     }
 
     void InGameState::handleInput() {
@@ -66,12 +64,13 @@ namespace Pacenstein {
     }
 
     void InGameState::draw(float dt) {
-        this->data->window.clear();
-        this->background.setScale(20,20);
-        this->data->window.draw(this->background);
-        //this->data->window.draw(this->title);
-        //this->data->window.draw(this->playButton);
-
-        this->data->window.display();
+	this->data->window.clear();
+	//std::vector<sf::Vertex> vertices = {
+	sf::Vertex vertices[4] = {
+	    sf::Vertex(this->data->assets.getVertex("Vertex Top")),
+	    sf::Vertex(this->data->assets.getVertex("Vertex Bottom"))
+	};
+	this->data->window.draw(vertices, 4, sf::Lines);
+	this->data->window.display();
     }
 }
