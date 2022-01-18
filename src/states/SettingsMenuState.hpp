@@ -16,6 +16,7 @@ namespace Pacenstein
 		void handleInput();
 		void update(float dt);
 		void draw(float dt);
+		void parseSettings(std::vector<std::string> file_content);
 
 	private:
 		game_data_ref_t data;
@@ -24,5 +25,10 @@ namespace Pacenstein
 		//add sprites for settings and current buttons
 		sf::Sprite title;
 		sf::Sprite backButton;
+
+		std::vector<sf::Sprite> sprites;
+
+		std::vector<std::vector<std::string>> settings;
+		std::string super_long_string = "";
 	};
 }
