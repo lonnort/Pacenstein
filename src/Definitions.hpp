@@ -7,6 +7,8 @@
 // File paths
 #define SPLASH_BACKGROUND_FILEPATH "res/splash/background.png"
 #define GHOSTS_FILEPATH "res/sprites/ghosts/"
+#define FONT_PATH "res/"
+#define SCORE_FILEPATH "src/data/scores.csv"
 
 // Keyboard input keys
 #define KEY_UP        W

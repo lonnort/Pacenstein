@@ -24,5 +24,11 @@ namespace Pacenstein
 		//add leaderboard with highscores
 		sf::Sprite title;
 		sf::Sprite backButton;
+
+		std::vector<sf::Text> leaderboard_text;
+		std::vector<std::pair<std::string, int>> scores;
+
+		std::vector<std::pair<std::string, int>> parseScores(std::vector<std::string> file_content);
 	};
+
 }

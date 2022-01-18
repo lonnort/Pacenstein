@@ -5,7 +5,7 @@
 #include <iostream>
 
 namespace Pacenstein {
-	CreditsMenuState::CreditsMenuState(game_data_ref_t data) : data(data) { }
+	CreditsMenuState::CreditsMenuState(game_data_ref_t data) : data(data) {}
 
 	void CreditsMenuState::init(){
         //Update to main menu background
@@ -22,17 +22,16 @@ namespace Pacenstein {
 
 		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
 		backButton.setPosition((backButton.getGlobalBounds().width / 2) + 50, (backButton.getGlobalBounds().height / 2) + 50);
+
 	}
 
 	void CreditsMenuState::handleInput(){
 		sf::Event event;
 
-		while (this->data->window.pollEvent(event)){
-			if (sf::Event::Closed == event.type){
-				this->data->window.close();
-			}
+		while (this->data->window.pollEvent(event)) {
+			if (sf::Event::Closed == event.type) { this->data->window.close(); }
 
-			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)){
+			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)) {
 				this->data->machine.removeState();
 			}
 			
@@ -41,19 +40,16 @@ namespace Pacenstein {
 					case sf::Keyboard::Key::KEY_EXIT:
 						this->data->window.close();
 						break;
-
 				}
 			}
 		}
 	}
 
-	void CreditsMenuState::update(float dt){
-		std::cout << "In credits menu" << std::endl;
-	}
+	void CreditsMenuState::update(float dt) { std::cout << "In credits menu" << std::endl; }
 
-	void CreditsMenuState::draw(float dt){
+	void CreditsMenuState::draw(float dt) {
 		this->data->window.clear();
-		this->background.setScale(20,20);
+		this->background.setScale(20, 20);
 
 		// this->data->window.draw(this->background);
 

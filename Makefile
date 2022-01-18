@@ -16,6 +16,7 @@ TARGET        := $(PROJECT_NAME).exe
 
 BUILD_DIR  := obj
 SOURCE_DIR := src
+DATA_DIR   := $(SOURCE_DIR)/data
 
 DIRS        = . entities entities/items entities/items/ghosts states
 SOURCE_DIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCE_DIR)/, $(dir)))
@@ -45,13 +46,10 @@ $(foreach targetdir, $(TARGET_DIRS), $(eval $(call generateRules, $(targetdir)))
 $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $(TARGET) $(LFLAGS)
 
-$(SOURCE_DIR)/data/scores.csv:
-	@touch $(SOURCE_DIR)/data/scores.csv
+$(DATA_DIR)/scores.csv $(DATA_DIR)/settings.ini:
+	@touch $@
 
-$(SOURCE_DIR)/data/settings.ini:
-	@touch $(SOURCE_DIR)/data/settings.ini
-
-build: $(TARGET) $(SOURCE_DIR)/data/scores.csv $(SOURCE_DIR)/data/settings.ini
+build: $(DATA_DIR)/scores.csv $(DATA_DIR)/settings.ini $(TARGET)
 
 clean:
 	@echo "Cleaning"

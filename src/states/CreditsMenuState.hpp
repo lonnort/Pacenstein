@@ -4,10 +4,8 @@
 #include "State.hpp"
 #include "Game.hpp"
 
-namespace Pacenstein
-{
-	class CreditsMenuState : public State
-	{
+namespace Pacenstein {
+	class CreditsMenuState : public State {
 	public:
 		CreditsMenuState(game_data_ref_t data);
 
@@ -21,7 +19,7 @@ namespace Pacenstein
 		game_data_ref_t data;
 
 		sf::Sprite background;
-		//add sprites for title and start button
+
 		sf::Sprite title;
 		sf::Sprite backButton;
 	};
