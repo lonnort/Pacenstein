@@ -1,7 +1,8 @@
-#include <sstream>
 #include "Definitions.hpp"
 #include "InGameState.hpp"
 #include "PauseState.hpp"
+#include "HuntingState.hpp"
+#include "ScatterState.hpp"
 
 #include <iostream>
 
