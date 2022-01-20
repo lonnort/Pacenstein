@@ -54,6 +54,8 @@ namespace Pacenstein {
 
 	void ScatterState::update(float dt){
 		std::cout << "Scattering" << std::endl;
+		if (this->clock.getElapsedTime().asSeconds() > 5)
+            this->data->machine.removeState();
 	}
 
 	void ScatterState::draw(float dt){
