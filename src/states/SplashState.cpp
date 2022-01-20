@@ -3,8 +3,6 @@
 #include "Definitions.hpp"
 #include "MainMenuState.hpp"
 
-//#define SPLASH_BACKGROUND_FILEPATH "res/splash/background.png"
-
 namespace Pacenstein {
     SplashState::SplashState(game_data_ref_t data) : data(data) {}
 
