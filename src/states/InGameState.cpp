@@ -52,7 +52,9 @@ namespace Pacenstein {
         sf::Event event;
 
         while (this->data->window.pollEvent(event)) {
-            if (sf::Event::Closed == event.type) this->data->window.close();
+            this->data->window.setMouseCursorVisible(false);
+			
+			if (sf::Event::Closed == event.type) this->data->window.close();
 
             /*if (this->data->input.isSpriteClicked(this->playButton, sf::Mouse::Left, this->data->window))
             {

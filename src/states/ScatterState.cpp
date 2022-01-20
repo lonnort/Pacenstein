@@ -17,6 +17,8 @@ namespace Pacenstein {
 		sf::Event event;
 
 		while (this->data->window.pollEvent(event)){
+			this->data->window.setMouseCursorVisible(false);
+
 			if (sf::Event::Closed == event.type) this->data->window.close();
 
 			if (sf::Event::KeyPressed == event.type) {
