@@ -82,6 +82,9 @@ namespace Pacenstein {
 			this->sprites.push_back(tmp);
 
 			if (setting != *(this->settings.end()-1)) super_long_string += "\n\n";
+
+			cursorHand.loadFromSystem(sf::Cursor::Hand);
+			cursorArrow.loadFromSystem(sf::Cursor::Arrow);
 		}
 
 		title.setTexture(this->data->assets.getTexture("Settings Text"));
@@ -96,6 +99,13 @@ namespace Pacenstein {
 
 		while (this->data->window.pollEvent(event)){
 			if (sf::Event::Closed == event.type) this->data->window.close();
+
+			if (this->data->input.isSpriteHovered(this->backButton, this->data->window)){
+				this->data->window.setMouseCursor(this->cursorHand);
+			}
+			else{
+				this->data->window.setMouseCursor(this->cursorArrow);
+			}
 
 			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.removeState();

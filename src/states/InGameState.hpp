@@ -17,16 +17,22 @@ namespace Pacenstein {
 	void handleInput();
 	void update(float dt);
 	void draw(float dt);
+	void move(std::string direction);
 
     private:
 	game_data_ref_t data;
 	
 	sf::Sprite background;
-	sf::Vertex lines[2];
-	sf::Vertex vertices[4];
 	int worldMap[21][19];
-	//add sprites for title and start button
-	//sf::Sprite title;
-	//sf::Sprite playButton;
+
+	double posX, posY;
+	double dirX, dirY;
+	double planeX, planeY;
+	double oldPlaneX, oldPlaneY;
+	double time, oldTime;
+	double cameraX;
+	
+	// movement
+	double moveSpeed, rotSpeed;
     };
 }
