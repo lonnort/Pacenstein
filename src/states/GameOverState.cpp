@@ -39,10 +39,8 @@ namespace Pacenstein {
 				this->data->window.setMouseCursor(this->cursorHand);
 			else this->data->window.setMouseCursor(this->cursorArrow);
 
-			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)) {
-				std::cout << "Go To Main Menu" << std::endl;
+			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(this->data)), true);
-			}
 
 			if (sf::Event::KeyPressed == event.type) {
     			switch (event.key.code) {

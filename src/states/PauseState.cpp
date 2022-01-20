@@ -13,7 +13,7 @@ namespace Pacenstein {
 		highscoreText.setTexture(this->data->assets.getTexture("Highscore Text"));
 		giveUpButton.setTexture(this->data->assets.getTexture("Give Up Button"));
 		continueButton.setTexture(this->data->assets.getTexture("Continue Button"));
-		settingsButton.setTexture(this->data->assets.getTexture("Settings Button"));
+		settingsButton.setTexture(this->data->assets.getTexture("Settings Text"));
 
 		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
 		highscoreText.setPosition((SCREEN_WIDTH / 2) - (highscoreText.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (highscoreText.getGlobalBounds().height / 2) - 200);
