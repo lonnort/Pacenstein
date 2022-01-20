@@ -41,8 +41,8 @@ namespace Pacenstein {
 			if(	this->data->input.isSpriteHovered(this->giveUpButton, this->data->window) ||
 				this->data->input.isSpriteHovered(this->continueButton, this->data->window) ||
 				this->data->input.isSpriteHovered(this->settingsButton, this->data->window))
-				this->data->window.setMouseCursor(cursorHand);
-			else this->data->window.setMouseCursor(cursorArrow);
+				this->data->window.setMouseCursor(this->cursorHand);
+			else this->data->window.setMouseCursor(this->cursorArrow);
 
 			if (this->data->input.isSpriteClicked(this->continueButton, sf::Mouse::Left, this->data->window)){
 				std::cout << "Continue game" << std::endl;

@@ -30,5 +30,7 @@ namespace Pacenstein
 		sf::Sprite leaderboardScore;
 		sf::Sprite backButton;
 
+		sf::Cursor cursorHand;
+		sf::Cursor cursorArrow;
 	};
 }
