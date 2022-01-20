@@ -9,66 +9,82 @@ namespace Pacenstein {
 	SettingsMenuState::SettingsMenuState(game_data_ref_t data) : data(data) {}
 
 	void SettingsMenuState::parseSettings(std::vector<std::string> file_content) {
+		bool keybinds = false;
+		bool alt_keys = false;
+		bool window = false;
+
 		for (auto& line : file_content) {
-			std::string action = "";
-			std::string first_word = "";
-			std::string second_word = "";
-			std::string third_word = "";
+			std::string setting = "";
+			std::string eq = "";
+			std::string value = "";
 
 			std::stringstream ss(line);
-			ss >> action >> first_word >> second_word >> third_word;
+			ss >> setting >> eq >> value;
 
-			if (third_word == "" and second_word == ""){
-				action.pop_back();
-				this->settings.push_back({action, first_word});
+			if (eq == "" && value == "") {
+				if (setting == "[keybindings]") {
+					keybinds = true;
+					alt_keys = false;
+					window = false;
+				}
+				else if (setting == "[keybindings.alt]") {
+					keybinds = false;
+					alt_keys = true;
+					window = false;
+				}
+				else if (setting == "[window]") {
+					keybinds = false;
+					alt_keys = false;
+					window = true;
+				}
 			}
-			else if (third_word == "") {
-				action += " " + first_word;
-				action.pop_back();
-				this->settings.push_back({action, second_word});
-			}
-			else {
-				action += " " + first_word;
-				action.pop_back();
-				second_word.pop_back();
-				this->settings.push_back({action, second_word, third_word});
+			else if (eq == "=" && value != "") {
+				if (keybinds) {
+					if (value.size() == 1)
+						this->settings.push_back({"Move " + setting, value});
+					else this->settings.push_back({setting, value});
+				}
+				else if (alt_keys)
+					this->settings.push_back({"Move " + setting + " alt", value});
+				// else if (window)
+				// 	this->settings.push_back({setting, value});
 			}
 		}
+		for (auto& s : settings) std::cout << s[0] << " " << s[1] << std::endl;
 	}
 
 	void SettingsMenuState::init() {
 		sf::Font font = this->data->assets.getFont("Font");
-		this->parseSettings(this->data->assets.getTextFile("Scores"));
+		this->parseSettings(this->data->assets.getConfFile("Settings"));
 
 		std::string path = "";
 		int offset = 0;
-		for (auto& item : this->settings) {
-			path = BUTTONS_FILEPATH + item[1];
-			// this->data->assets.loadTexture(item[0], path);
+		for (auto& setting : this->settings) {
+			path = BUTTONS_FILEPATH + setting[1] + "_key.png";
+
+			std::cout << setting[0] << std::endl;
 
 			sf::Sprite tmp;
-			tmp.setTexture(this->data->assets.getTexture(item[0]));
-			tmp.setPosition((SCREEN_WIDTH / 2), 200 + offset);
+			tmp.setTexture(this->data->assets.getTexture(setting[0]));
+			if (setting[0].find("alt") == -1) {
+				tmp.setPosition((SCREEN_WIDTH / 2) + 20, 200 + offset);
+				super_long_string += setting[0];
+			}
+			else {
+				static bool first = true;
+				if (first) {
+					offset = 0;
+					first = false;
+				}
+				tmp.setPosition((SCREEN_WIDTH / 2) + 100, 200 + offset);
+			}
+			offset += 60;
 			this->sprites.push_back(tmp);
 
-			if(item.size() == 3){
-				path = BUTTONS_FILEPATH + item[2];
-				// this->data->assets.loadTexture((item[0] + " alt"), path);
-
-				tmp.setTexture(this->data->assets.getTexture(item[0] + " alt"));
-				tmp.setPosition((SCREEN_WIDTH / 2) + 100, 200 + offset);
-				this->sprites.push_back(tmp);
-			}
-
-			offset += 60;
-
-			super_long_string += item[0];
-			if (item != *(this->settings.end()-1)) super_long_string += "\n\n";
+			if (setting != *(this->settings.end()-1)) super_long_string += "\n\n";
 		}
 
-		// background.setTexture(this->data->assets.getTexture("Settings Menu Background"));
-
-		title.setTexture(this->data->assets.getTexture("Settings Title"));
+		title.setTexture(this->data->assets.getTexture("Settings Text"));
 		backButton.setTexture(this->data->assets.getTexture("Back Button"));
 
 		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
@@ -79,44 +95,32 @@ namespace Pacenstein {
 		sf::Event event;
 
 		while (this->data->window.pollEvent(event)){
-			if (sf::Event::Closed == event.type){
-				this->data->window.close();
-			}
+			if (sf::Event::Closed == event.type) this->data->window.close();
 
-			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)){
+			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.removeState();
-			}
 
 			if (sf::Event::KeyPressed == event.type) {
     			switch (event.key.code) {
 					case sf::Keyboard::Key::KEY_EXIT:
 						this->data->window.close();
 						break;
-						
 				}
 			}
 		}
 	}
 
-	void SettingsMenuState::update(float dt){
-		// std::cout << "In settings menu" << std::endl;
-	}
+	void SettingsMenuState::update(float dt) {}
 
-	void SettingsMenuState::draw(float dt){
+	void SettingsMenuState::draw(float dt) {
 		this->data->window.clear();
-
-		// this->background.setScale(20,20);
-		// this->data->window.draw(this->background);
 
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->backButton);
 
-		for(auto sp : this->sprites){
-			this->data->window.draw(sp);
-		}
+		for(auto sp : this->sprites) this->data->window.draw(sp);
 
 		sf::Text text(this->super_long_string, this->data->assets.getFont("Font"));
-		// text.setOrigin(text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2);
 		text.setPosition(SCREEN_WIDTH / 2 -200, 190);
 		this->data->window.draw(text);
 

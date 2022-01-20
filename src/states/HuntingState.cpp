@@ -1,6 +1,7 @@
 #include "Definitions.hpp"
 #include "HuntingState.hpp"
 #include "PauseState.hpp"
+#include "ScatterState.hpp"
 
 #include <iostream>
 
@@ -44,6 +45,10 @@ namespace Pacenstein {
 					case sf::Keyboard::Key::KEY_PAUSE:
 					case sf::Keyboard::Key::KEY_ALT_PAUSE:
 						this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
+						break;
+					
+					case sf::Keyboard::Key::S:
+						this->data->machine.addState(state_ref_t(std::make_unique<ScatterState>(this->data)), false);
 						break;
 
 				}

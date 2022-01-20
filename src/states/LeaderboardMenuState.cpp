@@ -22,27 +22,16 @@ namespace Pacenstein {
 	}
 
 	void LeaderboardMenuState::init() {
-        //Update to main menu background
-		// this->data->assets.loadTexture("Leaderboard Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
-
-		//add sprites for title and start button
-		this->data->assets.loadTexture ("Leaderboard Title", (BUTTONS_FILEPATH "leaderboard.png"));
-		this->data->assets.loadTexture ("Back Button", (BUTTONS_FILEPATH "back.png"));
-		this->data->assets.loadTextFile("Scores", SCORE_FILEPATH);
-		this->data->assets.loadFont("Font", FONT);
-
 		sf::Font font = this->data->assets.getFont("Font");
 
-		this->parseScores(this->data->assets.getTextFile("Scores"));
+		this->parseScores(this->data->assets.getCsvFile("Scores"));
 
 		for (auto& item : this->scores) {
 			super_long_string += item.first + " " + std::to_string(item.second);
 			if (item != *(this->scores.end()-1)) super_long_string += '\n';
 		}
 
-		// background.setTexture(this->data->assets.getTexture("Leaderboard Menu Background"));
-
-		title.setTexture(this->data->assets.getTexture("Leaderboard Title"));
+		title.setTexture(this->data->assets.getTexture("Leaderboard Text"));
 		backButton.setTexture(this->data->assets.getTexture("Back Button"));
 
 		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
@@ -59,10 +48,10 @@ namespace Pacenstein {
 			if (sf::Event::Closed == event.type) { this->data->window.close(); }
 
 			if(this->data->input.isSpriteHovered(this->backButton, this->data->window)){
-				this->data->window.setMouseCursor(cursorHand);
+				this->data->window.setMouseCursor(this->cursorHand);
 			}
 			else{
-				this->data->window.setMouseCursor(cursorArrow);
+				this->data->window.setMouseCursor(this->cursorArrow);
 			}
 			
 			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)){

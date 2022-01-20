@@ -22,6 +22,9 @@ namespace Pacenstein {
 
 		sf::Sprite title;
 		sf::Sprite backButton;
+
+		sf::Cursor cursorHand;
+		sf::Cursor cursorArrow;
 	};
 }
 

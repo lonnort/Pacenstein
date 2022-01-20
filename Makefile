@@ -46,10 +46,10 @@ $(foreach targetdir, $(TARGET_DIRS), $(eval $(call generateRules, $(targetdir)))
 $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) -o $(TARGET) $(LFLAGS)
 
-$(DATA_DIR)/scores.csv $(DATA_DIR)/settings.ini:
+$(DATA_DIR)/scores.csv $(DATA_DIR)/settings.conf:
 	@touch $@
 
-build: $(DATA_DIR)/scores.csv $(DATA_DIR)/settings.ini $(TARGET)
+build: $(DATA_DIR)/scores.csv $(DATA_DIR)/settings.conf $(TARGET)
 
 clean:
 	@echo "Cleaning"

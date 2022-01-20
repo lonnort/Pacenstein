@@ -25,6 +25,9 @@ namespace Pacenstein {
 		continueButton.setPosition((SCREEN_WIDTH / 2) - (continueButton.getGlobalBounds().width / 2), 105 + (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
 		giveUpButton.setPosition((SCREEN_WIDTH / 2) - (giveUpButton.getGlobalBounds().width / 2) - 200, 100 + (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
 		settingsButton.setPosition((SCREEN_WIDTH / 2) - (settingsButton.getGlobalBounds().width / 2) + 200, 100 + (SCREEN_HEIGHT / 2) - (settingsButton.getGlobalBounds().height / 2) + 2*(settingsButton.getGlobalBounds().height));
+
+		cursorHand.loadFromSystem(sf::Cursor::Hand);
+		cursorArrow.loadFromSystem(sf::Cursor::Arrow);
 	}
 
 	void PauseState::handleInput(){
@@ -34,6 +37,12 @@ namespace Pacenstein {
 			if (sf::Event::Closed == event.type){
 				this->data->window.close();
 			}
+
+			if(	this->data->input.isSpriteHovered(this->giveUpButton, this->data->window) ||
+				this->data->input.isSpriteHovered(this->continueButton, this->data->window) ||
+				this->data->input.isSpriteHovered(this->settingsButton, this->data->window))
+				this->data->window.setMouseCursor(this->cursorHand);
+			else this->data->window.setMouseCursor(this->cursorArrow);
 
 			if (this->data->input.isSpriteClicked(this->continueButton, sf::Mouse::Left, this->data->window)){
 				std::cout << "Continue game" << std::endl;

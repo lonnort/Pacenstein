@@ -1,6 +1,7 @@
 # Lennard
 *.sublime-project
 *.sublime-workspace
+*backup/
 
 # hwlib
 *_flags

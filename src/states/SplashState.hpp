@@ -18,5 +18,7 @@ namespace Pacenstein {
         game_data_ref_t data;
         sf::Clock clock;
         sf::Sprite  background;
+
+        void loadAssets();
     };
 }

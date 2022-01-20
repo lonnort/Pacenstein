@@ -24,6 +24,9 @@ namespace Pacenstein {
 		leaderboardPosition.setPosition((SCREEN_WIDTH / 2) - (leaderboardName.getGlobalBounds().width / 2) - (leaderboardPosition.getGlobalBounds().width), 10 * (leaderboardName.getGlobalBounds().height / 2));
 		leaderboardScore.setPosition((SCREEN_WIDTH / 2) - (leaderboardName.getGlobalBounds().width / 2) + (leaderboardScore.getGlobalBounds().width), 10 * (leaderboardName.getGlobalBounds().height / 2));
 		backButton.setPosition((SCREEN_WIDTH / 2) - (backButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT) - 3 * (backButton.getGlobalBounds().height / 2));
+
+		cursorHand.loadFromSystem(sf::Cursor::Hand);
+		cursorArrow.loadFromSystem(sf::Cursor::Arrow);
 	}
 
 	void GameOverState::handleInput() {
@@ -31,6 +34,10 @@ namespace Pacenstein {
 
 		while (this->data->window.pollEvent(event)) {
 			if (sf::Event::Closed == event.type) this->data->window.close();
+
+			if(	this->data->input.isSpriteHovered(this->backButton, this->data->window))
+				this->data->window.setMouseCursor(this->cursorHand);
+			else this->data->window.setMouseCursor(this->cursorArrow);
 
 			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)) {
 				std::cout << "Go To Main Menu" << std::endl;

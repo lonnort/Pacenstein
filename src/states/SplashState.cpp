@@ -8,21 +8,18 @@
 namespace Pacenstein {
     SplashState::SplashState(game_data_ref_t data) : data(data) {}
 
-    void SplashState::init() {
-        // load all assets for all states
-        // splash state
-        this->data->assets.loadTexture("Splash Background", SPLASH_BACKGROUND_FILEPATH);
-        this->background.setTexture(this->data->assets.getTexture("Splash Background"));
-
-        // General
-        this->data->assets.loadTexture("Back Button",      (BUTTONS_FILEPATH "back.png"));
+    void SplashState::loadAssets() {
+        // General (= dingen die in meerdere states gebruikt worden)
+        this->data->assets.loadTexture("Splash Image", PACENSTEIN_LOGO_FILEPATH);
+        this->data->assets.loadTexture("Back Button", (BUTTONS_FILEPATH "back.png"));
         this->data->assets.loadTexture("Leaderboard Text", (BUTTONS_FILEPATH "leaderboard.png"));
-        this->data->assets.loadTexture("Settings Button",  (BUTTONS_FILEPATH "settings.png"));
-        this->data->assets.loadTextFile("Scores", "src/data/settings.ini");
-        this->data->assets.loadFont("Font", FONT);
+        this->data->assets.loadTexture("Settings Text", (BUTTONS_FILEPATH "settings.png"));
+        this->data->assets.loadConfFile("Settings", SETTINGS_FILEPATH);
+        this->data->assets.loadCsvFile("Scores", SCORE_FILEPATH);
+        this->data->assets.loadFont("Font", FONT_FILEPATH);
 
         // Game over state
-        this->data->assets.loadTexture("Game Over Background", SPLASH_BACKGROUND_FILEPATH);
+        this->data->assets.loadTexture("Game Over Background", BACKGROUND_FILEPATH);
         this->data->assets.loadTexture("Game Over Title",      (BUTTONS_FILEPATH "game_over.png"));
         this->data->assets.loadTexture("Score Text",           (BUTTONS_FILEPATH "score.png"));
         this->data->assets.loadTexture("Back To Main Button",  (BUTTONS_FILEPATH "to_main_menu.png"));
@@ -34,7 +31,6 @@ namespace Pacenstein {
         this->data->assets.loadTexture("Credits Title", (BUTTONS_FILEPATH "credits.png"));
 
         // Main menu
-        this->data->assets.loadTexture("Game Title", "res/pacenstein.png");
         this->data->assets.loadTexture("Start Game Button", (BUTTONS_FILEPATH "start_game.png"));
         this->data->assets.loadTexture("Quit Game Button",  (BUTTONS_FILEPATH "quit_game.png"));
         this->data->assets.loadTexture("Credits Button",    (BUTTONS_FILEPATH "question.png"));
@@ -46,19 +42,25 @@ namespace Pacenstein {
         this->data->assets.loadTexture("Continue Button", (BUTTONS_FILEPATH "continue.png"));
 
         // Settings menu
-        this->data->assets.loadTexture("Settings Title", (BUTTONS_FILEPATH "settings.png"));
-        this->data->assets.loadTexture("Back Button",    (BUTTONS_FILEPATH "back.png"));
+        this->data->assets.loadTexture("Move Forward",      (BUTTONS_FILEPATH "W_key.png"));
+        this->data->assets.loadTexture("Move Backward",     (BUTTONS_FILEPATH "A_key.png"));
+        this->data->assets.loadTexture("Move Left",         (BUTTONS_FILEPATH "S_key.png"));
+        this->data->assets.loadTexture("Move Right",        (BUTTONS_FILEPATH "D_key.png"));
+        this->data->assets.loadTexture("Move Forward alt",  (BUTTONS_FILEPATH "up_key.png"));
+        this->data->assets.loadTexture("Move Backward alt", (BUTTONS_FILEPATH "down_key.png"));
+        this->data->assets.loadTexture("Move Left alt",     (BUTTONS_FILEPATH "left_key.png"));
+        this->data->assets.loadTexture("Move Right alt",    (BUTTONS_FILEPATH "right_key.png"));
+        this->data->assets.loadTexture("Pause",             (BUTTONS_FILEPATH "esc_key.png"));
+        this->data->assets.loadTexture("Quit",              (BUTTONS_FILEPATH "del_key.png"));
+    }
 
-        this->data->assets.loadTexture("Move forward",      (BUTTONS_FILEPATH "W_key.png"));
-        this->data->assets.loadTexture("Move backward",     (BUTTONS_FILEPATH "A_key.png"));
-        this->data->assets.loadTexture("Move left",         (BUTTONS_FILEPATH "S_key.png"));
-        this->data->assets.loadTexture("Move right",        (BUTTONS_FILEPATH "D_key.png"));
-        this->data->assets.loadTexture("Move forward alt",  (BUTTONS_FILEPATH "up_key.png"));
-        this->data->assets.loadTexture("Move backward alt", (BUTTONS_FILEPATH "down_key.png"));
-        this->data->assets.loadTexture("Move left alt",     (BUTTONS_FILEPATH "left_key.png"));
-        this->data->assets.loadTexture("Move right alt",    (BUTTONS_FILEPATH "right_key.png"));
-        this->data->assets.loadTexture("pause",             (BUTTONS_FILEPATH "esc_key.png"));
-        this->data->assets.loadTexture("Instant quit",      (BUTTONS_FILEPATH "del_key.png"));
+    void SplashState::init() {
+        this->loadAssets();
+
+        this->background.setTexture(this->data->assets.getTexture("Splash Image"));
+        this->background.setOrigin(this->background.getGlobalBounds().width / 2, this->background.getGlobalBounds().height / 2);
+        this->background.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        this->background.scale(.5, .5);
     }
 
     void SplashState::handleInput() {

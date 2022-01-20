@@ -10,7 +10,7 @@ namespace Pacenstein {
 
 	void ScatterState::init(){
                 //Update to main menu background
-		this->data->assets.loadTexture("Scatter Background", SPLASH_BACKGROUND_FILEPATH);
+		this->data->assets.loadTexture("Scatter Background", BACKGROUND_FILEPATH);
 		//add sprites for title and start button
 		//this->data->assets.LoadTexture("Game Title", GAME_TITLE_FILEPATH);
 		//this->data->assets.LoadTexture("Play Button", PLAY_BUTTON_FILEPATH);
@@ -54,6 +54,8 @@ namespace Pacenstein {
 
 	void ScatterState::update(float dt){
 		std::cout << "Scattering" << std::endl;
+		if (this->clock.getElapsedTime().asSeconds() > 5)
+            this->data->machine.removeState();
 	}
 
 	void ScatterState::draw(float dt){

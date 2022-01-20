@@ -13,21 +13,30 @@ namespace Pacenstein {
         if (font.loadFromFile(file)) this->fonts[name] = font;
     }
 
-    void AssetManager::loadTextFile(std::string name, std::string file) {
+    void AssetManager::loadCsvFile(std::string name, std::string file) {
         std::string str;
         std::ifstream input(file);
-        files[name].clear();
-        while (getline(input, str)) this->files[name].push_back(str);
+        this->csv_files[name].clear();
+        while (getline(input, str)) this->csv_files[name].push_back(str);
+        input.close();
+    }
+
+    void AssetManager::loadConfFile(std::string name, std::string file) {
+        std::string str;
+        std::ifstream input(file);
+        this->conf_files[name].clear();
+        while (getline(input, str)) this->conf_files[name].push_back(str);
         input.close();
     }
 
     void AssetManager::loadVertex(std::string name, sf::Vector2f location, sf::Color color) {
         sf::Vertex ver = sf::Vertex(location, color);
-	this->vertexes[name] = ver;
+	    this->vertexes[name] = ver;
     }
 
-    sf::Texture&              AssetManager::getTexture  (std::string name) { return this->textures.at(name); }
-    sf::Font&                 AssetManager::getFont     (std::string name) { return this->fonts.at(name); }
-    sf::Vertex&               AssetManager::getVertex   (std::string name) { return this->vertexes.at(name); }
-    std::vector<std::string>& AssetManager::getTextFile (std::string name) { return this->files.at(name); }
+    sf::Texture&              AssetManager::getTexture (std::string name) { return this->textures.at(name); }
+    sf::Font&                 AssetManager::getFont    (std::string name) { return this->fonts.at(name); }
+    sf::Vertex&               AssetManager::getVertex  (std::string name) { return this->vertexes.at(name); }
+    std::vector<std::string>& AssetManager::getCsvFile (std::string name) { return this->csv_files.at(name); }
+    std::vector<std::string>& AssetManager::getConfFile (std::string name) { return this->conf_files.at(name); }
 }

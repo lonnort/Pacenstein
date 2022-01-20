@@ -26,6 +26,9 @@ namespace Pacenstein
 		sf::Sprite title;
 		sf::Sprite backButton;
 
+		sf::Cursor cursorHand;
+		sf::Cursor cursorArrow;
+
 		std::vector<sf::Sprite> sprites;
 
 		std::vector<std::vector<std::string>> settings;

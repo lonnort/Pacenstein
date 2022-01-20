@@ -5,10 +5,13 @@
 #define SCREEN_HEIGHT 720
 
 // File paths
-#define SPLASH_BACKGROUND_FILEPATH "res/splash/background.png"
+#define BACKGROUND_FILEPATH "res/splash/background.png"
 #define GHOSTS_FILEPATH "res/sprites/ghosts/"
-#define FONT "res/VT323-Regular.ttf"
+#define FONT_FILEPATH "res/VT323-Regular.ttf"
 #define SCORE_FILEPATH "src/data/scores.csv"
+#define SETTINGS_FILEPATH "src/data/settings.conf"
+#define BUTTONS_FILEPATH "res/ui/"
+#define PACENSTEIN_LOGO_FILEPATH "res/pacenstein.png"
 
 // Keyboard input keys
 #define KEY_UP        W
@@ -27,5 +30,3 @@
 #define MAP_WIDTH     19;
 #define MAP_HEIGHT    21;
 
-// buttons
-#define BUTTONS_FILEPATH "res/ui/"
