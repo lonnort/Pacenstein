@@ -12,11 +12,6 @@ namespace Pacenstein {
                 //Update to main menu background
 		// this->data->assets.loadTexture("Pause Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
 		//add sprites for title and start button
-		this->data->assets.loadTexture("Pause Title", (BUTTONS_FILEPATH "paused.png"));
-		this->data->assets.loadTexture("Highscore Text", (BUTTONS_FILEPATH "highscore.png"));
-		this->data->assets.loadTexture("Give Up Button", (BUTTONS_FILEPATH "give_up.png"));
-		this->data->assets.loadTexture("Continue Button", (BUTTONS_FILEPATH "continue.png"));
-		this->data->assets.loadTexture("Settings Button", (BUTTONS_FILEPATH "settings.png"));
 
 		// background.setTexture(this->data->assets.getTexture("Pause Background"));
 		title.setTexture(this->data->assets.getTexture("Pause Title"));

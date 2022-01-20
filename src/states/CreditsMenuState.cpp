@@ -12,12 +12,10 @@ namespace Pacenstein {
 		// this->data->assets.loadTexture("Credits Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
 
 		//add sprites for title and start button
-		this->data->assets.loadTexture("Leaderboard Title", (BUTTONS_FILEPATH "credits.png"));
-		this->data->assets.loadTexture("Back Button", (BUTTONS_FILEPATH "back.png"));
 
 		// background.setTexture(this->data->assets.getTexture("Credits Menu Background"));
 
-		title.setTexture(this->data->assets.getTexture("Leaderboard Title"));
+		title.setTexture(this->data->assets.getTexture("Credits Title"));
 		backButton.setTexture(this->data->assets.getTexture("Back Button"));
 
 		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);

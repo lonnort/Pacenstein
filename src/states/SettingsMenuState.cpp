@@ -6,7 +6,7 @@
 #include <sstream>
 
 namespace Pacenstein {
-	SettingsMenuState::SettingsMenuState(game_data_ref_t data) : data(data) { }
+	SettingsMenuState::SettingsMenuState(game_data_ref_t data) : data(data) {}
 
 	void SettingsMenuState::parseSettings(std::vector<std::string> file_content) {
 		for (auto& line : file_content) {
@@ -18,42 +18,33 @@ namespace Pacenstein {
 			std::stringstream ss(line);
 			ss >> action >> first_word >> second_word >> third_word;
 
-			if(third_word == "" and second_word == ""){
+			if (third_word == "" and second_word == ""){
 				action.pop_back();
 				this->settings.push_back({action, first_word});
-			}else if(third_word == ""){
+			}
+			else if (third_word == "") {
 				action += " " + first_word;
 				action.pop_back();
 				this->settings.push_back({action, second_word});
-			}else{
+			}
+			else {
 				action += " " + first_word;
 				action.pop_back();
 				second_word.pop_back();
 				this->settings.push_back({action, second_word, third_word});
 			}
-			
 		}
 	}
 
 	void SettingsMenuState::init() {
-        //Update to main menu background
-		// this->data->assets.loadTexture("Settings Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
-
-		//add sprites for title and back button
-		this->data->assets.loadTexture("Settings Title", (BUTTONS_FILEPATH "settings.png"));
-		this->data->assets.loadTexture("Back Button", (BUTTONS_FILEPATH "back.png"));
-		this->data->assets.loadTextFile("Scores", "src/data/settings.ini");
-		this->data->assets.loadFont("Font", FONT);
-
 		sf::Font font = this->data->assets.getFont("Font");
-
 		this->parseSettings(this->data->assets.getTextFile("Scores"));
 
 		std::string path = "";
 		int offset = 0;
 		for (auto& item : this->settings) {
 			path = BUTTONS_FILEPATH + item[1];
-			this->data->assets.loadTexture(item[0], path);
+			// this->data->assets.loadTexture(item[0], path);
 
 			sf::Sprite tmp;
 			tmp.setTexture(this->data->assets.getTexture(item[0]));
@@ -62,7 +53,7 @@ namespace Pacenstein {
 
 			if(item.size() == 3){
 				path = BUTTONS_FILEPATH + item[2];
-				this->data->assets.loadTexture((item[0] + " alt"), path);
+				// this->data->assets.loadTexture((item[0] + " alt"), path);
 
 				tmp.setTexture(this->data->assets.getTexture(item[0] + " alt"));
 				tmp.setPosition((SCREEN_WIDTH / 2) + 100, 200 + offset);

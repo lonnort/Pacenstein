@@ -14,17 +14,11 @@ namespace Pacenstein {
         //Update to main menu background
 		// this->data->assets.loadTexture("Main Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
 		// add sprites for title and start button
-		this->data->assets.loadTexture("Game Title", "res/pacenstein.png");
-		this->data->assets.loadTexture("Start Game Button", (BUTTONS_FILEPATH "start_game.png"));
-		this->data->assets.loadTexture("Leaderboard Button", (BUTTONS_FILEPATH "leaderboard.png"));
-		this->data->assets.loadTexture("Settings Button", (BUTTONS_FILEPATH "settings.png"));
-		this->data->assets.loadTexture("Quit Game Button", (BUTTONS_FILEPATH "quit_game.png"));
-		this->data->assets.loadTexture("Credits Button", (BUTTONS_FILEPATH "question.png"));
 
 		// background.setTexture(this->data->assets.getTexture("Main Menu Background"));
 		title.setTexture(this->data->assets.getTexture("Game Title"));
 		StartButton.setTexture(this->data->assets.getTexture("Start Game Button"));
-		LeaderboardButton.setTexture(this->data->assets.getTexture("Leaderboard Button"));
+		LeaderboardButton.setTexture(this->data->assets.getTexture("Leaderboard Text"));
 		SettingsButton.setTexture(this->data->assets.getTexture("Settings Button"));
 		QuitButton.setTexture(this->data->assets.getTexture("Quit Game Button"));
 		CreditsButton.setTexture(this->data->assets.getTexture("Credits Button"));
