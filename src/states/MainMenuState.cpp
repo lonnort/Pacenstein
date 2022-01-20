@@ -11,11 +11,6 @@ namespace Pacenstein {
 	MainMenuState::MainMenuState(game_data_ref_t data) : data(data) { }
 
 	void MainMenuState::init(){
-        //Update to main menu background
-		// this->data->assets.loadTexture("Main Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
-		// add sprites for title and start button
-
-		// background.setTexture(this->data->assets.getTexture("Main Menu Background"));
 		title.setTexture(this->data->assets.getTexture("Game Title"));
 		StartButton.setTexture(this->data->assets.getTexture("Start Game Button"));
 		LeaderboardButton.setTexture(this->data->assets.getTexture("Leaderboard Text"));
@@ -37,54 +32,41 @@ namespace Pacenstein {
 	void MainMenuState::handleInput(){
 		sf::Event event;
 
-		while (this->data->window.pollEvent(event)){
-			if (sf::Event::Closed == event.type){
-				this->data->window.close();
-			}
+		while (this->data->window.pollEvent(event)) {
+			if (sf::Event::Closed == event.type) this->data->window.close();
 
-			if(this->data->input.isSpriteHovered(this->StartButton, this->data->window)){
-				this->data->window.setMouseCursor(cursorHand);
-			}
-
-			if(!this->data->input.isSpriteHovered(this->StartButton, this->data->window)){
+			if(!this->data->input.isSpriteHovered(this->StartButton, this->data->window))
 				this->data->window.setMouseCursor(cursorArrow);
-			}
 
-			if(this->data->input.isSpriteHovered(this->LeaderboardButton, this->data->window)){
+			if(this->data->input.isSpriteHovered(this->StartButton, this->data->window))
 				this->data->window.setMouseCursor(cursorHand);
-			}
 
-			if(this->data->input.isSpriteHovered(this->SettingsButton, this->data->window)){
+			if(this->data->input.isSpriteHovered(this->LeaderboardButton, this->data->window))
 				this->data->window.setMouseCursor(cursorHand);
-			}
 
-			if(this->data->input.isSpriteHovered(this->QuitButton, this->data->window)){
+			if(this->data->input.isSpriteHovered(this->SettingsButton, this->data->window))
 				this->data->window.setMouseCursor(cursorHand);
-			}
 
-			if(this->data->input.isSpriteHovered(this->CreditsButton, this->data->window)){
+			if(this->data->input.isSpriteHovered(this->QuitButton, this->data->window))
 				this->data->window.setMouseCursor(cursorHand);
-			}
 
-			if (this->data->input.isSpriteClicked(this->StartButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
+			if(this->data->input.isSpriteHovered(this->CreditsButton, this->data->window))
+				this->data->window.setMouseCursor(cursorHand);
+
+			if (this->data->input.isSpriteClicked(this->StartButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.addState(state_ref_t(std::make_unique<InGameState>(this->data)), false);
-			}
 
-			if (this->data->input.isSpriteClicked(this->LeaderboardButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
+			if (this->data->input.isSpriteClicked(this->LeaderboardButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.addState(state_ref_t(std::make_unique<LeaderboardMenuState>(this->data)), false);
-			}
 
-			if (this->data->input.isSpriteClicked(this->SettingsButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
+			if (this->data->input.isSpriteClicked(this->SettingsButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)), false);
-			}
 
-			if (this->data->input.isSpriteClicked(this->QuitButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
+			if (this->data->input.isSpriteClicked(this->QuitButton, sf::Mouse::Left, this->data->window))
 				this->data->window.close();
-			}
 
-			if (this->data->input.isSpriteClicked(this->CreditsButton, sf::Mouse::KEY_ALT_LEFT, this->data->window)){
+			if (this->data->input.isSpriteClicked(this->CreditsButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.addState(state_ref_t(std::make_unique<CreditsMenuState>(this->data)), false);
-			}
 
 			if (sf::Event::KeyPressed == event.type) {
     			switch (event.key.code) {
