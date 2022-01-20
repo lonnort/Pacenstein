@@ -27,5 +27,8 @@ namespace Pacenstein
 		sf::Sprite giveUpButton;
 		sf::Sprite continueButton;
 		sf::Sprite settingsButton;
+
+		sf::Cursor cursorHand;
+		sf::Cursor cursorArrow;
 	};
 }
