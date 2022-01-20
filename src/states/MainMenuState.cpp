@@ -35,23 +35,13 @@ namespace Pacenstein {
 		while (this->data->window.pollEvent(event)) {
 			if (sf::Event::Closed == event.type) this->data->window.close();
 
-			if(!this->data->input.isSpriteHovered(this->StartButton, this->data->window))
-				this->data->window.setMouseCursor(cursorArrow);
-
-			if(this->data->input.isSpriteHovered(this->StartButton, this->data->window))
+			if(	this->data->input.isSpriteHovered(this->StartButton, this->data->window) ||
+				this->data->input.isSpriteHovered(this->LeaderboardButton, this->data->window) ||
+				this->data->input.isSpriteHovered(this->SettingsButton, this->data->window) ||
+				this->data->input.isSpriteHovered(this->QuitButton, this->data->window) ||
+				this->data->input.isSpriteHovered(this->CreditsButton, this->data->window))
 				this->data->window.setMouseCursor(cursorHand);
-
-			if(this->data->input.isSpriteHovered(this->LeaderboardButton, this->data->window))
-				this->data->window.setMouseCursor(cursorHand);
-
-			if(this->data->input.isSpriteHovered(this->SettingsButton, this->data->window))
-				this->data->window.setMouseCursor(cursorHand);
-
-			if(this->data->input.isSpriteHovered(this->QuitButton, this->data->window))
-				this->data->window.setMouseCursor(cursorHand);
-
-			if(this->data->input.isSpriteHovered(this->CreditsButton, this->data->window))
-				this->data->window.setMouseCursor(cursorHand);
+			else this->data->window.setMouseCursor(cursorArrow);
 
 			if (this->data->input.isSpriteClicked(this->StartButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.addState(state_ref_t(std::make_unique<InGameState>(this->data)), false);
