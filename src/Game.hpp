@@ -18,7 +18,7 @@ namespace Pacenstein {
 
     class Game {
     public:
-        Game(const unsigned int width, const unsigned int height, const std::string title);
+        Game(const std::string title);
 
     private:
         const float dt = 0.02;

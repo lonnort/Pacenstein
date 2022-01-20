@@ -5,7 +5,7 @@
 #include "Definitions.hpp" 
 
 int main() {
-    Pacenstein::Game(SCREEN_WIDTH, SCREEN_HEIGHT, "Pacenstein");
+    Pacenstein::Game("Pacenstein");
 
     return 0;
 }

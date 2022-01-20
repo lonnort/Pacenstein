@@ -9,8 +9,8 @@
 #include "iostream"
 
 namespace Pacenstein {
-    Game::Game(const unsigned int width, const unsigned int height, const std::string title) {
-        this->data->window.create(sf::VideoMode(width, height), title, sf::Style::Default, sf::ContextSettings(24,8,8));
+    Game::Game(const std::string title) {
+        this->data->window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), title, sf::Style::Default, sf::ContextSettings(24,8,4));
         this->data->machine.addState(state_ref_t(std::make_unique<SplashState>(this->data)));
 
         this->run();
