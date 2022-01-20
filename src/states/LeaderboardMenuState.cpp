@@ -47,6 +47,9 @@ namespace Pacenstein {
 
 		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
 		backButton.setPosition((backButton.getGlobalBounds().width / 2) + 50, (backButton.getGlobalBounds().height / 2) + 50);
+
+		cursorHand.loadFromSystem(sf::Cursor::Hand);
+		cursorArrow.loadFromSystem(sf::Cursor::Arrow);
 	}
 
 	void LeaderboardMenuState::handleInput() {
@@ -55,6 +58,13 @@ namespace Pacenstein {
 		while (this->data->window.pollEvent(event)) {
 			if (sf::Event::Closed == event.type) { this->data->window.close(); }
 
+			if(this->data->input.isSpriteHovered(this->backButton, this->data->window)){
+				this->data->window.setMouseCursor(cursorHand);
+			}
+			else{
+				this->data->window.setMouseCursor(cursorArrow);
+			}
+			
 			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)){
 				this->data->machine.removeState();
 			}

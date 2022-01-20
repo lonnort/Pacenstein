@@ -28,6 +28,9 @@ namespace Pacenstein
 		sf::Sprite title;
 		sf::Sprite backButton;
 
+		sf::Cursor cursorHand;
+		sf::Cursor cursorArrow;
+
 		// std::vector<sf::Text> leaderboard_text;
 		std::string super_long_string = "";
 
