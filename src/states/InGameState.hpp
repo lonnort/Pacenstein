@@ -11,28 +11,23 @@ namespace Pacenstein {
     class InGameState : public State {
     public:
 		InGameState(game_data_ref_t data);
-	
 		void init();
-	
 		void handleInput();
 		void update(float dt);
 		void draw(float dt);
+	
 		void move(std::string direction);
 
     private:
 		game_data_ref_t data;
 	
 		sf::Sprite background;
-		int worldMap[21][19];
-
-		double posX, posY;
-		double dirX, dirY;
-		double planeX, planeY;
-		double oldPlaneX, oldPlaneY;
-		double time, oldTime;
-		double cameraX;
 	
-		// movement
-		double moveSpeed, rotSpeed;
+	        int w, h;
+	        double posX, posY;
+	        double dirX, dirY;
+	        double planeX, planeY;
+	        double moveSpeed;
+	        double rotSpeed;
     };
 }
