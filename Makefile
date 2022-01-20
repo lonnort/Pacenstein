@@ -37,7 +37,7 @@ $(1)/%.o: %.cpp
 	$(CC) -c $$(INCLUDES) $$(CFLAGS) -o $$@ $$<
 endef
 
-.PHONY: build dirs clean run rerun rebuild
+.PHONY: build dirs clean run rerun rebuild doxy
 
 -include $(DEPS)
 
@@ -61,3 +61,6 @@ rebuild: clean build
 
 run: build
 	@./$(PROJECT_NAME).exe
+
+doxy:
+	@doxygen
