@@ -45,18 +45,14 @@ namespace Pacenstein {
 		sf::Event event;
 
 		while (this->data->window.pollEvent(event)) {
-			if (sf::Event::Closed == event.type) { this->data->window.close(); }
+			if (sf::Event::Closed == event.type) this->data->window.close();
 
-			if(this->data->input.isSpriteHovered(this->backButton, this->data->window)){
+			if(this->data->input.isSpriteHovered(this->backButton, this->data->window))
 				this->data->window.setMouseCursor(this->cursorHand);
-			}
-			else{
-				this->data->window.setMouseCursor(this->cursorArrow);
-			}
-			
-			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)){
+			else this->data->window.setMouseCursor(this->cursorArrow);
+
+			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.removeState();
-			}
 
 			if (sf::Event::KeyPressed == event.type) {
     			switch (event.key.code) {
@@ -68,14 +64,14 @@ namespace Pacenstein {
 		}
 	}
 
-	void LeaderboardMenuState::update(float dt) { std::cout << "In leaderboard menu" << std::endl; }
+	void LeaderboardMenuState::update(float dt) {
+		// std::cout << "In leaderboard menu" << std::endl;
+	}
 
 	void LeaderboardMenuState::draw(float dt) {
 		this->data->window.clear();
 		this->background.setScale(20, 20);
 		
-		// this->data->window.draw(this->background);
-
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->backButton);
 

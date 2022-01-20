@@ -100,12 +100,9 @@ namespace Pacenstein {
 		while (this->data->window.pollEvent(event)){
 			if (sf::Event::Closed == event.type) this->data->window.close();
 
-			if (this->data->input.isSpriteHovered(this->backButton, this->data->window)){
+			if (this->data->input.isSpriteHovered(this->backButton, this->data->window))
 				this->data->window.setMouseCursor(this->cursorHand);
-			}
-			else{
-				this->data->window.setMouseCursor(this->cursorArrow);
-			}
+			else this->data->window.setMouseCursor(this->cursorArrow);
 
 			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.removeState();

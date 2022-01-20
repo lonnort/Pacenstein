@@ -22,7 +22,6 @@ namespace Pacenstein
 		game_data_ref_t data;
 
 		sf::Sprite background;
-		//add sprites for settings and current buttons
 		sf::Sprite title;
 		sf::Sprite backButton;
 

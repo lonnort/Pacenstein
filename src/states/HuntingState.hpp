@@ -21,8 +21,5 @@ namespace Pacenstein
 		game_data_ref_t data;
 
 		sf::Sprite background;
-		//add sprites for title and start button
-		//sf::Sprite title;
-		//sf::Sprite playButton;
 	};
 }

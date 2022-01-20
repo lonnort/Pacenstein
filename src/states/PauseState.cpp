@@ -6,14 +6,9 @@
 #include <iostream>
 
 namespace Pacenstein {
-	PauseState::PauseState(game_data_ref_t data) : data(data) { }
+	PauseState::PauseState(game_data_ref_t data) : data(data) {}
 
-	void PauseState::init(){
-                //Update to main menu background
-		// this->data->assets.loadTexture("Pause Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
-		//add sprites for title and start button
-
-		// background.setTexture(this->data->assets.getTexture("Pause Background"));
+	void PauseState::init() {
 		title.setTexture(this->data->assets.getTexture("Pause Title"));
 		highscoreText.setTexture(this->data->assets.getTexture("Highscore Text"));
 		giveUpButton.setTexture(this->data->assets.getTexture("Give Up Button"));
@@ -34,28 +29,28 @@ namespace Pacenstein {
 		sf::Event event;
 
 		while (this->data->window.pollEvent(event)){
-			if (sf::Event::Closed == event.type){
-				this->data->window.close();
-			}
+			if (sf::Event::Closed == event.type) this->data->window.close();
 
-			if(	this->data->input.isSpriteHovered(this->giveUpButton, this->data->window) ||
-				this->data->input.isSpriteHovered(this->continueButton, this->data->window) ||
-				this->data->input.isSpriteHovered(this->settingsButton, this->data->window))
+			if(this->data->input.isSpriteHovered(this->giveUpButton, this->data->window)
+			|| this->data->input.isSpriteHovered(this->continueButton, this->data->window)
+			|| this->data->input.isSpriteHovered(this->settingsButton, this->data->window))
+			{
 				this->data->window.setMouseCursor(this->cursorHand);
+			}
 			else this->data->window.setMouseCursor(this->cursorArrow);
 
-			if (this->data->input.isSpriteClicked(this->continueButton, sf::Mouse::Left, this->data->window)){
-				std::cout << "Continue game" << std::endl;
+			if (this->data->input.isSpriteClicked(this->continueButton, sf::Mouse::Left, this->data->window)) {
+				// std::cout << "Continue game" << std::endl;
 				this->data->machine.removeState();
 			}
 
 			if (this->data->input.isSpriteClicked(this->giveUpButton, sf::Mouse::Left, this->data->window)){
-				std::cout << "Go To Game Over Screen" << std::endl;
+				// std::cout << "Go To Game Over Screen" << std::endl;
 				this->data->machine.addState(state_ref_t(std::make_unique<GameOverState>(this->data)), true);
 			}
 
 			if (this->data->input.isSpriteClicked(this->settingsButton, sf::Mouse::Left, this->data->window)){
-				std::cout << "Go To Settings Screen" << std::endl;
+				// std::cout << "Go To Settings Screen" << std::endl;
 				this->data->machine.addState(state_ref_t(std::make_unique<SettingsMenuState>(this->data)), false);
 			}
 
@@ -71,13 +66,12 @@ namespace Pacenstein {
 	}
 
 	void PauseState::update(float dt){
-		std::cout << "Pause" << std::endl;
+		// std::cout << "Pause" << std::endl;
 	}
 
 	void PauseState::draw(float dt){
 		this->data->window.clear();
 
-		// this->data->window.draw(this->background);
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->highscoreText);
 		this->data->window.draw(this->giveUpButton);

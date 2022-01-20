@@ -35,12 +35,14 @@ namespace Pacenstein {
 		while (this->data->window.pollEvent(event)) {
 			if (sf::Event::Closed == event.type) this->data->window.close();
 
-			if(	this->data->input.isSpriteHovered(this->StartButton, this->data->window) ||
-				this->data->input.isSpriteHovered(this->LeaderboardButton, this->data->window) ||
-				this->data->input.isSpriteHovered(this->SettingsButton, this->data->window) ||
-				this->data->input.isSpriteHovered(this->QuitButton, this->data->window) ||
-				this->data->input.isSpriteHovered(this->CreditsButton, this->data->window))
+			if(	this->data->input.isSpriteHovered(this->StartButton, this->data->window)
+			||	this->data->input.isSpriteHovered(this->LeaderboardButton, this->data->window)
+			||	this->data->input.isSpriteHovered(this->SettingsButton, this->data->window)
+			||	this->data->input.isSpriteHovered(this->QuitButton, this->data->window)
+			||	this->data->input.isSpriteHovered(this->CreditsButton, this->data->window))
+			{
 				this->data->window.setMouseCursor(this->cursorHand);
+			}
 			else this->data->window.setMouseCursor(this->cursorArrow);
 
 			if (this->data->input.isSpriteClicked(this->StartButton, sf::Mouse::Left, this->data->window))
@@ -63,20 +65,18 @@ namespace Pacenstein {
 					case sf::Keyboard::Key::KEY_EXIT:
 						this->data->window.close();
 						break;
-
 				}
 			}
 		}
 	}
 
-	void MainMenuState::update(float dt){
-		std::cout << "In main menu" << std::endl;
+	void MainMenuState::update(float dt) {
+		// std::cout << "In main menu" << std::endl;
 	}
 
 	void MainMenuState::draw(float dt){
 		this->data->window.clear();
 		this->title.setScale(0.3,0.3);
-		// this->data->window.draw(this->background);
 
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->StartButton);

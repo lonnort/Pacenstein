@@ -7,14 +7,7 @@
 namespace Pacenstein {
 	CreditsMenuState::CreditsMenuState(game_data_ref_t data) : data(data) {}
 
-	void CreditsMenuState::init(){
-        //Update to main menu background
-		// this->data->assets.loadTexture("Credits Menu Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
-
-		//add sprites for title and start button
-
-		// background.setTexture(this->data->assets.getTexture("Credits Menu Background"));
-
+	void CreditsMenuState::init() {
 		title.setTexture(this->data->assets.getTexture("Credits Title"));
 		backButton.setTexture(this->data->assets.getTexture("Back Button"));
 
@@ -23,25 +16,20 @@ namespace Pacenstein {
 
 		cursorHand.loadFromSystem(sf::Cursor::Hand);
 		cursorArrow.loadFromSystem(sf::Cursor::Arrow);
-
 	}
 
-	void CreditsMenuState::handleInput(){
+	void CreditsMenuState::handleInput() {
 		sf::Event event;
 
 		while (this->data->window.pollEvent(event)) {
-			if (sf::Event::Closed == event.type) { this->data->window.close(); }
+			if (sf::Event::Closed == event.type) this->data->window.close();
 
-			if (this->data->input.isSpriteHovered(this->backButton, this->data->window)){
+			if (this->data->input.isSpriteHovered(this->backButton, this->data->window))
 				this->data->window.setMouseCursor(this->cursorHand);
-			}
-			else{
-				this->data->window.setMouseCursor(this->cursorArrow);
-			}
+			else this->data->window.setMouseCursor(this->cursorArrow);
 
-			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window)) {
+			if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window))
 				this->data->machine.removeState();
-			}
 			
 			if (sf::Event::KeyPressed == event.type) {
     			switch (event.key.code) {
@@ -53,13 +41,13 @@ namespace Pacenstein {
 		}
 	}
 
-	void CreditsMenuState::update(float dt) { std::cout << "In credits menu" << std::endl; }
+	void CreditsMenuState::update(float dt) {
+		// std::cout << "In credits menu" << std::endl;
+	}
 
 	void CreditsMenuState::draw(float dt) {
 		this->data->window.clear();
 		this->background.setScale(20, 20);
-
-		// this->data->window.draw(this->background);
 
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->backButton);

@@ -21,7 +21,7 @@ namespace Pacenstein
 		game_data_ref_t data;
 
 		sf::Sprite background;
-		//add pause sprites with highscores
+
 		sf::Sprite title;
 		sf::Sprite highscoreText;
 		sf::Sprite giveUpButton;

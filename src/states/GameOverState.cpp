@@ -54,7 +54,9 @@ namespace Pacenstein {
 		}
 	}
 
-	void GameOverState::update(float dt) { std::cout << "game over!" << std::endl; }
+	void GameOverState::update(float dt) {
+		// std::cout << "game over!" << std::endl;
+	}
 
 	void GameOverState::draw(float dt) {
 		this->data->window.clear();

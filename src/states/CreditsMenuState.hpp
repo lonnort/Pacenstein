@@ -19,7 +19,6 @@ namespace Pacenstein {
 		game_data_ref_t data;
 
 		sf::Sprite background;
-
 		sf::Sprite title;
 		sf::Sprite backButton;
 
