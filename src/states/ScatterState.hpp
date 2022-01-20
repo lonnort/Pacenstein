@@ -19,6 +19,8 @@ namespace Pacenstein
 
 	private:
 		game_data_ref_t data;
+		
+        sf::Clock clock;
 
 		sf::Sprite background;
 		//add sprites for title and start button
