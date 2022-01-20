@@ -18,7 +18,7 @@ namespace Pacenstein {
 		sf::Event event;
 
 		while (this->data->window.pollEvent(event)) {
-			if (sf::Event::Closed == event.type) { this->data->window.close();
+			if (sf::Event::Closed == event.type) this->data->window.close();
 
 			if (sf::Event::KeyPressed == event.type) {
     			switch (event.key.code) {
@@ -39,7 +39,7 @@ namespace Pacenstein {
 		}
 	}
 
-	void HuntingState::update(float dt){
+	void HuntingState::update(float dt) {
 		std::cout << "Hunting" << std::endl;
 	}
 
