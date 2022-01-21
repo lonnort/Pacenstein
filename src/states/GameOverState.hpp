@@ -69,9 +69,9 @@ namespace Pacenstein {
 		sf::Cursor cursorArrow;
 
 		std::vector<std::pair<std::string, int>> scores;
-		std::string positieString = "";
-		std::string naamString = "";
-		std::string puntenString = "";
-		int positie = 0;
+		std::string positionString = "";
+		std::string nameString = "";
+		std::string pointsString = "";
+		int position = 0;
 	};
 }
