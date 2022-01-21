@@ -45,6 +45,12 @@ namespace Pacenstein {
          * Input is an InputManager, see the documentation on InputManager for more info.
          */
         InputManager input;
+
+        /**
+         * score is an int, where is score is saved when the game is running.
+         * 
+         */
+        int score;
     };
 
     /**

@@ -3,27 +3,72 @@
 #include "MainMenuState.hpp"
 
 #include <iostream>
+#include <sstream>
 
 namespace Pacenstein {
 	GameOverState::GameOverState(game_data_ref_t data) : data(data) {}
 
+	void GameOverState::parseScores(std::vector<std::string> file_content) {
+		for (auto& line : file_content) {
+			std::string player_name = "";
+			int points = 0;
+
+			std::stringstream ss(line);
+			ss >> player_name >> points;
+			player_name.pop_back();
+			this->scores.push_back({player_name, points});
+		}
+		std::sort(scores.begin(), scores.end(), [](auto& l, auto& r){ return l.second > r.second; });
+	}
+
 	void GameOverState::init() {
-		background.setTexture(this->data->assets.getTexture("Game Over Background"));
+		sf::Font font = this->data->assets.getFont("Font");
+
+		this->parseScores(this->data->assets.getCsvFile("Scores"));
+
+		this->data->score = 690;
+		for (int i = 0; i < scores.size(); i++) {
+			if(this->data->score > scores[i].second){
+				positie = i;
+				break;
+			}
+		}
+
+		std::cout << positie << "\n";
+
+		if(positie < 7){
+			for(int i = 0; i < positie; i++){
+				positieString += std::to_string(i) + ".\n";
+				naamString += scores[i].first + "\n";
+				puntenString += std::to_string(scores[i].second) + "\n";
+			}
+			positieString += std::to_string(positie) + ".\n";
+			naamString += "<enter name>\n";
+			puntenString += std::to_string(this->data->score) + "\n";
+			if(scores.size() < 7){
+				for(int i = positie; i < scores.size(); i++){
+					positieString += std::to_string(i) + ".\n";
+					naamString += scores[i].first + "\n";
+					puntenString += std::to_string(scores[i].second) + "\n";
+				}
+			}else{
+				for(int i = positie+1; i < 7; i++){
+					positieString += std::to_string(i) + ".\n";
+					naamString += scores[i].first + "\n";
+					puntenString += std::to_string(scores[i].second) + "\n";
+				}
+			}
+		}else{
+
+		}
+
 		title.setTexture(this->data->assets.getTexture("Game Over Title"));
 		scoreText.setTexture(this->data->assets.getTexture("Score Text"));
-		leaderboardText.setTexture(this->data->assets.getTexture("Leaderboard Text"));
-		leaderboardPosition.setTexture(this->data->assets.getTexture("Leaderboard Position"));
-		leaderboardName.setTexture(this->data->assets.getTexture("Leaderboard Name"));
-		leaderboardScore.setTexture(this->data->assets.getTexture("Leaderboard Score"));
 		backButton.setTexture(this->data->assets.getTexture("Back To Main Button"));
 
-		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
-		scoreText.setPosition((SCREEN_WIDTH / 2) - (scoreText.getGlobalBounds().width / 2), 4 * (scoreText.getGlobalBounds().height / 2));
-		leaderboardText.setPosition((SCREEN_WIDTH / 2) - (leaderboardText.getGlobalBounds().width / 2), 7 * (leaderboardText.getGlobalBounds().height / 2));
-		leaderboardName.setPosition((SCREEN_WIDTH / 2) - (leaderboardName.getGlobalBounds().width / 2), 10 * (leaderboardName.getGlobalBounds().height / 2));
-		leaderboardPosition.setPosition((SCREEN_WIDTH / 2) - (leaderboardName.getGlobalBounds().width / 2) - (leaderboardPosition.getGlobalBounds().width), 10 * (leaderboardName.getGlobalBounds().height / 2));
-		leaderboardScore.setPosition((SCREEN_WIDTH / 2) - (leaderboardName.getGlobalBounds().width / 2) + (leaderboardScore.getGlobalBounds().width), 10 * (leaderboardName.getGlobalBounds().height / 2));
-		backButton.setPosition((SCREEN_WIDTH / 2) - (backButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT) - 3 * (backButton.getGlobalBounds().height / 2));
+		title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 30);
+		scoreText.setPosition((SCREEN_WIDTH / 2) - (scoreText.getGlobalBounds().width / 2), 130);
+		backButton.setPosition(50, 50);
 
 		cursorHand.loadFromSystem(sf::Cursor::Hand);
 		cursorArrow.loadFromSystem(sf::Cursor::Arrow);
@@ -59,13 +104,29 @@ namespace Pacenstein {
 	void GameOverState::draw(float dt) {
 		this->data->window.clear();
 
-		this->data->window.draw(this->background);
+		sf::Text leaderboardTitleText("positie\tnaam\t\t\t punten", this->data->assets.getFont("Font"));
+		leaderboardTitleText.setOrigin(leaderboardTitleText.getGlobalBounds().width / 2, leaderboardTitleText.getGlobalBounds().height / 2);
+		leaderboardTitleText.setPosition((SCREEN_WIDTH / 2), 250);
+
+		sf::Text leaderboardPositionText(this->positieString, this->data->assets.getFont("Font"));
+		leaderboardPositionText.setOrigin(leaderboardPositionText.getGlobalBounds().width / 2, leaderboardPositionText.getGlobalBounds().height / 2);
+		leaderboardPositionText.setPosition((SCREEN_WIDTH / 2) -160, 400);
+
+		sf::Text leaderboardNameText(this->naamString, this->data->assets.getFont("Font"));
+		leaderboardNameText.setOrigin(leaderboardNameText.getGlobalBounds().width / 2, leaderboardNameText.getGlobalBounds().height / 2);
+		leaderboardNameText.setPosition((SCREEN_WIDTH / 2), 400);
+
+		sf::Text leaderboardPointsText(this->puntenString, this->data->assets.getFont("Font"));
+		leaderboardPointsText.setOrigin(leaderboardPointsText.getGlobalBounds().width / 2, leaderboardPointsText.getGlobalBounds().height / 2);
+		leaderboardPointsText.setPosition((SCREEN_WIDTH / 2) +170, 400);
+
+		this->data->window.draw(leaderboardTitleText);
+		this->data->window.draw(leaderboardPositionText);
+		this->data->window.draw(leaderboardNameText);
+		this->data->window.draw(leaderboardPointsText);
+
 		this->data->window.draw(this->title);
 		this->data->window.draw(this->scoreText);
-		this->data->window.draw(this->leaderboardText);
-		this->data->window.draw(this->leaderboardPosition);
-		this->data->window.draw(this->leaderboardName);
-		this->data->window.draw(this->leaderboardScore);
 		this->data->window.draw(this->backButton);
 
 		this->data->window.display();
