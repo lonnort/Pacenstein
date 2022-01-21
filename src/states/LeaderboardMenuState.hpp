@@ -30,7 +30,7 @@ namespace Pacenstein
 		 * Initializes leaderboard menu variables and screen objects,
 		 * and creates a leaderboard.
 		 * 
-		 * Only called once, when the class is created.
+		 * Only called once, when the class object is created.
 		 */
 		void init();
 
@@ -47,14 +47,14 @@ namespace Pacenstein
 		 * 
 		 * Called at a certain time interval
 		 * 
-		 * \param dt The time passed since last update call.
+		 * \param dt The maximum time to update in the game loop.
 		 */
 		void update(float dt);
 
 		/**
 		 * Draws the screen objects and the leaderboard on the screen.
 		 * 
-		 * \param dt The time passed since last draw call.
+		 * \param dt The maximum time to draw in the game loop.
 		 */
 		void draw(float dt);
 
