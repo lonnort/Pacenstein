@@ -1,11 +1,15 @@
 #pragma once
 
-#include "../Ghost.hpp"
+#include "Ghost.hpp"
 
 namespace Pacenstein {
-    class Pinky : Ghost {
-    public:
-        Pinky(){}
-        ~Pinky(){}
-    };
+    /**
+     * The subclass for Clyde.
+     *
+     * Clyde is a subclass of Ghost, Clyde is the orange ghost.
+     *
+     * Clyde is the last to leave the house. He only exists the house if a third of the pellets has been eaten.
+     */
+
+    class Clyde : public Ghost {};
 }

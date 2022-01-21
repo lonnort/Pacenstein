@@ -54,7 +54,7 @@ namespace Pacenstein {
     };
 
     /**
-     * This type definition shortens the type.
+     * This is a shared smart pointer to GameData.
      */
     typedef std::shared_ptr<GameData> game_data_ref_t;
 

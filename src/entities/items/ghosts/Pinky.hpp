@@ -1,11 +1,14 @@
 #pragma once
 
-#include "../Ghost.hpp"
+#include "Ghost.hpp"
 
 namespace Pacenstein {
-    class Clyde : Ghost {
-    public:
-        Clyde(){}
-        ~Clyde(){}
-    };
+    /**
+     * The subclass for Pinky.
+     *
+     * Pinky is a subclass of Ghost, Pinky is the pink ghost.
+     *
+     * Pinky is the first of the ghosts to leave the house.
+     */
+    class Pinky : public Ghost {};
 }

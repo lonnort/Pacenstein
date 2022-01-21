@@ -1,11 +1,12 @@
 #pragma once
 
-#include "../Ghost.hpp"
+#include "Ghost.hpp"
 
 namespace Pacenstein {
-    class Inky : Ghost {
-    public:
-        Inky(){}
-        ~Inky(){}
-    };
+    /**
+     * The subclass for Inky.
+     *
+     * Inky is a subclass of Ghost, Inky is the blue ghost.
+     */
+    class Inky : Ghost {};
 }

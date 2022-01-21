@@ -1,11 +1,15 @@
 #pragma once
 
-#include "../Ghost.hpp"
+#include "Ghost.hpp"
 
 namespace Pacenstein {
-    class Blinky : Ghost {
-    public:
-        Blinky(){}
-        ~Blinky(){}
-    };
+    /**
+     * The subclass for Blinky.
+     *
+     * Blinky is a subclass of Ghost, Blinky is the red ghost.
+     *
+     * Blinky is the most aggresive ghost, as he tries to make a beeline,
+     * to the player immediately.
+     */
+    class Blinky : public Ghost {};
 }

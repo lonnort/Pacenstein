@@ -2,16 +2,17 @@
 
 #include <SFML/System/Vector2.hpp>
 
-#include "../Entity.hpp"
+#include "Entity.hpp"
 
 namespace Pacenstein {
-    class Player : Entity {
-    public:
-        Player(){}
-        ~Player(){}
+    /**
+     * The player is an entity that moves around in the map according to the user's input.
+     *
+     * Might end up unused.
+     */
+    class Player : public Entity {
     private:
-	sf::Vector2f plane;
-	// score Score;
-	unsigned int lives;
+    	// score Score;
+    	unsigned int lives;
     };
 }
