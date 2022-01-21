@@ -38,22 +38,22 @@ namespace Pacenstein {
 
 		if(position < 7){
 			for(int i = 0; i < position; i++){
-				positionString += std::to_string(i) + ".\n";
+				positionString += std::to_string(i+1) + ".\n";
 				nameString += scores[i].first + "\n";
 				pointsString += std::to_string(scores[i].second) + "\n";
 			}
-			positionString += std::to_string(position) + ".\n";
+			positionString += std::to_string(position+1) + ".\n";
 			nameString += "<enter name>\n";
 			pointsString += std::to_string(this->data->score) + "\n";
 			if(scores.size() < 7){
 				for(int i = position; i < scores.size(); i++){
-					positionString += std::to_string(i+1) + ".\n";
+					positionString += std::to_string(i+2) + ".\n";
 					nameString += scores[i].first + "\n";
 					pointsString += std::to_string(scores[i].second) + "\n";
 				}
 			}else{
 				for(int i = position; i < 7; i++){
-					positionString += std::to_string(i+1) + ".\n";
+					positionString += std::to_string(i+2) + ".\n";
 					nameString += scores[i].first + "\n";
 					pointsString += std::to_string(scores[i].second) + "\n";
 				}
