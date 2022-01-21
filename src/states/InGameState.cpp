@@ -13,17 +13,11 @@ namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data) : data(data) {}
     
     void InGameState::init() {
-
-
 	this->w = SCREEN_WIDTH; this->h = SCREEN_HEIGHT;
 
-	this->posX = 22,        this->posY = 12;
+	this->posX = 2,        this->posY = 2;
 	this->dirX = -1;        this->dirY = 0;
 	this->planeX = 0;       this->planeY = 0.66;
-	this->moveSpeed =  0.15; //the constant value is in squares/second
-	this->rotSpeed = 0.09; //the constant value is in radians/second
-
-	
     }
     
     void InGameState::handleInput() {
@@ -32,12 +26,7 @@ namespace Pacenstein {
         while (this->data->window.pollEvent(event)) {
             this->data->window.setMouseCursorVisible(false);
 			
-			if (sf::Event::Closed == event.type) this->data->window.close();
-
-            /*if (this->data->input.isSpriteClicked(this->playButton, sf::Mouse::Left, this->data->window))
-            {
-                std::cout << "Go To Game Screen" << std::endl;
-            }*/
+	    if (sf::Event::Closed == event.type) this->data->window.close();
 
             if (sf::Event::KeyPressed == event.type) {
                 switch (event.key.code) {
@@ -72,99 +61,85 @@ namespace Pacenstein {
     }
 
     void InGameState::update(float dt) {
-        //std::cout << "In game" << std::endl;
-		// std::cout << "posX: " << this->posX << " posY: " << this->posY << '\n';
-		// std::cout << "dirX: " << this->dirX << " dirY: " << this->dirY << '\n';
-		// std::cout << "planeX: " << this->planeX << " planeY: " << this->planeY << '\n';
-
-		// std::cout << std::endl;
+	
     }
     void InGameState::move(std::string direction) {
-	int worldMap[24][24]=
-	    {
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	    };
+	int worldMap[21][19] {
+	    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+	    {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
+	    {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
+	    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	    {1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0,1},
+	    {1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1},
+	    {1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1},
+	    {0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0},
+	    {1,1,1,1,0,1,0,1,1,2,1,1,0,1,0,1,1,1,1},
+	    {0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
+	    {1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1},
+	    {0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0},
+	    {1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1},
+	    {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
+	    {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
+	    {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
+	    {1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1},
+	    {1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1},
+	    {1,0,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1},
+	    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+	};
 
-		if (direction == "left") {
-	            //both camera direction and camera plane must be rotated
-	            double oldDirX = this->dirX;
-	            this->dirX = this->dirX * cos(rotSpeed) - this->dirY * sin(rotSpeed);
-	            this->dirY = oldDirX * sin(rotSpeed) + this->dirY * cos(rotSpeed);
-	            double oldPlaneX = this->planeX;
-	            this->planeX = this->planeX * cos(rotSpeed) - this->planeY * sin(rotSpeed);
-	            this->planeY = oldPlaneX * sin(rotSpeed) + this->planeY * cos(rotSpeed);
-		}
-		else if (direction == "right") {
-	            double oldDirX = dirX;
-	            this->dirX = this->dirX * cos(-rotSpeed) - this->dirY * sin(-rotSpeed);
-	            this->dirY = oldDirX * sin(-rotSpeed) + this->dirY * cos(-rotSpeed);
-	            double oldPlaneX = planeX;
-	            this->planeX = this->planeX * cos(-rotSpeed) - this->planeY * sin(-rotSpeed);
-	            this->planeY = oldPlaneX * sin(-rotSpeed) + this->planeY * cos(-rotSpeed);
 
-		}
-		else if (direction == "up") {
-		    if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-		    if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
-		}
-		else if (direction == "down") {
-		    if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-		    if(worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
-		}
+	if (direction == "left") {
+	    double oldDirX = this->dirX;
+	    this->dirX = this->dirX * cos(rotSpeed) - this->dirY * sin(rotSpeed);
+	    this->dirY = oldDirX * sin(rotSpeed) + this->dirY * cos(rotSpeed);
+	    double oldPlaneX = this->planeX;
+	    this->planeX = this->planeX * cos(rotSpeed) - this->planeY * sin(rotSpeed);
+	    this->planeY = oldPlaneX * sin(rotSpeed) + this->planeY * cos(rotSpeed);
+	}
+	else if (direction == "right") {
+	    double oldDirX = dirX;
+	    this->dirX = this->dirX * cos(-rotSpeed) - this->dirY * sin(-rotSpeed);
+	    this->dirY = oldDirX * sin(-rotSpeed) + this->dirY * cos(-rotSpeed);
+	    double oldPlaneX = planeX;
+	    this->planeX = this->planeX * cos(-rotSpeed) - this->planeY * sin(-rotSpeed);
+	    this->planeY = oldPlaneX * sin(-rotSpeed) + this->planeY * cos(-rotSpeed);
+	}
+	else if (direction == "up") {
+	    if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
+	    if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
+	}
+	else if (direction == "down") {
+	    if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
+	    if(worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
+	}
     }
     
     void InGameState::draw(float dt) {
 	this->data->window.clear();
-	int worldMap[24][24]=
-	    {
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	    };
+	int worldMap[21][19] {
+	    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+	    {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
+	    {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
+	    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	    {1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0,1},
+	    {1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1},
+	    {1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1},
+	    {0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0},
+	    {1,1,1,1,0,1,0,1,1,2,1,1,0,1,0,1,1,1,1},
+	    {0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
+	    {1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1},
+	    {0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0},
+	    {1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1},
+	    {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
+	    {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
+	    {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
+	    {1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1},
+	    {1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1},
+	    {1,0,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1},
+	    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+	};
 	
 	for(int x = 0; x < w; x++) {
 	    //calculate ray position and direction
@@ -276,9 +251,14 @@ namespace Pacenstein {
         this->data->window.draw(line , 2, sf::Lines);
 
         }
+	this->fps = this->clock.getElapsedTime();
+        float fpsValue = 1000000/fps.asMicroseconds();
+        this->clock.restart();
+
+	this->moveSpeed = fps.asSeconds() * 150.0; //the constant value is in squares/second
+        this->rotSpeed = fps.asSeconds() * 60.0; //the constant value is in radians/second
+
 	this->data->window.display();
         this->data->window.clear();
-
-
     }
 }
