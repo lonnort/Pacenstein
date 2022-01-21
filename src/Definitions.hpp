@@ -1,16 +1,16 @@
 #pragma once
 
-// screen
-#define SCREEN_WIDTH 1200
+// Screen
+#define SCREEN_WIDTH  1200
 #define SCREEN_HEIGHT 720
 
 // File paths
-#define BACKGROUND_FILEPATH "res/splash/background.png"
-#define GHOSTS_FILEPATH "res/sprites/ghosts/"
-#define FONT_FILEPATH "res/VT323-Regular.ttf"
-#define SCORE_FILEPATH "src/data/scores.csv"
-#define SETTINGS_FILEPATH "src/data/settings.conf"
-#define BUTTONS_FILEPATH "res/ui/"
+#define BACKGROUND_FILEPATH      "res/splash/background.png"
+#define GHOSTS_FILEPATH          "res/sprites/ghosts/"
+#define FONT_FILEPATH            "res/VT323-Regular.ttf"
+#define SCORE_FILEPATH           "src/data/scores.csv"
+#define SETTINGS_FILEPATH        "src/data/settings.conf"
+#define BUTTONS_FILEPATH         "res/ui/"
 #define PACENSTEIN_LOGO_FILEPATH "res/pacenstein.png"
 
 // Keyboard input keys
@@ -27,6 +27,5 @@
 #define KEY_EXIT      Delete
 
 // Map definitions
-#define MAP_WIDTH     19;
-#define MAP_HEIGHT    21;
-
+#define MAP_WIDTH  19;
+#define MAP_HEIGHT 21;

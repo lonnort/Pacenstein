@@ -8,6 +8,9 @@
 #include "StateMachine.hpp"
 
 namespace Pacenstein {
+    /**
+     * 
+     */
     struct GameData {
         StateMachine     machine;
         sf::RenderWindow window;
