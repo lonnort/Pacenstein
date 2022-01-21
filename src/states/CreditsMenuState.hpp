@@ -33,7 +33,7 @@ namespace Pacenstein {
 		 * Handles input from player.
 		 * 
 		 * Reacts to mouse input when a sprite is clicked, 
-		 * when a sprite is hovered over and when the window is closed.
+		 * when a sprite is hovered over, and when the window is closed.
 		 */
 		void handleInput();
 
