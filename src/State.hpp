@@ -1,6 +1,13 @@
 #pragma once
 
 namespace Pacenstein {
+    /**
+     * States are what state the game can be in.
+     *
+     * The game can be in a menu, in-game (currently playing), and more.
+     *
+     * This is a pure virtual class.
+     */
     class State {
     public:
         virtual void init       () = 0;
