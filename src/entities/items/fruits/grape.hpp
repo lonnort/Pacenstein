@@ -6,5 +6,5 @@ namespace Pacenstein {
     /**
      * Grapes (Melons according to some) are a type of fruit and give 1000 points.
      */
-    class Grapes : public Fruit {};
+    class Grape : public Fruit {};
 }

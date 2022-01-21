@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../Entity.hpp"
+#include "Entity.hpp"
 
 namespace Pacenstein {
-    class Item : Entity {
-    public:
-        Item(){}
-        ~Item(){}
+    /**
+     * Items are entities that award points.
+     */
+    class Item : public Entity {
     private:
         unsigned int points;
     };
