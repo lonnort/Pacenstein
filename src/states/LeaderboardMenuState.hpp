@@ -43,9 +43,9 @@ namespace Pacenstein
 		void handleInput();
 
 		/**
-		 * Updates the leaderboard menu state
+		 * Updates the leaderboard menu state.
 		 * 
-		 * Called at a certain time interval
+		 * Called at a certain time interval.
 		 * 
 		 * \param dt The maximum time to update in the game loop.
 		 */

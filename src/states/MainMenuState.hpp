@@ -40,9 +40,9 @@ namespace Pacenstein
 		void handleInput();
 
 		/**
-		 * Updates the main menu state
+		 * Updates the main menu state.
 		 * 
-		 * Called at a certain time interval
+		 * Called at a certain time interval.
 		 * 
 		 * \param dt The maximum time to update in the game loop.
 		 */

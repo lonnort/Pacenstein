@@ -38,7 +38,7 @@ namespace Pacenstein {
 		void handleInput();
 
 		/**
-		 * Updates the credit menu state
+		 * Updates the credit menu state.
 		 * 
 		 * Called at a certain time interval
 		 * 
