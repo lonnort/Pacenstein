@@ -3,6 +3,8 @@
 *.sublime-workspace
 *backup/
 
+dox/
+
 # hwlib
 *_flags
 *.bin
