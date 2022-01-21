@@ -20,7 +20,7 @@ namespace Pacenstein
 		/**
 		 * Constructor to initialize PauseState class.
 		 * 
-		 * \param data A shared pointer to the game data.
+		 * \param data A shared pointer to the GameData.
 		 */
 		PauseState(game_data_ref_t data);
 
