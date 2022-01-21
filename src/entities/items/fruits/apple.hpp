@@ -1,11 +1,10 @@
 #pragma once
 
-#include "../Fruit.hpp"
+#include "Fruit.hpp"
 
 namespace Pacenstein {
-    class Apple : public Fruit {
-    public:
-        Apple(){}
-        ~Apple(){}
-    };
+    /**
+     * Apples are a type of fruit and give 700 points.
+     */
+    class Apple : public Fruit {};
 }

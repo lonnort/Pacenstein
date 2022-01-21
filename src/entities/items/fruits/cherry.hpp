@@ -1,11 +1,10 @@
 #pragma once
 
-#include "../Fruit.hpp"
+#include "Fruit.hpp"
 
 namespace Pacenstein {
-    class Cherry : public Fruit {
-    public:
-        Cherry(){}
-        ~Cherry(){}
-    };
+    /**
+     * Cherries are a type of fruit and give 100 points.
+     */
+    class Cherry : public Fruit {};
 }
