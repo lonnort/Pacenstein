@@ -29,5 +29,7 @@ namespace Pacenstein {
 	        double planeX, planeY;
 	        double moveSpeed;
 	        double rotSpeed;
+	        sf::Clock clock;
+	        sf::Time fps;
     };
 }
