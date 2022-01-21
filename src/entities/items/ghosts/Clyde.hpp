@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ghost.hpp"
+#include "Ghost.hpp"
 
 namespace Pacenstein {
     /**
@@ -11,16 +11,5 @@ namespace Pacenstein {
      * Clyde is the last to leave the house. He only exists the house if a third of the pellets has been eaten.
      */
 
-    class Clyde : public Ghost {
-    public:
-	/**
-	 * Constructor to initialize Clyde subclass.
-	 */
-        Clyde(){}
-	
-	/**
-	 * Destructor to destruct Clyde subclass.
-	 */
-        ~Clyde(){}
-    };
+    class Clyde : public Ghost {};
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ghost.hpp"
+#include "Ghost.hpp"
 
 namespace Pacenstein {
     /**
@@ -11,16 +11,5 @@ namespace Pacenstein {
      * Blinky is the most aggresive ghost, as he tries to make a beeline,
      * to the player immediately.
      */
-    class Blinky : public Ghost {
-    public:
-	/**
-	 * Constructor to initialize Blinky subclass.
-	 */
-        Blinky(){}
-	
-	/**
-	 * Destructor to destruct Blinky subclass.
-	 */
-        ~Blinky(){}
-    };
+    class Blinky : public Ghost {};
 }

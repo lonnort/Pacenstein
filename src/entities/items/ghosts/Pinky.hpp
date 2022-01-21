@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ghost.hpp"
+#include "Ghost.hpp"
 
 namespace Pacenstein {
     /**
@@ -10,16 +10,5 @@ namespace Pacenstein {
      *
      * Pinky is the first of the ghosts to leave the house.
      */
-    class Pinky : public Ghost {
-    public:
-	/**
-	 * Constructor to initialize Pinky subclass.
-	 */
-        Pinky(){}
-
-	/**
-	 * Destructor to destruct Pinky subclass.
-	 */
-        ~Pinky(){}
-    };
+    class Pinky : public Ghost {};
 }

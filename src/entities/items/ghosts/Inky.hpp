@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ghost.hpp"
+#include "Ghost.hpp"
 
 namespace Pacenstein {
     /**
@@ -8,15 +8,5 @@ namespace Pacenstein {
      *
      * Inky is a subclass of Ghost, Inky is the blue ghost.
      */
-    class Inky : Ghost {
-    public:
-	/**
-	 * Constructor to initialize Inky subclass.
-	 */
-        Inky(){}
-	/**
-	 * Destructor to destruct Inky subclass.
-	 */
-        ~Inky(){}
-    };
+    class Inky : Ghost {};
 }
