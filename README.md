@@ -4,15 +4,18 @@
 This is a schoolproject made for Hogeschool Utrecht. With our take on this project we made a first-person PacMan game. Except instead of simply making PacMan in 2D, we did it in 3D. This was done using raycasting techniques, like the original Doom, or Wolfenstein 3D.
 
 ## Playing the game
-You can download a Windows executable by going to the release page and run it. Or you can build the source yourself if you're on Linux or Mac.
+You can download a Windows or Linux executable by going to the release page and run it. Or you can build the source yourself.
 
 ### Building the game
-There are a few dependencies:
-1. SFML (or SFML-dev / SFML-devel depending on your system)
+Make sure the following dependencies are installed:
+1. SFML (note for windows users below)
 2. make
-3. gcc >= 8
+3. gcc >= 8 (MinGW-w64 works fine for both make and gcc)
 
-If all of the above are installed you can run `make run` from the project folder to build and run the game. An executable will be created which can also be run seperately.
+If all of the above are installed you can simply run make from the project folder to build the game. An executable will be created which can also be then be ran, or you can make with the target `run` to build and run the game, the executable will still be created.
+
+#### SFML and Windows
+SFML on windows is statically linked because of issues with Path. This means that the SFML library has to be in a certain directory on your system, namely `C:\Program Files\SFML-x.x.x` where the xs are the verion numbers. Or, if you don't want this, you can run the make command as `make SFML_DIR=custom/path/to/sfml`.
 
 ## About the game
 > Pac-Man (パックマン Pakkuman), formerly known as Puck Man in Japan, is the main protagonist of the Pac-Man series. He is the husband of Ms. Pac-Man, and the father of Baby Pac-Man and Jr. Pac-Man. 
