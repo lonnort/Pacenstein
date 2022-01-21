@@ -72,12 +72,12 @@ namespace Pacenstein {
             }
 
             if (sf::Event::KeyPressed == event.type) {
-    			switch (event.key.code) {
-					case sf::Keyboard::Key::KEY_EXIT:
-						this->data->window.close();
-						break;
-				}
-			}
+                switch (event.key.code) {
+                    case sf::Keyboard::Key::KEY_EXIT:
+                        this->data->window.close();
+                        break;
+                }
+            }
         }
     }
 

@@ -12,7 +12,7 @@ namespace Pacenstein {
      */
     class Player : public Entity {
     private:
-    	// score Score;
-    	unsigned int lives;
+        // score Score;
+        unsigned int lives;
     };
 }

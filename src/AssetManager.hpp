@@ -58,7 +58,7 @@ namespace Pacenstein {
          * \param location The location of the vertex.
          * \param color    The color for the vertex.
          */
-	    void loadVertex (std::string name, sf::Vector2f location, sf::Color);
+        void loadVertex (std::string name, sf::Vector2f location, sf::Color);
 
 
         /**

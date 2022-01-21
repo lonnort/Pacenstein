@@ -31,12 +31,12 @@ namespace Pacenstein {
 
     void AssetManager::loadVertex(std::string name, sf::Vector2f location, sf::Color color) {
         sf::Vertex ver = sf::Vertex(location, color);
-	    this->vertexes[name] = ver;
+        this->vertexes[name] = ver;
     }
 
-    sf::Texture&              AssetManager::getTexture (std::string name) { return this->textures.at(name); }
-    sf::Font&                 AssetManager::getFont    (std::string name) { return this->fonts.at(name); }
-    sf::Vertex&               AssetManager::getVertex  (std::string name) { return this->vertexes.at(name); }
+    sf::Texture& AssetManager::getTexture (std::string name) { return this->textures.at(name); }
+    sf::Font&    AssetManager::getFont    (std::string name) { return this->fonts.at(name); }
+    sf::Vertex&  AssetManager::getVertex  (std::string name) { return this->vertexes.at(name); }
     std::vector<std::string>& AssetManager::getCsvFile (std::string name) { return this->csv_files.at(name); }
     std::vector<std::string>& AssetManager::getConfFile (std::string name) { return this->conf_files.at(name); }
 }

@@ -12,4 +12,3 @@ namespace Pacenstein {
      */
     class PowerPellet : public Item {};
 }
-
