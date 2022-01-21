@@ -47,13 +47,13 @@ namespace Pacenstein {
 			pointsString += std::to_string(this->data->score) + "\n";
 			if(scores.size() < 7){
 				for(int i = position; i < scores.size(); i++){
-					positionString += std::to_string(i) + ".\n";
+					positionString += std::to_string(i+1) + ".\n";
 					nameString += scores[i].first + "\n";
 					pointsString += std::to_string(scores[i].second) + "\n";
 				}
 			}else{
-				for(int i = position+1; i < 7; i++){
-					positionString += std::to_string(i) + ".\n";
+				for(int i = position; i < 7; i++){
+					positionString += std::to_string(i+1) + ".\n";
 					nameString += scores[i].first + "\n";
 					pointsString += std::to_string(scores[i].second) + "\n";
 				}
