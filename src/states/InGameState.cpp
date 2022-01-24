@@ -231,6 +231,13 @@ namespace Pacenstein {
         player.setMoveSpeed(fps.asSeconds() * 150.0); //the constant value is in squares/second
         player.setRotSpeed(fps.asSeconds() * 60.0);  //the constant value is in radians/second
 
+        sf::Text scoreText("Score: "  + std::to_string(player.getScore()), this->data->assets.getFont("Font"));
+        this->data->window.draw(scoreText);
+
+        sf::Text livesText("Lives: "  + std::to_string(player.getLives()), this->data->assets.getFont("Font"));
+        livesText.setPosition(0, SCREEN_HEIGHT - livesText.getGlobalBounds().height - 50);
+        this->data->window.draw(livesText);
+
         this->data->window.display();
         this->data->window.clear();
     }
