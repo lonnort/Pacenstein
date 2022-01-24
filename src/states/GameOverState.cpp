@@ -21,45 +21,91 @@ namespace Pacenstein {
         std::sort(scores.begin(), scores.end(), [](auto& l, auto& r){ return l.second > r.second; });
     }
 
+    // void GameOverState::saveScore(){
+    //     auto tmp = this->data->assets.getCsvFile("Scores");
+    //     tmp.push_back(playerInput + "; " + std::to_string(this->data->score));
+    //     this->data->assets.loadCsvFile("Scores", (playerInput + "; " + std::to_string(this->data->score)));
+    // }
+
     void GameOverState::init() {
         sf::Font font = this->data->assets.getFont("Font");
 
         this->parseScores(this->data->assets.getCsvFile("Scores"));
 
-        this->data->score = 690;
+        this->data->score = 135;
+        this->position = -1;
         for (int i = 0; i < scores.size(); i++) {
             if(this->data->score > scores[i].second){
                 position = i;
                 break;
             }
         }
+        if(position == -1){
+            this->position = scores.size();
+        }
 
-        // std::cout << position << "\n";
+        std::cout << position << "\n";
 
-        if(position < 7){
+        if(position <= 7){
             for(int i = 0; i < position; i++){
                 positionString += std::to_string(i+1) + ".\n";
-                nameString += scores[i].first + "\n";
+                nameStringBefore += scores[i].first + "\n";
                 pointsString += std::to_string(scores[i].second) + "\n";
             }
             positionString += std::to_string(position+1) + ".\n";
-            nameString += "<enter name>\n";
             pointsString += std::to_string(this->data->score) + "\n";
-            if(scores.size() < 7){
+            if(scores.size() < 9){
                 for(int i = position; i < scores.size(); i++){
                     positionString += std::to_string(i+2) + ".\n";
-                    nameString += scores[i].first + "\n";
+                    nameStringAfter += scores[i].first + "\n";
                     pointsString += std::to_string(scores[i].second) + "\n";
                 }
             }else{
-                for(int i = position; i < 7; i++){
+                for(int i = position; i < 8; i++){
                     positionString += std::to_string(i+2) + ".\n";
-                    nameString += scores[i].first + "\n";
+                    nameStringAfter += scores[i].first + "\n";
                     pointsString += std::to_string(scores[i].second) + "\n";
                 }
             }
+            positionString += "...";
         }else{
+            for(int i = 0; i < 3; i++){
+                positionString += std::to_string(i+1) + ".\n";
+                nameStringBefore += scores[i].first + "\n";
+                pointsString += std::to_string(scores[i].second) + "\n";
+            }
+            positionString += "...\n";
+            nameStringBefore += "\n";
+            pointsString += "\n";
+            if(position <= scores.size()-3){
+                for(int i = position-2; i < position; i++){
+                    positionString += std::to_string(i+1) + ".\n";
+                    nameStringBefore += scores[i].first + "\n";
+                    pointsString += std::to_string(scores[i].second) + "\n";
+                }
+                positionString += std::to_string(position+1) + ".\n";
+                pointsString += std::to_string(this->data->score) + "\n";
+                for(int i = position; i < position+2; i++){
+                    positionString += std::to_string(i+2) + ".\n";
+                    nameStringAfter += scores[i].first + "\n";
+                    pointsString += std::to_string(scores[i].second) + "\n";
+                }
+                positionString += "...";
 
+            }else{
+                for(int i = position - (4 - (scores.size() - position)); i < position; i++){
+                    positionString += std::to_string(i+1) + ".\n";
+                    nameStringBefore += scores[i].first + "\n";
+                    pointsString += std::to_string(scores[i].second) + "\n";
+                }
+                positionString += std::to_string(position+1) + ".\n";
+                pointsString += std::to_string(this->data->score) + "\n";
+                for(int i = position; i < scores.size(); i++){
+                    positionString += std::to_string(i+2) + ".\n";
+                    nameStringAfter += scores[i].first + "\n";
+                    pointsString += std::to_string(scores[i].second) + "\n";
+                }
+            }
         }
 
         title.setTexture(this->data->assets.getTexture("Game Over Title"));
@@ -89,12 +135,32 @@ namespace Pacenstein {
             if (this->data->input.isSpriteClicked(this->backButton, sf::Mouse::Left, this->data->window))
                 this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(this->data)), true);
 
+            if (event.type == sf::Event::TextEntered) {
+                if (event.text.unicode < 128){
+                    if (playerInput.size() < maxChar and !nameDone and event.text.unicode != 8) {
+                        playerInput += event.text.unicode;
+                    }           
+                }
+            }
+
             if (sf::Event::KeyPressed == event.type) {
                 switch (event.key.code) {
                     case sf::Keyboard::Key::KEY_EXIT:
                         this->data->window.close();
                         break;
+                    
+                    case sf::Keyboard::Key::BackSpace:
+                        if (playerInput != "" and !nameDone) {
+                            playerInput.pop_back();
+                        }
+                        break;
+
+                    case sf::Keyboard::Key::Enter:
+                        nameDone = true;
+                        // saveScore();
+                        break;
                 }
+
             }
         }
     }
@@ -106,21 +172,28 @@ namespace Pacenstein {
     void GameOverState::draw(float dt) {
         this->data->window.clear();
 
-        sf::Text leaderboardTitleText("position\tname\t\t\t points", this->data->assets.getFont("Font"));
+        sf::Text leaderboardTitleText(" position   \tname\t\t  points", this->data->assets.getFont("Font"));
         leaderboardTitleText.setOrigin(leaderboardTitleText.getGlobalBounds().width / 2, leaderboardTitleText.getGlobalBounds().height / 2);
         leaderboardTitleText.setPosition((SCREEN_WIDTH / 2), 250);
 
         sf::Text leaderboardPositionText(this->positionString, this->data->assets.getFont("Font"));
-        leaderboardPositionText.setOrigin(leaderboardPositionText.getGlobalBounds().width / 2, leaderboardPositionText.getGlobalBounds().height / 2);
-        leaderboardPositionText.setPosition((SCREEN_WIDTH / 2) -160, 400);
+        // leaderboardPositionText.setOrigin(leaderboardPositionText.getGlobalBounds().width / 2, leaderboardPositionText.getGlobalBounds().height / 2);
+        leaderboardPositionText.setPosition((SCREEN_WIDTH / 2) -160, 300);
 
-        sf::Text leaderboardNameText(this->nameString, this->data->assets.getFont("Font"));
-        leaderboardNameText.setOrigin(leaderboardNameText.getGlobalBounds().width / 2, leaderboardNameText.getGlobalBounds().height / 2);
-        leaderboardNameText.setPosition((SCREEN_WIDTH / 2), 400);
+        std::string nameText = "";
+        if(playerInput == "") {
+            nameText = nameStringBefore + "<enter name>\n" + nameStringAfter;
+        } else {
+            nameText = nameStringBefore + playerInput + "\n" + nameStringAfter;
+        }
+
+        sf::Text leaderboardNameText(nameText, this->data->assets.getFont("Font"));
+        // leaderboardNameText.setOrigin(leaderboardNameText.getGlobalBounds().width / 2, leaderboardNameText.getGlobalBounds().height / 2);
+        leaderboardNameText.setPosition((SCREEN_WIDTH / 2) -30, 300);
 
         sf::Text leaderboardPointsText(this->pointsString, this->data->assets.getFont("Font"));
-        leaderboardPointsText.setOrigin(leaderboardPointsText.getGlobalBounds().width / 2, leaderboardPointsText.getGlobalBounds().height / 2);
-        leaderboardPointsText.setPosition((SCREEN_WIDTH / 2) +170, 400);
+        // leaderboardPointsText.setOrigin(leaderboardPointsText.getGlobalBounds().width / 2, leaderboardPointsText.getGlobalBounds().height / 2);
+        leaderboardPointsText.setPosition((SCREEN_WIDTH / 2) +160, 300);
 
         this->data->window.draw(leaderboardTitleText);
         this->data->window.draw(leaderboardPositionText);
