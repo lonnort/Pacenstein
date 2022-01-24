@@ -12,6 +12,7 @@
 #define SETTINGS_FILEPATH        "src/data/settings.conf"
 #define BUTTONS_FILEPATH         "res/ui/"
 #define PACENSTEIN_LOGO_FILEPATH "res/pacenstein.png"
+#define PELLET_FILEPATH          "res/sprites/items/pellets/"
 
 // Keyboard input keys
 #define KEY_UP        W
@@ -27,5 +28,5 @@
 #define KEY_EXIT      Delete
 
 // Map definitions
-#define MAP_WIDTH  19;
-#define MAP_HEIGHT 21;
+#define MAP_WIDTH  19
+#define MAP_HEIGHT 21

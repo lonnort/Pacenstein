@@ -16,6 +16,10 @@ namespace Pacenstein {
         this->data->assets.loadCsvFile("Scores", SCORE_FILEPATH);
         this->data->assets.loadFont("Font", FONT_FILEPATH);
 
+        // In Game state
+        this->data->assets.loadTexture("PacPellet",   (PELLET_FILEPATH "pac v2.png"));
+        this->data->assets.loadTexture("PowerPellet", (PELLET_FILEPATH "power v2.png"));
+
         // Game over state
         this->data->assets.loadTexture("Game Over Background", BACKGROUND_FILEPATH);
         this->data->assets.loadTexture("Game Over Title",      (BUTTONS_FILEPATH "game_over.png"));
