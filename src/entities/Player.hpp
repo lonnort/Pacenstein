@@ -30,8 +30,19 @@ namespace Pacenstein {
 
         void moveLeft();
         void moveRight();
-        void moveUp();
-        void moveDown();
+        void moveUp(const int worldMap[][19]);
+        void moveDown(const int worldMap[][19]);
+
+        double getPosX();
+        double getPosY();
+        double getDirX();
+        double getDirY();
+        double getPlaneX();
+        double getPlaneY();
+
+        void setMoveSpeed(const double newMoveSpeed);
+        void setRotSpeed(const double newRotSpeed);
+
 
         /**
          * Adds the points of a fruit/pellet/ghost to the score
@@ -64,8 +75,19 @@ namespace Pacenstein {
         
 
     private:
-    	sf::Vector2f plane;
     	unsigned int lives = 3;
     	unsigned int score = 0;
+
+        double posX = 2;
+        double posY = 2;
+
+        double dirX = -1;
+        double dirY = 0;
+
+        double planeX = 0;
+        double planeY = 0.66;
+
+        double moveSpeed = 0;
+        double rotSpeed = 0;
     };
 }
