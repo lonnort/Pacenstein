@@ -4,6 +4,7 @@
 *backup/
 
 dox/
+.vscode/
 
 # hwlib
 *_flags

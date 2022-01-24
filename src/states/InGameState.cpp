@@ -7,7 +7,7 @@
 
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data) : data(data) {}
@@ -15,13 +15,6 @@ namespace Pacenstein {
     void InGameState::init() {
         this->w = SCREEN_WIDTH;
         this->h = SCREEN_HEIGHT;
-
-        this->posX = 2;
-        this->posY = 2;
-        this->dirX = -1;
-        this->dirY = 0;
-        this->planeX = 0;
-        this->planeY = 0.66;
     }
 
     void InGameState::handleInput() {
@@ -93,28 +86,16 @@ namespace Pacenstein {
 
 
         if (direction == "left") {
-            double oldDirX = this->dirX;
-            this->dirX = this->dirX * cos(this->rotSpeed) - this->dirY * sin(this->rotSpeed);
-            this->dirY = oldDirX * sin(this->rotSpeed) + this->dirY * cos(this->rotSpeed);
-            double oldPlaneX = this->planeX;
-            this->planeX = this->planeX * cos(this->rotSpeed) - this->planeY * sin(this->rotSpeed);
-            this->planeY = oldPlaneX * sin(this->rotSpeed) + this->planeY * cos(this->rotSpeed);
+            player.moveLeft();
         }
         else if (direction == "right") {
-            double oldDirX = dirX;
-            this->dirX = this->dirX * cos(-this->rotSpeed) - this->dirY * sin(-this->rotSpeed);
-            this->dirY = oldDirX * sin(-this->rotSpeed) + this->dirY * cos(-this->rotSpeed);
-            double oldPlaneX = planeX;
-            this->planeX = this->planeX * cos(-this->rotSpeed) - this->planeY * sin(-this->rotSpeed);
-            this->planeY = oldPlaneX * sin(-this->rotSpeed) + this->planeY * cos(-this->rotSpeed);
+            player.moveRight();
         }
         else if (direction == "up") {
-            if(worldMap[int(posX + this->dirX * this->moveSpeed)][int(posY)] == false) posX += this->dirX * this->moveSpeed;
-            if(worldMap[int(posX)][int(posY + this->dirY * this->moveSpeed)] == false) posY += this->dirY * this->moveSpeed;
+            player.moveUp(worldMap);
         }
         else if (direction == "down") {
-            if(worldMap[int(posX - this->dirX * this->moveSpeed)][int(posY)] == false) posX -= this->dirX * this->moveSpeed;
-            if(worldMap[int(posX)][int(posY - this->dirY * this->moveSpeed)] == false) posY -= this->dirY * this->moveSpeed;
+            player.moveDown(worldMap);
         }
     }
 
@@ -148,10 +129,10 @@ namespace Pacenstein {
         for(int x = 0; x < w; x++) {
             //calculate ray position and direction
             double cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
-            double rayPosX = this->posX;
-            double rayPosY = this-> posY;
-            double rayDirX = this->dirX + this->planeX * cameraX;
-            double rayDirY = this->dirY + this->planeY * cameraX;
+            double rayPosX = player.getPosX();
+            double rayPosY = player.getPosY();
+            double rayDirX = player.getDirX() + player.getPlaneX() * cameraX;
+            double rayDirY = player.getDirY() + player.getPlaneY() * cameraX;
 
             //which box of the map we're in
             int mapX = int(rayPosX);
@@ -162,8 +143,8 @@ namespace Pacenstein {
             double sideDistY;
 
             //length of ray from one x or y-side to next x or y-side
-            double deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
-            double deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
+            double deltaDistX = std::sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
+            double deltaDistY = std::sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
             double perpWallDist;
 
             //what direction to step in x or y-direction (either +1 or -1)
@@ -210,11 +191,11 @@ namespace Pacenstein {
             }
 
             //Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
-            if (side == 0) perpWallDist = fabs((mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
-            else           perpWallDist = fabs((mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
+            if (side == 0) perpWallDist = std::fabs((mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
+            else           perpWallDist = std::fabs((mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
 
             //Calculate height of line to draw on screen
-            int lineHeight = abs(int(h / perpWallDist));
+            int lineHeight = std::abs(int(h / perpWallDist));
 
             //calculate lowest and highest pixel to fill in current stripe
             int drawStart = -lineHeight / 2 + h / 2;
@@ -247,8 +228,8 @@ namespace Pacenstein {
         float fpsValue = 1e6/fps.asMicroseconds();
         this->clock.restart();
 
-        this->moveSpeed = fps.asSeconds() * 150.0; //the constant value is in squares/second
-        this->rotSpeed  = fps.asSeconds() * 60.0;  //the constant value is in radians/second
+        player.setMoveSpeed(fps.asSeconds() * 150.0); //the constant value is in squares/second
+        player.setRotSpeed(fps.asSeconds() * 60.0);  //the constant value is in radians/second
 
         this->data->window.display();
         this->data->window.clear();

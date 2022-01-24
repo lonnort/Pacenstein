@@ -4,6 +4,7 @@
 #include <SFML/Graphics/Vertex.hpp>
 #include "State.hpp"
 #include "Game.hpp"
+#include "Player.hpp"
 
 #include "Definitions.hpp"
 
@@ -65,12 +66,16 @@ namespace Pacenstein {
         sf::Sprite background;
 
         int w, h;
-        double posX, posY;
-        double dirX, dirY;
-        double planeX, planeY;
-        double moveSpeed;
-        double rotSpeed;
+
+        // double posX, posY;
+        // double dirX, dirY;
+        // double planeX, planeY;
+        // double moveSpeed;
+        // double rotSpeed;
+
         sf::Clock clock;
         sf::Time fps;
+
+        Player player;
     };
 }
