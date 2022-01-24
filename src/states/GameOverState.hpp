@@ -54,6 +54,8 @@ namespace Pacenstein {
 
         void parseScores(std::vector<std::string> file_content);
 
+		// void saveScore();
+
     private:
         game_data_ref_t data;
 
@@ -70,8 +72,13 @@ namespace Pacenstein {
 
         std::vector<std::pair<std::string, int>> scores;
         std::string positionString = "";
-        std::string nameString = "";
+        std::string nameStringBefore = "";
+		std::string playerInput = "";
+		std::string nameStringAfter = "";
         std::string pointsString = "";
+
+		const int maxChar = 12;
+		bool nameDone = false;
         int position = 0;
     };
 }

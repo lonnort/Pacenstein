@@ -15,13 +15,6 @@ namespace Pacenstein {
     void InGameState::init() {
         this->w = SCREEN_WIDTH;
         this->h = SCREEN_HEIGHT;
-
-        // this->posX = 2;
-        // this->posY = 2;
-        // this->dirX = -1;
-        // this->dirY = 0;
-        // this->planeX = 0;
-        // this->planeY = 0.66;
     }
 
     void InGameState::handleInput() {
@@ -94,31 +87,15 @@ namespace Pacenstein {
 
         if (direction == "left") {
             player.moveLeft();
-            // double oldDirX = this->dirX;
-            // this->dirX = this->dirX * cos(this->rotSpeed) - this->dirY * sin(this->rotSpeed);
-            // this->dirY = oldDirX * sin(this->rotSpeed) + this->dirY * cos(this->rotSpeed);
-            // double oldPlaneX = this->planeX;
-            // this->planeX = this->planeX * cos(this->rotSpeed) - this->planeY * sin(this->rotSpeed);
-            // this->planeY = oldPlaneX * sin(this->rotSpeed) + this->planeY * cos(this->rotSpeed);
         }
         else if (direction == "right") {
             player.moveRight();
-            // double oldDirX = dirX;
-            // this->dirX = this->dirX * cos(-this->rotSpeed) - this->dirY * sin(-this->rotSpeed);
-            // this->dirY = oldDirX * sin(-this->rotSpeed) + this->dirY * cos(-this->rotSpeed);
-            // double oldPlaneX = planeX;
-            // this->planeX = this->planeX * cos(-this->rotSpeed) - this->planeY * sin(-this->rotSpeed);
-            // this->planeY = oldPlaneX * sin(-this->rotSpeed) + this->planeY * cos(-this->rotSpeed);
         }
         else if (direction == "up") {
             player.moveUp(worldMap);
-            // if(worldMap[int(posX + this->dirX * this->moveSpeed)][int(posY)] == false) posX += this->dirX * this->moveSpeed;
-            // if(worldMap[int(posX)][int(posY + this->dirY * this->moveSpeed)] == false) posY += this->dirY * this->moveSpeed;
         }
         else if (direction == "down") {
             player.moveDown(worldMap);
-            // if(worldMap[int(posX - this->dirX * this->moveSpeed)][int(posY)] == false) posX -= this->dirX * this->moveSpeed;
-            // if(worldMap[int(posX)][int(posY - this->dirY * this->moveSpeed)] == false) posY -= this->dirY * this->moveSpeed;
         }
     }
 
@@ -253,6 +230,13 @@ namespace Pacenstein {
 
         player.setMoveSpeed(fps.asSeconds() * 150.0); //the constant value is in squares/second
         player.setRotSpeed(fps.asSeconds() * 60.0);  //the constant value is in radians/second
+
+        sf::Text scoreText("Score: "  + std::to_string(player.getScore()), this->data->assets.getFont("Font"));
+        this->data->window.draw(scoreText);
+
+        sf::Text livesText("Lives: "  + std::to_string(player.getLives()), this->data->assets.getFont("Font"));
+        livesText.setPosition(0, SCREEN_HEIGHT - livesText.getGlobalBounds().height - 50);
+        this->data->window.draw(livesText);
 
         this->data->window.display();
         this->data->window.clear();
