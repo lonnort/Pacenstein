@@ -2,17 +2,12 @@
 #include <cmath>
 
 namespace Pacenstein {
-    Player::Player(){
-        //call entity constructor
-    }
-
-    unsigned int Player::getLives(){
-        return this->lives;
-    }
-    
-    unsigned int Player::getScore(){
-        return this->score;
-    }
+    Player::Player():
+        Entity(2,2,-1,0,0),
+        lives(3), score(0),
+        planeX(0), planeY(.66),
+        rotSpeed(0)
+    {}
 
     void Player::moveLeft(){
         double oldDirX = this->dirX;
@@ -42,51 +37,25 @@ namespace Pacenstein {
         if(worldMap[int(posX)][int(posY - this->dirY * this->moveSpeed)] == false) posY -= this->dirY * this->moveSpeed;
     }
 
-    double Player::getPosX(){
-        return this->posX;
-    }
+    sf::Vector2f Player::getPos()   { return sf::Vector2f(this->posX, this->posY); }
+    sf::Vector2f Player::getDir()   { return sf::Vector2f(this->dirX, this->dirY); }
+    sf::Vector2f Player::getPlane() { return sf::Vector2f(this->planeX, this->planeY); }
 
-    double Player::getPosY(){
-        return this->posY;
-    }
+    double Player::getPosX() { return this->posX; }
+    double Player::getPosY() { return this->posY; }
+    double Player::getDirX() { return this->dirX; }
+    double Player::getDirY() { return this->dirY; }
+    double Player::getPlaneX() { return this->planeX; }
+    double Player::getPlaneY() { return this->planeY; }
 
-    double Player::getDirX(){
-        return this->dirX;
-    }
+    void Player::setMoveSpeed(const double newMoveSpeed) { this->moveSpeed = newMoveSpeed; }
+    void Player::setRotSpeed (const double newRotSpeed)  { this->rotSpeed  = newRotSpeed; }
 
-    double Player::getDirY(){
-        return this->dirY;
-    }
+    void Player::addToScore(const unsigned int points) { this->score += points; }
+    void Player::resetScore() { this->score = 0; }
+    unsigned int Player::getScore() { return this->score; }
 
-    double Player::getPlaneX(){
-        return this->planeX;
-    }
-
-    double Player::getPlaneY(){
-        return this->planeY;
-    }
-
-    void Player::setMoveSpeed(const double newMoveSpeed){
-        this->moveSpeed = newMoveSpeed;
-    }
-
-    void Player::setRotSpeed(const double newRotSpeed){
-        this->rotSpeed = newRotSpeed;
-    }
-
-    void Player::addToScore(const unsigned int points){
-        this->score += points;
-    }
-
-    void Player::removeLive(){
-        this->lives--;
-    }
-
-    void Player::resetLives(){
-        this->lives = 3;
-    }
-
-    void Player::resetScore(){
-        this->score = 0;
-    }
+    void Player::removeLive() { this->lives--; }
+    void Player::resetLives() { this->lives = 3; }
+    unsigned int Player::getLives() { return this->lives; }
 }

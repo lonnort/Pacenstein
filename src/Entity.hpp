@@ -10,10 +10,18 @@ namespace Pacenstein {
      */
     class Entity {
     public:
+        Entity(double px, double py, double sx, double sy, double dx = 0, double dy = 0, double ms = 0);
+        Entity(sf::Vector2f pos, sf::Vector2f size, sf::Vector2f dir = {0, 0}, double ms = 0);
+        Entity();
 
-    private:
-    	sf::Vector2f position;
-    	sf::Vector2f direction;
-    	float move_speed;
+        sf::FloatRect getGlobalBounds();
+
+    protected:
+        sf::RectangleShape bounding_box;
+
+        double posX, posY;
+        double dirX, dirY;
+        double sizeX, sizeY;
+    	double moveSpeed;
     };
 }

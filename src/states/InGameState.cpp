@@ -31,22 +31,22 @@ namespace Pacenstein {
             if (sf::Event::KeyPressed == event.type) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
                 ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)) {
-                    move("up");
+                    this->move("up");
                 }
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
                 ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_DOWN)) {
-                    move("down");
+                    this->move("down");
                 }
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_RIGHT)
                 ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_RIGHT)) {
-                    move("right");
+                    this->move("right");
                 }
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_LEFT)
                 ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_LEFT)) {
-                    move("left");
+                    this->move("left");
                 }
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_PAUSE)
@@ -61,7 +61,20 @@ namespace Pacenstein {
         }
     }
 
-    void InGameState::update(float dt) {}
+    void InGameState::update(float dt) {
+        /*
+        pseudo code voor punten optellen enzo
+
+        if (intersects(player, item)) {           // misschien iets met global bounds doen en de intersect functie van sfml
+            player.addToScore(item.getPoints());  // deze kan letterlijk gecopieerd worden
+            item.removeFromMap();                 // nodig omdat anders het item achter blijft
+
+            player.powerUp(item.isPowerPellet()); // aka ga naar scatter state
+            // ↑ of ↓, een van beide regels gebruiken. denk dat de onderste de betere optie is
+            item.powerUp();                       // dit zou dan een virtuele functie zijn die alleen door powerpellet geimplementeerd wordt
+        }
+        */
+    }
 
     void InGameState::move(std::string direction) {
         const int worldMap[21][19] {
@@ -88,25 +101,16 @@ namespace Pacenstein {
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
         };
 
-
-        if (direction == "left") {
-            player.moveLeft();
-        }
-        if (direction == "right") {
-            player.moveRight();
-        }
-        if (direction == "up") {
-            player.moveUp(worldMap);
-        }
-        if (direction == "down") {
-            player.moveDown(worldMap);
-        }
+        if (direction == "left")  player.moveLeft();
+        if (direction == "right") player.moveRight();
+        if (direction == "up")    player.moveUp(worldMap);
+        if (direction == "down")  player.moveDown(worldMap);
     }
 
     void InGameState::draw(float dt) {
         this->data->window.clear();
 
-        int worldMap[21][19] {
+        const int worldMap[21][19] {
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
             {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
@@ -131,32 +135,32 @@ namespace Pacenstein {
         };
 
         for(int x = 0; x < w; x++) {
-            //calculate ray position and direction
-            double cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
+            // calculate ray position and direction
+            double cameraX = 2 * x / double(w) - 1; // x-coordinate in camera space
             double rayPosX = player.getPosX();
             double rayPosY = player.getPosY();
             double rayDirX = player.getDirX() + player.getPlaneX() * cameraX;
             double rayDirY = player.getDirY() + player.getPlaneY() * cameraX;
 
-            //which box of the map we're in
+            // which box of the map we're in
             int mapX = int(rayPosX);
             int mapY = int(rayPosY);
 
-            //length of ray from current position to next x or y-side
+            // length of ray from current position to next x or y-side
             double sideDistX;
             double sideDistY;
 
-            //length of ray from one x or y-side to next x or y-side
+            // length of ray from one x or y-side to next x or y-side
             double deltaDistX = std::sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
             double deltaDistY = std::sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
             double perpWallDist;
 
-            //what direction to step in x or y-direction (either +1 or -1)
+            // what direction to step in x or y-direction (either +1 or -1)
             int stepX;
             int stepY;
 
-            int hit = 0; //was there a wall hit?
-            int side; //was a NS or a EW wall hit?
+            int hit = 0; // was there a wall hit?
+            int side;    // was a NS or a EW wall hit?
 
             //calculate step and initial sideDist
             if (rayDirX < 0) {
@@ -177,9 +181,9 @@ namespace Pacenstein {
                 sideDistY = (mapY + 1.0 - rayPosY) * deltaDistY;
             }
 
-            //perform DDA
+            // perform DDA
             while (hit == 0) {
-                //jump to next map square, OR in x-direction, OR in y-direction
+                // jump to next map square, OR in x-direction, OR in y-direction
                 if (sideDistX < sideDistY) {
                     sideDistX += deltaDistX;
                     mapX += stepX;
@@ -190,11 +194,11 @@ namespace Pacenstein {
                     mapY += stepY;
                     side = 1;
                 }
-                //Check if ray has hit a wall
+                // Check if ray has hit a wall
                 if (worldMap[mapX][mapY] > 0) hit = 1;
             }
 
-            //Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
+            // Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
             if (side == 0) perpWallDist = std::fabs((mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
             else           perpWallDist = std::fabs((mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
 
@@ -233,7 +237,7 @@ namespace Pacenstein {
         this->clock.restart();
 
         player.setMoveSpeed(fps.asSeconds() * 150.0); //the constant value is in squares/second
-        player.setRotSpeed(fps.asSeconds() * 60.0);  //the constant value is in radians/second
+        player.setRotSpeed(fps.asSeconds() * 150.0);  //the constant value is in radians/second
 
         sf::Text scoreText("Score: "  + std::to_string(player.getScore()), this->data->assets.getFont("Font"));
         this->data->window.draw(scoreText);
