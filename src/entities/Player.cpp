@@ -37,8 +37,12 @@ namespace Pacenstein {
         if(worldMap[int(position.x)][int(position.y - this->direction.y * this->moveSpeed)] == false) position.y -= this->direction.y * this->moveSpeed;
     }
 
-    sf::Vector2f Player::getPos()   { return sf::Vector2f(this->position.x, this->position.y); }
-    sf::Vector2f Player::getDir()   { return sf::Vector2f(this->direction.x, this->direction.y); }
+    bool Player::collide(Entity other){
+        sf::FloatRect playerRect(this->position.x, this->position.y, 2 * this->boundsSize, 2 * this->boundsSize);
+        sf::FloatRect otherRect(other.getPos().x, other.getPos().y, 2 * other.getBoundsSize(), 2 * other.getBoundsSize());
+        return playerRect.intersects(otherRect);
+    }
+
     sf::Vector2f Player::getPlane() { return sf::Vector2f(this->plane.x, this->plane.y); }
 
     double Player::getPosX() { return this->position.x; }
