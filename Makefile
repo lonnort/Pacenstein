@@ -63,7 +63,7 @@ rerun: clean run
 rebuild: clean build
 
 run: build
-	@./$(PROJECT_NAME).exe
+	@./$(PROJECT_NAME)$(EXT)
 
 doxy:
 	@doxygen
