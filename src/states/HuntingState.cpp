@@ -45,11 +45,20 @@ namespace Pacenstein {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_EXIT)) {
                     this->data->window.close();
                 }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Home)) {
+                    // for testing purposes only
+                    if (huntingState) {
+                        this->data->machine.addState(state_ref_t(std::make_unique<ScatterState>(this->data)), false);
+                    }
+                }
             }
         }
     }
 
-    void HuntingState::update(float dt) {}
+    void HuntingState::update(float dt) {
+        this->data->score++;
+    }
 
     // void HuntingState::draw(float dt) {
     //     this->data->window.clear();

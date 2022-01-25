@@ -33,9 +33,9 @@ namespace Pacenstein {
 
         this->parseScores(this->data->assets.getCsvFile("Scores"));
 
-        if(this->data->score == 0){
-            this->data->score = 629;
-        }
+        // if(this->data->score == 0){
+        //     this->data->score = 629;
+        // }
         
         this->position = -1;
         for (int i = 0; i < scores.size(); i++) {

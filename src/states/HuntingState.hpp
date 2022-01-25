@@ -53,6 +53,8 @@ namespace Pacenstein {
     private:
         game_data_ref_t data;
 
+        const bool huntingState = true;
+
         // sf::Sprite background;
     };
 }
