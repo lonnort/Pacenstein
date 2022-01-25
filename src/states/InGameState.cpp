@@ -23,35 +23,36 @@ namespace Pacenstein {
         while (this->data->window.pollEvent(event)) {
             this->data->window.setMouseCursorVisible(false);
 
-        if (sf::Event::Closed == event.type) this->data->window.close();
+            if (sf::Event::Closed == event.type) this->data->window.close();
 
-        if (sf::Event::KeyPressed == event.type) {
-            switch (event.key.code) {
-                case sf::Keyboard::Key::KEY_EXIT:
-                    this->data->window.close();
-                    break;
-
-                case sf::Keyboard::Key::KEY_PAUSE:
-                case sf::Keyboard::Key::KEY_ALT_PAUSE:
-                    this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
-                    break;
-
-                case sf::Keyboard::Key::KEY_UP:
-                case sf::Keyboard::Key::KEY_ALT_UP:
+            if (sf::Event::KeyPressed == event.type) {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)) {
                     move("up");
-                    break;
-                case sf::Keyboard::Key::KEY_DOWN:
-                case sf::Keyboard::Key::KEY_ALT_DOWN:
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_DOWN)) {
                     move("down");
-                    break;
-                case sf::Keyboard::Key::KEY_LEFT:
-                case sf::Keyboard::Key::KEY_ALT_LEFT:
-                    move("left");
-                    break;
-                case sf::Keyboard::Key::KEY_RIGHT:
-                case sf::Keyboard::Key::KEY_ALT_RIGHT:
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_RIGHT)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_RIGHT)) {
                     move("right");
-                    break;
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_LEFT)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_LEFT)) {
+                    move("left");
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_PAUSE)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_PAUSE)) {
+                    this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_EXIT)) {
+                    this->data->window.close();
                 }
             }
         }
@@ -60,7 +61,7 @@ namespace Pacenstein {
     void InGameState::update(float dt) {}
 
     void InGameState::move(std::string direction) {
-        int worldMap[21][19] {
+        const int worldMap[21][19] {
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
             {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
@@ -88,13 +89,13 @@ namespace Pacenstein {
         if (direction == "left") {
             player.moveLeft();
         }
-        else if (direction == "right") {
+        if (direction == "right") {
             player.moveRight();
         }
-        else if (direction == "up") {
+        if (direction == "up") {
             player.moveUp(worldMap);
         }
-        else if (direction == "down") {
+        if (direction == "down") {
             player.moveDown(worldMap);
         }
     }
