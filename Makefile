@@ -5,14 +5,17 @@ ifeq ($(OS), Windows_NT)
 	CFLAGS := -I"$(SFML_DIR)/include" -DSFML_STATIC
 	LFLAGS := -L"$(SFML_DIR)/lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lfreetype -lopengl32 -lwinmm -lgdi32
 	MKDIR := mkdir -p
+	ICON := obj/resources.o
+	EXT := .exe
 else
 	CFLAGS :=
 	LFLAGS := -lsfml-system -lsfml-window -lsfml-graphics
 	MKDIR := mkdir -p
+	EXT :=
 endif
 
 PROJECT_NAME  := pacenstein
-TARGET        := $(PROJECT_NAME).exe
+TARGET        := $(PROJECT_NAME)$(EXT)
 
 BUILD_DIR  := obj
 SOURCE_DIR := src
@@ -43,13 +46,13 @@ endef
 
 $(foreach targetdir, $(TARGET_DIRS), $(eval $(call generateRules, $(targetdir))))
 
-$(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(TARGET) $(LFLAGS)
+$(ICON): res/resources.rc
+	@windres $< -o $@
 
-$(DATA_DIR)/scores.csv $(DATA_DIR)/settings.conf:
-	@touch $@
+$(TARGET): $(OBJECTS) $(ICON)
+	$(CC) $(OBJECTS) $(BUILD_DIR)/resources.o -o $(TARGET) $(LFLAGS)
 
-build: $(DATA_DIR)/scores.csv $(DATA_DIR)/settings.conf $(TARGET)
+build: $(TARGET)
 
 clean:
 	@echo "Cleaning"
