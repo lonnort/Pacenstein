@@ -1,15 +1,15 @@
 #include "Entity.hpp"
 
 namespace Pacenstein {
-    Entity::Entity(float px, float py, float sx, float sy, float dx, float dy, float ms):
-        Entity({px, py}, {sx, sy}, {dx, dy}, ms)
+    Entity::Entity(float px, float py, float dx, float dy, float sx, float sy, float ms):
+        Entity({px, py}, {dx, dy}, {sx, sy}, ms)
     {}
 
-    Entity::Entity(sf::Vector2f pos, sf::Vector2f size, sf::Vector2f dir, float ms):
+    Entity::Entity(sf::Vector2f pos, sf::Vector2f dir, sf::Vector2f size, float ms):
         bounding_box(size),
         position(pos),
-        size(size),
         direction(dir),
+        size(size),
         moveSpeed(ms)
     {
         bounding_box.setPosition(pos);

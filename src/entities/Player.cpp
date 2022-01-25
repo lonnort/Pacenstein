@@ -3,9 +3,9 @@
 
 namespace Pacenstein {
     Player::Player():
-        Entity(2,2,0,0-1,0,0),
+        Entity(2,2,-1,0,0,0),
         lives(3), score(0),
-        plane(sf::Vector2f(0.0f, 0.66f)),
+        plane({0.0, 0.66}),
         rotSpeed(0)
     {}
 

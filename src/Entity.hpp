@@ -11,8 +11,8 @@ namespace Pacenstein {
      */
     class Entity {
     public:
-        Entity(float px, float py, float sx, float sy, float dx = 0, float dy = 0, float ms = 0);
-        Entity(sf::Vector2f pos, sf::Vector2f size, sf::Vector2f dir = {0, 0}, float ms = 0);
+        Entity(float px, float py, float dx, float dy, float sx, float sy, float ms = 0);
+        Entity(sf::Vector2f pos, sf::Vector2f dir, sf::Vector2f size, float ms = 0);
         Entity();
 
         sf::FloatRect getGlobalBounds();
@@ -20,9 +20,7 @@ namespace Pacenstein {
     protected:
         sf::RectangleShape bounding_box;
 
-    	sf::Vector2f position;
-        sf::Vector2f size;
-    	sf::Vector2f direction;
+    	sf::Vector2f position, direction, size;
     	float moveSpeed;
     };
 }

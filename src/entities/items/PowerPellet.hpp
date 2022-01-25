@@ -10,5 +10,8 @@ namespace Pacenstein {
      * pellet. The Player will also get the ability to eat Ghosts for a short duration, each Ghost
      * eaten will also grant bonus points.
      */
-    class PowerPellet : public Item {};
+    class PowerPellet : public Item {
+        PowerPellet(double x, double y);
+        PowerPellet(sf::Vector2f xy);
+    };
 }

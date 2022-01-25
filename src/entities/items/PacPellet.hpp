@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include "Item.hpp"
 
 namespace Pacenstein {
@@ -9,5 +10,8 @@ namespace Pacenstein {
      * Each pellet awards 10 points and does nothing special. Collect all pellets to end the game,
      * or progress to the next stage.
      */
-    class PacPellet : public Item {};
+    class PacPellet : public Item {
+        PacPellet(double x, double y);
+        PacPellet(sf::Vector2f xy);
+    };
 }

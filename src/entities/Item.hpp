@@ -7,7 +7,13 @@ namespace Pacenstein {
      * Items are entities that award points.
      */
     class Item : public Entity {
-    private:
-        unsigned int points = 0;
+    public:
+        Item(const float x, const float y, unsigned int p = 0);
+        Item(const sf::Vector2f xy, unsigned int p = 0);
+
+        unsigned int getPoints();
+
+    protected:
+        const unsigned int points;
     };
 }
