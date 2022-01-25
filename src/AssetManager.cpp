@@ -1,6 +1,7 @@
 #include "AssetManager.hpp"
 
 #include <fstream>
+#include <iostream>
 
 namespace Pacenstein {
     void AssetManager::loadTexture(std::string name, std::string file) {
@@ -39,4 +40,19 @@ namespace Pacenstein {
     sf::Vertex&  AssetManager::getVertex  (std::string name) { return this->vertexes.at(name); }
     std::vector<std::string>& AssetManager::getCsvFile (std::string name) { return this->csv_files.at(name); }
     std::vector<std::string>& AssetManager::getConfFile (std::string name) { return this->conf_files.at(name); }
+
+    void AssetManager::saveCsvFile(std::string name, std::string fileName, std::vector<std::string> newContent) {
+        std::ofstream file;
+        file.open(fileName);
+        if(file.is_open()){
+            for(auto line : newContent){
+                file << line;
+                file << "\n";
+            }
+            file.close();
+        }else{
+            std::cout << "error with opening file!\n";
+        }
+        this->loadCsvFile(name, fileName);
+    }
 }

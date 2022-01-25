@@ -15,6 +15,9 @@ namespace Pacenstein {
     void InGameState::init() {
         this->w = SCREEN_WIDTH;
         this->h = SCREEN_HEIGHT;
+
+        player.resetLives();
+        player.resetScore();
     }
 
     void InGameState::handleInput() {
@@ -235,9 +238,17 @@ namespace Pacenstein {
         sf::Text scoreText("Score: "  + std::to_string(player.getScore()), this->data->assets.getFont("Font"));
         this->data->window.draw(scoreText);
 
-        sf::Text livesText("Lives: "  + std::to_string(player.getLives()), this->data->assets.getFont("Font"));
-        livesText.setPosition(0, SCREEN_HEIGHT - livesText.getGlobalBounds().height - 50);
+        sf::Text livesText("Lives: ", this->data->assets.getFont("Font"));
+        livesText.setPosition(0, SCREEN_HEIGHT - livesText.getGlobalBounds().height - 20);
         this->data->window.draw(livesText);
+
+        for(unsigned int i = 0; i < player.getLives(); i++){
+            sf::Sprite heart;
+            heart.setTexture(this->data->assets.getTexture("Heart"));
+            heart.scale(0.01, 0.01);
+            heart.setPosition(livesText.getGlobalBounds().width + ((10 + heart.getGlobalBounds().width) * i ), SCREEN_HEIGHT - heart.getGlobalBounds().height);
+            this->data->window.draw(heart);
+        }
 
         this->data->window.display();
         this->data->window.clear();

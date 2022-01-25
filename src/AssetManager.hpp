@@ -101,6 +101,8 @@ namespace Pacenstein {
          */
         std::vector<std::string>& getConfFile(std::string name);
 
+        void saveCsvFile(std::string name, std::string fileName, std::vector<std::string> newContent);
+
     private:
         std::map<std::string, sf::Texture> textures;
         std::map<std::string, sf::Font>    fonts;

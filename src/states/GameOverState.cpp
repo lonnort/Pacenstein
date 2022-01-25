@@ -21,11 +21,11 @@ namespace Pacenstein {
         std::sort(scores.begin(), scores.end(), [](auto& l, auto& r){ return l.second > r.second; });
     }
 
-    // void GameOverState::saveScore(){
-    //     auto tmp = this->data->assets.getCsvFile("Scores");
-    //     tmp.push_back(playerInput + "; " + std::to_string(this->data->score));
-    //     this->data->assets.loadCsvFile("Scores", (playerInput + "; " + std::to_string(this->data->score)));
-    // }
+    void GameOverState::saveScore(){
+        std::vector<std::string> content = this->data->assets.getCsvFile("Scores");
+        content.push_back(playerInput + "; " + std::to_string(this->data->score));
+        this->data->assets.saveCsvFile("Scores", SCORE_FILEPATH, content);
+    }
 
     void GameOverState::init() {
         sf::Font font = this->data->assets.getFont("Font");
@@ -156,11 +156,12 @@ namespace Pacenstein {
                         break;
 
                     case sf::Keyboard::Key::Enter:
-                        nameDone = true;
-                        // saveScore();
+                        if(!nameDone){
+                            nameDone = true;
+                            saveScore();
+                        }
                         break;
                 }
-
             }
         }
     }
