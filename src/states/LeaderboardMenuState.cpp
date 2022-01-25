@@ -19,17 +19,35 @@ namespace Pacenstein {
             this->scores.push_back({player_name, points});
         }
         std::sort(scores.begin(), scores.end(), [](auto& l, auto& r){ return l.second > r.second; });
+        // std::cout << "WE GOT THE FILEEEEEEEEEEEEEEEEE\n";
+        for(int i = 0; i < scores.size(); i++){
+            std::vector<std::string> tmp;
+            tmp.push_back(std::to_string(i+1) + ".\n");
+            tmp.push_back(scores[i].first + "\n");
+            tmp.push_back(std::to_string(scores[i].second) + "\n");
+            leaderboard.push_back(tmp);
+        }
+        // std::cout << "WE GOT THE LEADERBOARD BOYSSSSSS\n";
     }
 
     void LeaderboardMenuState::init() {
         sf::Font font = this->data->assets.getFont("Font");
 
         this->parseScores(this->data->assets.getCsvFile("Scores"));
-
-        for (auto& item : this->scores) {
-            super_long_string += item.first + " " + std::to_string(item.second);
-            if (item != *(this->scores.end()-1)) super_long_string += '\n';
+        if(this->end > this->leaderboard.size()){
+            for(int i = 0; i < leaderboard.size(); i++){
+                positionString  += leaderboard[i][0];
+                nameString      += leaderboard[i][1];
+                pointsString    += leaderboard[i][2];
+            }
+        }else{
+            for(int i = 0; i < end; i++){
+                positionString  += leaderboard[i][0];
+                nameString      += leaderboard[i][1];
+                pointsString    += leaderboard[i][2];
+            }
         }
+        // std::cout << "WE GOT THE STRINGS BOYSSSSSSS!\n";
 
         title.setTexture(this->data->assets.getTexture("Leaderboard Text"));
         backButton.setTexture(this->data->assets.getTexture("Back Button"));
@@ -61,6 +79,8 @@ namespace Pacenstein {
                     case sf::Keyboard::Key::KEY_EXIT:
                         this->data->window.close();
                         break;
+
+                    case sf::Mouse::Wheel::VerticalWheel
                 }
             }
         }
@@ -72,16 +92,25 @@ namespace Pacenstein {
 
     void LeaderboardMenuState::draw(float dt) {
         this->data->window.clear();
-        this->background.setScale(20, 20);
+
+        sf::Text leaderboardTitleText(" position   \tname\t\t  points", this->data->assets.getFont("Font"));
+        sf::Text leaderboardNameText(this->nameString, this->data->assets.getFont("Font"));
+        sf::Text leaderboardPointsText(this->pointsString, this->data->assets.getFont("Font"));
+        sf::Text leaderboardPositionText(this->positionString, this->data->assets.getFont("Font"));
+        leaderboardTitleText.setOrigin(leaderboardTitleText.getGlobalBounds().width / 2, leaderboardTitleText.getGlobalBounds().height / 2);
+        leaderboardTitleText.setPosition((SCREEN_WIDTH / 2), 150);
+        leaderboardNameText.setPosition((SCREEN_WIDTH / 2) -30, 200);
+        leaderboardPointsText.setPosition((SCREEN_WIDTH / 2) +160, 200);
+        leaderboardPositionText.setPosition((SCREEN_WIDTH / 2) -160, 200);
+
+        this->data->window.draw(leaderboardTitleText);
+        this->data->window.draw(leaderboardPositionText);
+        this->data->window.draw(leaderboardNameText);
+        this->data->window.draw(leaderboardPointsText);
 
         this->data->window.draw(this->title);
         this->data->window.draw(this->backButton);
-
-        sf::Text text(this->super_long_string, this->data->assets.getFont("Font"));
-        text.setOrigin(text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2);
-        text.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-
-        this->data->window.draw(text);
+        
 
         this->data->window.display();
     }
