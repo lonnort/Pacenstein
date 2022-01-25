@@ -39,10 +39,26 @@ namespace Pacenstein {
                 pointsString    += leaderboard[i][2];
             }
         }else{
+            if(begin != 0){
+                positionString  += "...\n";
+                nameString      += "...\n";
+                pointsString    += "...\n";
+            }else{
+                positionString  += "\n";
+                nameString      += "\n";
+                pointsString    += "\n";
+            }
+
             for(int i = begin; i < end; i++){
                 positionString  += leaderboard[i][0];
                 nameString      += leaderboard[i][1];
                 pointsString    += leaderboard[i][2];
+            }
+
+            if(end != leaderboard.size()){
+                positionString  += "...\n";
+                nameString      += "...\n";
+                pointsString    += "...\n";
             }
         }
     }
@@ -85,6 +101,21 @@ namespace Pacenstein {
                         this->data->window.close();
                         break;
 
+                    case sf::Keyboard::Down:
+                        if(end < leaderboard.size()){
+                            begin++;
+                            end++;
+                            refresh_leaderboard();
+                        }
+                        break;
+
+                    case sf::Keyboard::Up:
+                        if(begin > 0){
+                            begin--;
+                            end--;
+                            refresh_leaderboard();
+                        }
+                        break;
                 }
             }
 
