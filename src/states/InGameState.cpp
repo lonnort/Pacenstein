@@ -10,7 +10,10 @@
 #include <cmath>
 
 namespace Pacenstein {
-    InGameState::InGameState(game_data_ref_t data) : data(data) {}
+    InGameState::InGameState(game_data_ref_t data) : 
+        data(data),
+        player()
+    {}
     
     void InGameState::init() {
         this->w = SCREEN_WIDTH;

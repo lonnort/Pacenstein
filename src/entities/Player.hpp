@@ -162,7 +162,7 @@ namespace Pacenstein {
         
     private:
     	unsigned int lives, score;
-        double planeX, planeY;
+        sf::Vector2f plane;
         double rotSpeed;
     };
 }

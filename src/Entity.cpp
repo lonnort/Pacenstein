@@ -1,18 +1,23 @@
 #include "Entity.hpp"
 
 namespace Pacenstein {
-    Entity::Entity(double px, double py, double sx, double sy, double dx, double dy, double ms):
-        posX(px), posY(py),
-        dirX(dx), dirY(dy),
-        sizeX(sx), sizeY(sy),
-        moveSpeed(ms)
+    Entity::Entity(float px, float py, float sx, float sy, float dx, float dy, float ms):
+        Entity({px, py}, {sx, sy}, {dx, dy}, ms)
     {}
 
-    Entity::Entity(sf::Vector2f pos, sf::Vector2f size, sf::Vector2f dir, double ms):
-        Entity(pos.x, pos.y, size.x, size.y, dir.x, dir.y, ms)
-    {}
+    Entity::Entity(sf::Vector2f pos, sf::Vector2f size, sf::Vector2f dir, float ms):
+        bounding_box(size),
+        position(pos),
+        size(size),
+        direction(dir),
+        moveSpeed(ms)
+    {
+        bounding_box.setPosition(pos);
+    }
 
     Entity::Entity():
         Entity(0,0,0,0,0,0,0)
     {}
+
+    sf::FloatRect Entity::getGlobalBounds() { return bounding_box.getGlobalBounds(); }
 }
