@@ -3,16 +3,10 @@
 #include "PauseState.hpp"
 #include "ScatterState.hpp"
 
-#include <iostream>
-
 namespace Pacenstein {
-    HuntingState::HuntingState(game_data_ref_t data) : data(data) {}
+    HuntingState::HuntingState(game_data_ref_t data) : InGameState(data), data(data) {}
 
-    void HuntingState::init() {
-        this->data->assets.loadTexture("Hunting Background", (GHOSTS_FILEPATH "blinky_middle_one.png"));
-
-        background.setTexture(this->data->assets.getTexture("Hunting Background"));
-    }
+    // void HuntingState::init() {}
 
     void HuntingState::handleInput() {
         sf::Event event;
@@ -23,33 +17,44 @@ namespace Pacenstein {
             if (sf::Event::Closed == event.type) this->data->window.close();
 
             if (sf::Event::KeyPressed == event.type) {
-                switch (event.key.code) {
-                    case sf::Keyboard::Key::KEY_EXIT:
-                        this->data->window.close();
-                        break;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)) {
+                    this->move("up");
+                }
 
-                    case sf::Keyboard::Key::KEY_PAUSE:
-                    case sf::Keyboard::Key::KEY_ALT_PAUSE:
-                        this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
-                        break;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_DOWN)) {
+                    this->move("down");
+                }
 
-                    case sf::Keyboard::Key::Home:
-                        this->data->machine.addState(state_ref_t(std::make_unique<ScatterState>(this->data)), false);
-                        break;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_RIGHT)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_RIGHT)) {
+                    this->move("right");
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_LEFT)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_LEFT)) {
+                    this->move("left");
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_PAUSE)
+                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_PAUSE)) {
+                    this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_EXIT)) {
+                    this->data->window.close();
                 }
             }
         }
     }
 
-    void HuntingState::update(float dt) {
-        // std::cout << "Hunting" << std::endl;
-    }
+    void HuntingState::update(float dt) {}
 
-    void HuntingState::draw(float dt){
-        this->data->window.clear();
-        this->background.setScale(20,20);
-        this->data->window.draw(this->background);
+    // void HuntingState::draw(float dt) {
+    //     this->data->window.clear();
+    //     this->data->window.draw();
 
-        this->data->window.display();
-    }
+    //     this->data->window.display();
+    // }
 }

@@ -1,7 +1,7 @@
 #include "PowerPellet.hpp"
 
 namespace Pacenstein {
-    PowerPellet::PowerPellet(double x, double y):
+    PowerPellet::PowerPellet(float x, float y):
         Item(x, y, 100)
     {}
 

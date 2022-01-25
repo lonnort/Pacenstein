@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "State.hpp"
+#include "InGameState.hpp"
 #include "Game.hpp"
 
 namespace Pacenstein {
@@ -11,7 +11,7 @@ namespace Pacenstein {
      * The HuntingState is used to create a state in which
      * specific entities change their behavior. 
      */
-    class HuntingState : public State {
+    class HuntingState : public InGameState {
     public:
         /**
          * Constructor to initialize HuntingState class.
@@ -25,10 +25,12 @@ namespace Pacenstein {
          *
          * Only called once, when the class object is created.
          */
-        void init();
+        // void init();
 
         /**
          * Handles input from the player.
+         *
+         * Reacts to the AWSD and arrow keys to move the character around.
          */
         void handleInput();
 
@@ -46,11 +48,11 @@ namespace Pacenstein {
          *
          * \param dt The maximum time to draw in the game loop.
          */
-        void draw(float dt);
+        // void draw(float dt);
 
     private:
         game_data_ref_t data;
 
-        sf::Sprite background;
+        // sf::Sprite background;
     };
 }

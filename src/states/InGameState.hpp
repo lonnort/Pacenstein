@@ -35,6 +35,8 @@ namespace Pacenstein {
          * Handles input from the player.
          *
          * Reacts to the AWSD and arrow keys to move the character around.
+         *
+         * \todo Only respond to a single click then transfer to hunting state
          */
         void handleInput();
 
@@ -45,13 +47,15 @@ namespace Pacenstein {
          */
         void update(float dt);
 
+    protected:
+        game_data_ref_t data;
+
         /**
          * Updates the in game state outside of key presses.
          *
          * \param dt A float.
          */
         void draw(float dt);
-
 
         /**
          * Moves the character.
@@ -61,9 +65,8 @@ namespace Pacenstein {
         void move(std::string direction);
 
     private:
-        game_data_ref_t data;
 
-        sf::Sprite background;
+        // sf::Sprite background;
 
         int w, h;
 

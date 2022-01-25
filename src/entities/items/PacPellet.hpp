@@ -11,7 +11,7 @@ namespace Pacenstein {
      * or progress to the next stage.
      */
     class PacPellet : public Item {
-        PacPellet(double x, double y);
+        PacPellet(float x, float y);
         PacPellet(sf::Vector2f xy);
     };
 }

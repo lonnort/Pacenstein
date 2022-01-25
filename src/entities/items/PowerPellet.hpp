@@ -11,7 +11,7 @@ namespace Pacenstein {
      * eaten will also grant bonus points.
      */
     class PowerPellet : public Item {
-        PowerPellet(double x, double y);
+        PowerPellet(float x, float y);
         PowerPellet(sf::Vector2f xy);
     };
 }

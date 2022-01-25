@@ -1,7 +1,7 @@
 #include "PacPellet.hpp"
 
 namespace Pacenstein {
-    PacPellet::PacPellet(double x, double y):
+    PacPellet::PacPellet(float x, float y):
         Item(x, y, 10)
     {}
 
