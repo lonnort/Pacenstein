@@ -31,52 +31,59 @@ namespace Pacenstein {
 
             if (sf::Event::Closed == event.type) this->data->window.close();
 
-            if (sf::Event::KeyPressed == event.type) {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
-                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)) {
-                    this->move("up");
-                }
+            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
+            // ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)) {
+            //     this->move("up");
+            // }
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
-                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_DOWN)) {
-                    this->move("down");
-                }
+            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
+            // ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_DOWN)) {
+            //     this->move("down");
+            // }
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_RIGHT)
-                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_RIGHT)) {
-                    this->move("right");
-                }
+            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_RIGHT)
+            // ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_RIGHT)) {
+            //     this->move("right");
+            // }
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_LEFT)
-                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_LEFT)) {
-                    this->move("left");
-                }
+            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_LEFT)
+            // ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_LEFT)) {
+            //     this->move("left");
+            // }
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_PAUSE)
-                ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_PAUSE)) {
-                    this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
-                }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
+            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)
+            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
+            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_DOWN)
+            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_RIGHT)
+            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_RIGHT)
+            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_LEFT)
+            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_LEFT)) {
+                this->data->machine.addState(state_ref_t(std::make_unique<HuntingState>(this->data)), true);
+            }
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_EXIT)) {
-                    this->data->window.close();
-                }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_PAUSE)
+            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_PAUSE)) {
+                this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_EXIT)) {
+                this->data->window.close();
             }
         }
     }
 
     void InGameState::update(float dt) {
-        /*
-        pseudo code voor punten optellen enzo
+        /** \todo Onderstaande code naar hunting state verplaatsen */
 
-        if (intersects(player, item)) {           // misschien iets met global bounds doen en de intersect functie van sfml
-            player.addToScore(item.getPoints());  // deze kan letterlijk gecopieerd worden
-            item.removeFromMap();                 // nodig omdat anders het item achter blijft
+        // pseudo code voor punten optellen enzo
 
-            player.powerUp(item.isPowerPellet()); // aka ga naar scatter state
-            // ↑ of ↓, een van beide regels gebruiken. denk dat de onderste de betere optie is
-            item.powerUp();                       // dit zou dan een virtuele functie zijn die alleen door powerpellet geimplementeerd wordt
-        }
-        */
+        // if (intersects(player, item)) {           // misschien iets met global bounds doen en de intersect functie van sfml
+        //     player.addToScore(item.getPoints());  // deze kan letterlijk gecopieerd worden
+        //     item.removeFromMap();                 // nodig omdat anders het item achter blijft
+
+        //     if (item == powerPellet) goto scatterState;
+        // }
     }
 
     void InGameState::move(std::string direction) {
@@ -243,17 +250,17 @@ namespace Pacenstein {
         player.setRotSpeed(fps.asSeconds() * 150.0);  //the constant value is in radians/second
 
         sf::Text scoreText("Score: "  + std::to_string(player.getScore()), this->data->assets.getFont("Font"));
+        scoreText.setPosition(5, 5);
         this->data->window.draw(scoreText);
 
         sf::Text livesText("Lives: ", this->data->assets.getFont("Font"));
-        livesText.setPosition(0, SCREEN_HEIGHT - livesText.getGlobalBounds().height - 20);
+        livesText.setPosition(5, SCREEN_HEIGHT - livesText.getGlobalBounds().height - 25);
         this->data->window.draw(livesText);
 
         for(unsigned int i = 0; i < player.getLives(); i++){
             sf::Sprite heart;
             heart.setTexture(this->data->assets.getTexture("Heart"));
-            heart.scale(0.01, 0.01);
-            heart.setPosition(livesText.getGlobalBounds().width + ((10 + heart.getGlobalBounds().width) * i ), SCREEN_HEIGHT - heart.getGlobalBounds().height);
+            heart.setPosition(livesText.getGlobalBounds().width + ((10 + heart.getGlobalBounds().width) * i ), SCREEN_HEIGHT - heart.getGlobalBounds().height - 5);
             this->data->window.draw(heart);
         }
 
