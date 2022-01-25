@@ -13,6 +13,7 @@
 #define BUTTONS_FILEPATH         "res/ui/"
 #define PACENSTEIN_LOGO_FILEPATH "res/pacenstein.png"
 #define PELLET_FILEPATH          "res/sprites/items/pellets/"
+#define GAME_FILEPATH            "res/game/"
 
 // Keyboard input keys
 #define KEY_UP        W
