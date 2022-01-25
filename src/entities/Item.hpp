@@ -8,6 +8,6 @@ namespace Pacenstein {
      */
     class Item : public Entity {
     private:
-        unsigned int points;
+        unsigned int points = 0;
     };
 }

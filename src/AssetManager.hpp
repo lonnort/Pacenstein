@@ -25,7 +25,7 @@ namespace Pacenstein {
          * \param name The name of the texture.
          * \param file The path to the file containing the texture.
          */
-        void loadTexture (std::string name, std::string file);
+        void loadTexture(std::string name, std::string file);
 
         /**
          * Loads fonts and gives them a name to make access easier.
@@ -33,7 +33,7 @@ namespace Pacenstein {
          * \param name The name of the font.
          * \param file The path to the file containing the font.
          */
-        void loadFont (std::string name, std::string file);
+        void loadFont(std::string name, std::string file);
 
         /**
          * Loads .csv-files and gives them a name to make access easier.
@@ -41,7 +41,7 @@ namespace Pacenstein {
          * \param name The name of the file, doesn't have to be the actual filename.
          * \param file The path to the file.
          */
-        void loadCsvFile (std::string name, std::string file);
+        void loadCsvFile(std::string name, std::string file);
 
         /**
          * Loads .conf-files and gives them a name to make access easier.
@@ -49,7 +49,7 @@ namespace Pacenstein {
          * \param name The name of the file, doesn't have to be the actual filename.
          * \param file The path to the file.
          */
-        void loadConfFile (std::string name, std::string file);
+        void loadConfFile(std::string name, std::string file);
 
         /**
          * Loads vertices and gives them a name to make access easier.
@@ -58,7 +58,7 @@ namespace Pacenstein {
          * \param location The location of the vertex.
          * \param color    The color for the vertex.
          */
-        void loadVertex (std::string name, sf::Vector2f location, sf::Color);
+        void loadVertex(std::string name, sf::Vector2f location, sf::Color color);
 
 
         /**
@@ -67,7 +67,7 @@ namespace Pacenstein {
          * \param  name The name of the texture.
          * \return      The texture with the given name.
          */
-        sf::Texture& getTexture (std::string name);
+        sf::Texture& getTexture(std::string name);
 
         /**
          * Returns a font by name.
@@ -75,7 +75,7 @@ namespace Pacenstein {
          * \param  name The name of the font.
          * \return      The font with the given name.
          */
-        sf::Font& getFont (std::string name);
+        sf::Font& getFont(std::string name);
 
         /**
          * Returns a vertex by name.
@@ -83,7 +83,7 @@ namespace Pacenstein {
          * \param  name The name of the vertex.
          * \return      The vertex with the given name.
          */
-        sf::Vertex& getVertex (std::string name);
+        sf::Vertex& getVertex(std::string name);
 
         /**
          * Returns the .csv-file by name.
@@ -91,7 +91,7 @@ namespace Pacenstein {
          * \param  name The name of the .csv-file.
          * \return      The contents of the .csv-file with the given name.
          */
-        std::vector<std::string>& getCsvFile (std::string name);
+        std::vector<std::string>& getCsvFile(std::string name);
 
         /**
          * Returns the .conf-file by name.
@@ -99,7 +99,7 @@ namespace Pacenstein {
          * \param  name The name of the .conf-file.
          * \return      The content of the .conf-file with the given name.
          */
-        std::vector<std::string>& getConfFile (std::string name);
+        std::vector<std::string>& getConfFile(std::string name);
 
         void saveCsvFile(std::string name, std::string fileName, std::vector<std::string> newContent);
 
