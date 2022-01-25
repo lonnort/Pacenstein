@@ -19,7 +19,6 @@ namespace Pacenstein {
             this->scores.push_back({player_name, points});
         }
         std::sort(scores.begin(), scores.end(), [](auto& l, auto& r){ return l.second > r.second; });
-        // std::cout << "WE GOT THE FILEEEEEEEEEEEEEEEEE\n";
         for(int i = 0; i < scores.size(); i++){
             std::vector<std::string> tmp;
             tmp.push_back(std::to_string(i+1) + ".\n");
@@ -27,13 +26,12 @@ namespace Pacenstein {
             tmp.push_back(std::to_string(scores[i].second) + "\n");
             leaderboard.push_back(tmp);
         }
-        // std::cout << "WE GOT THE LEADERBOARD BOYSSSSSS\n";
     }
 
-    void LeaderboardMenuState::init() {
-        sf::Font font = this->data->assets.getFont("Font");
-
-        this->parseScores(this->data->assets.getCsvFile("Scores"));
+    void LeaderboardMenuState::refresh_leaderboard(){
+        positionString  = "";
+        nameString      = "";
+        pointsString    = "";
         if(this->end > this->leaderboard.size()){
             for(int i = 0; i < leaderboard.size(); i++){
                 positionString  += leaderboard[i][0];
@@ -41,13 +39,20 @@ namespace Pacenstein {
                 pointsString    += leaderboard[i][2];
             }
         }else{
-            for(int i = 0; i < end; i++){
+            for(int i = begin; i < end; i++){
                 positionString  += leaderboard[i][0];
                 nameString      += leaderboard[i][1];
                 pointsString    += leaderboard[i][2];
             }
         }
-        // std::cout << "WE GOT THE STRINGS BOYSSSSSSS!\n";
+    }
+
+    void LeaderboardMenuState::init() {
+        sf::Font font = this->data->assets.getFont("Font");
+
+        this->parseScores(this->data->assets.getCsvFile("Scores"));
+
+        refresh_leaderboard();
 
         title.setTexture(this->data->assets.getTexture("Leaderboard Text"));
         backButton.setTexture(this->data->assets.getTexture("Back Button"));
@@ -80,8 +85,22 @@ namespace Pacenstein {
                         this->data->window.close();
                         break;
 
-                    // case sf::Mouse::Wheel::VerticalWheel
                 }
+            }
+
+            if(event.type == sf::Event::MouseWheelMoved){
+                if(event.mouseWheel.delta > 0){
+                    if(end < leaderboard.size()){
+                        begin++;
+                        end++;
+                    }
+                }else{
+                    if(begin > 0){
+                        begin--;
+                        end--;
+                    }
+                }
+                refresh_leaderboard();
             }
         }
     }
@@ -110,7 +129,6 @@ namespace Pacenstein {
 
         this->data->window.draw(this->title);
         this->data->window.draw(this->backButton);
-        
 
         this->data->window.display();
     }
