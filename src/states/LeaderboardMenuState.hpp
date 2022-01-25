@@ -66,8 +66,12 @@ namespace Pacenstein {
         sf::Cursor cursorHand;
         sf::Cursor cursorArrow;
 
-        // std::vector<sf::Text> leaderboard_text;
-        std::string super_long_string = "";
+        std::vector<std::vector<std::string>> leaderboard;
+        std::string positionString = "";
+        std::string nameString = "";
+        std::string pointsString = "";
+        int begin = 0;
+        int end = 12;
 
         std::vector<std::pair<std::string, int>> scores;
 

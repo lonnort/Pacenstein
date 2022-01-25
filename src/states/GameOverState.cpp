@@ -158,7 +158,9 @@ namespace Pacenstein {
                     case sf::Keyboard::Key::Enter:
                         if(!nameDone){
                             nameDone = true;
-                            saveScore();
+                            if(playerInput != ""){
+                                saveScore();
+                            }
                         }
                         break;
                 }
