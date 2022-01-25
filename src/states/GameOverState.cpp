@@ -136,8 +136,8 @@ namespace Pacenstein {
                 this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(this->data)), true);
 
             if (event.type == sf::Event::TextEntered) {
-                if (event.text.unicode < 128){
-                    if (playerInput.size() < maxChar and !nameDone and event.text.unicode != 8) {
+                if (event.text.unicode < 128 and event.text.unicode > 32){
+                    if (playerInput.size() < maxChar and !nameDone) {
                         playerInput += event.text.unicode;
                     }           
                 }
