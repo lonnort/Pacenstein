@@ -11,7 +11,8 @@ else
 	CFLAGS :=
 	LFLAGS := -lsfml-system -lsfml-window -lsfml-graphics
 	MKDIR := mkdir -p
-	EXT :=
+	ICON :=
+	EXT := .elf
 endif
 
 PROJECT_NAME  := pacenstein
@@ -21,7 +22,7 @@ BUILD_DIR  := obj
 SOURCE_DIR := src
 DATA_DIR   := $(SOURCE_DIR)/data
 
-DIRS        = . entities entities/items entities/items/ghosts states
+DIRS        = . entities entities/items entities/items/ghosts entities/items/fruits states
 SOURCE_DIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCE_DIR)/, $(dir)))
 TARGET_DIRS = $(foreach dir, $(DIRS), $(addprefix $(BUILD_DIR)/, $(dir)))
 INCLUDES    = $(foreach dir, $(SOURCE_DIRS), $(addprefix -I, $(dir)))
@@ -50,13 +51,13 @@ $(ICON): res/resources.rc
 	@windres $< -o $@
 
 $(TARGET): $(OBJECTS) $(ICON)
-	$(CC) $(OBJECTS) $(BUILD_DIR)/resources.o -o $(TARGET) $(LFLAGS)
+	$(CC) $(OBJECTS) $(ICON) -o $(TARGET) $(LFLAGS)
 
 build: $(TARGET)
 
 clean:
 	@echo "Cleaning"
-	-@rm -r $(BUILD_DIR)/* $(PROJECT_NAME).exe
+	-@rm -r $(BUILD_DIR)/* $(PROJECT_NAME)$(EXT)
 	@echo "Done"
 
 rerun: clean run
