@@ -89,7 +89,7 @@ namespace Pacenstein {
             }
 
             if(event.type == sf::Event::MouseWheelMoved){
-                if(event.mouseWheel.delta > 0){
+                if(event.mouseWheel.delta < 0){
                     if(end < leaderboard.size()){
                         begin++;
                         end++;
