@@ -56,6 +56,7 @@ namespace Pacenstein {
     private:
         game_data_ref_t data;
 
+        sf::Texture background_img;
         sf::Sprite background;
 
         sf::Sprite title;

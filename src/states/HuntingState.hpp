@@ -21,13 +21,6 @@ namespace Pacenstein {
         HuntingState(game_data_ref_t data);
 
         /**
-         * Initializes the hunting state variables.
-         *
-         * Only called once, when the class object is created.
-         */
-        // void init();
-
-        /**
          * Handles input from the player.
          *
          * Reacts to the AWSD and arrow keys to move the character around.
@@ -43,18 +36,7 @@ namespace Pacenstein {
          */
         void update(float dt);
 
-        /**
-         * Draws the screen objects on the screen.
-         *
-         * \param dt The maximum time to draw in the game loop.
-         */
-        // void draw(float dt);
-
     private:
         game_data_ref_t data;
-
-        const bool huntingState = true;
-
-        // sf::Sprite background;
     };
 }

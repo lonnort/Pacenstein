@@ -4,25 +4,43 @@
 #include "SettingsMenuState.hpp"
 
 #include <iostream>
+#include <SFML/Graphics/Shader.hpp>
 
 namespace Pacenstein {
     PauseState::PauseState(game_data_ref_t data) : data(data) {}
 
     void PauseState::init() {
-        title.setTexture(this->data->assets.getTexture("Pause Title"));
-        highscoreText.setTexture(this->data->assets.getTexture("Highscore Text"));
-        giveUpButton.setTexture(this->data->assets.getTexture("Give Up Button"));
-        continueButton.setTexture(this->data->assets.getTexture("Continue Button"));
-        settingsButton.setTexture(this->data->assets.getTexture("Settings Text"));
 
-        title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2);
-        highscoreText.setPosition((SCREEN_WIDTH / 2) - (highscoreText.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (highscoreText.getGlobalBounds().height / 2) - 200);
-        continueButton.setPosition((SCREEN_WIDTH / 2) - (continueButton.getGlobalBounds().width / 2), 105 + (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
-        giveUpButton.setPosition((SCREEN_WIDTH / 2) - (giveUpButton.getGlobalBounds().width / 2) - 200, 100 + (SCREEN_HEIGHT / 2) - (continueButton.getGlobalBounds().height / 2) + 2*(continueButton.getGlobalBounds().height));
-        settingsButton.setPosition((SCREEN_WIDTH / 2) - (settingsButton.getGlobalBounds().width / 2) + 200, 100 + (SCREEN_HEIGHT / 2) - (settingsButton.getGlobalBounds().height / 2) + 2*(settingsButton.getGlobalBounds().height));
+        this->background.setTexture    (this->data->assets.getTexture("Pause Background"));
+        this->title.setTexture         (this->data->assets.getTexture("Pause Title"));
+        this->highscoreText.setTexture (this->data->assets.getTexture("Highscore Text"));
+        this->giveUpButton.setTexture  (this->data->assets.getTexture("Give Up Button"));
+        this->continueButton.setTexture(this->data->assets.getTexture("Continue Button"));
+        this->settingsButton.setTexture(this->data->assets.getTexture("Settings Text"));
 
-        cursorHand.loadFromSystem(sf::Cursor::Hand);
-        cursorArrow.loadFromSystem(sf::Cursor::Arrow);
+        this->title.setPosition(
+            (SCREEN_WIDTH / 2) - (this->title.getGlobalBounds().width / 2),
+            this->title.getGlobalBounds().height / 2
+        );
+        this->highscoreText.setPosition(
+            (SCREEN_WIDTH / 2) - (this->highscoreText.getGlobalBounds().width / 2),
+            (SCREEN_HEIGHT / 2) - (this->highscoreText.getGlobalBounds().height / 2) - 200
+        );
+        this->continueButton.setPosition(
+            (SCREEN_WIDTH / 2) - (this->continueButton.getGlobalBounds().width / 2),
+            105 + (SCREEN_HEIGHT / 2) - (this->continueButton.getGlobalBounds().height / 2) + 2 * (this->continueButton.getGlobalBounds().height)
+        );
+        this->giveUpButton.setPosition(
+            (SCREEN_WIDTH / 2) - (this->giveUpButton.getGlobalBounds().width / 2) - 200,
+            100 + (SCREEN_HEIGHT / 2) - (this->continueButton.getGlobalBounds().height / 2) + 2 * (this->continueButton.getGlobalBounds().height)
+        );
+        this->settingsButton.setPosition(
+            (SCREEN_WIDTH / 2) - (this->settingsButton.getGlobalBounds().width / 2) + 200,
+            100 + (SCREEN_HEIGHT / 2) - (this->settingsButton.getGlobalBounds().height / 2) + 2 * (this->settingsButton.getGlobalBounds().height)
+        );
+
+        this->cursorHand.loadFromSystem(sf::Cursor::Hand);
+        this->cursorArrow.loadFromSystem(sf::Cursor::Arrow);
     }
 
     void PauseState::handleInput(){
@@ -77,6 +95,12 @@ namespace Pacenstein {
 
     void PauseState::draw(float dt){
         this->data->window.clear();
+        if (!sf::Shader::isAvailable()) {
+            sf::Shader gauss;
+            if (gauss.loadFromFile("GaussianBlur.frag", sf::Shader::Fragment))
+                this->data->window.draw(this->background, &gauss);
+        }
+        else this->data->window.draw(this->background);
 
         this->data->window.draw(this->title);
         this->data->window.draw(this->highscoreText);

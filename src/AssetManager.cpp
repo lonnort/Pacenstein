@@ -9,6 +9,10 @@ namespace Pacenstein {
         if (tex.loadFromFile(file)) this->textures[name] = tex;
     }
 
+    void AssetManager::loadTexture(std::string name, sf::Texture file) {
+        this->textures[name] = file;
+    }
+
     void AssetManager::loadFont(std::string name, std::string file) {
         sf::Font font;
         if (font.loadFromFile(file)) this->fonts[name] = font;

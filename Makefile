@@ -47,11 +47,11 @@ endef
 
 $(foreach targetdir, $(TARGET_DIRS), $(eval $(call generateRules, $(targetdir))))
 
-$(ICON): res/resources.rc
-	@windres $< -o $@
-
 $(TARGET): $(OBJECTS) $(ICON)
 	$(CC) $(OBJECTS) $(ICON) -o $(TARGET) $(LFLAGS)
+
+$(ICON): res/resources.rc
+	@windres $< -o $@
 
 build: $(TARGET)
 

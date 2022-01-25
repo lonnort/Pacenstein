@@ -6,7 +6,7 @@
 #include "MainMenuState.hpp"
 #include "PauseState.hpp"
 #include "ScatterState.hpp"
-#include "iostream"
+#include <iostream>
 
 namespace Pacenstein {
     Game::Game(const std::string title) {

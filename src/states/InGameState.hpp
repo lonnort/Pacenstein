@@ -47,10 +47,6 @@ namespace Pacenstein {
          */
         void update(float dt);
 
-    protected:
-        game_data_ref_t data;
-        Player player;
-
         /**
          * Updates the in game state outside of key presses.
          *
@@ -58,12 +54,18 @@ namespace Pacenstein {
          */
         void draw(float dt);
 
+    protected:
+        game_data_ref_t data;
+        Player player;
+
         /**
          * Moves the character.
          *
          * \param direction A string indicating what direction the player should move.
          */
         void move(std::string direction);
+
+        void generatePauseBackground();
 
     private:
 

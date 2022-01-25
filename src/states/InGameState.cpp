@@ -23,6 +23,13 @@ namespace Pacenstein {
         player.resetScore();
     }
 
+    void InGameState::generatePauseBackground() {
+        sf::Texture background_img;
+        background_img.create(this->data->window.getSize().x, this->data->window.getSize().y);
+        background_img.update(this->data->window);
+        this->data->assets.loadTexture("Pause Background", background_img);
+    }
+
     void InGameState::handleInput() {
         sf::Event event;
 
@@ -64,6 +71,7 @@ namespace Pacenstein {
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_PAUSE)
             ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_PAUSE)) {
+                this->generatePauseBackground();
                 this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
             }
 
@@ -265,6 +273,6 @@ namespace Pacenstein {
         }
 
         this->data->window.display();
-        this->data->window.clear();
+        // this->data->window.clear();
     }
 }

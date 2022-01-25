@@ -27,6 +27,9 @@ namespace Pacenstein {
          */
         void loadTexture(std::string name, std::string file);
 
+        /***/
+        void loadTexture(std::string name, sf::Texture file);
+
         /**
          * Loads fonts and gives them a name to make access easier.
          *
