@@ -1,1 +1,23 @@
 #include "Entity.hpp"
+
+namespace Pacenstein {
+    Entity::Entity(float px, float py, float dx, float dy, float sx, float sy, float ms):
+        Entity({px, py}, {dx, dy}, {sx, sy}, ms)
+    {}
+
+    Entity::Entity(sf::Vector2f pos, sf::Vector2f dir, sf::Vector2f size, float ms):
+        bounding_box(size),
+        position(pos),
+        direction(dir),
+        size(size),
+        moveSpeed(ms)
+    {
+        bounding_box.setPosition(pos);
+    }
+
+    Entity::Entity():
+        Entity(0,0,0,0,0,0,0)
+    {}
+
+    sf::FloatRect Entity::getGlobalBounds() { return bounding_box.getGlobalBounds(); }
+}

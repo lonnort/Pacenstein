@@ -1,0 +1,23 @@
+AppIcon ICON "logo.ico"
+1 VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  0,1,0,0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"
+    BEGIN
+      VALUE "CompanyName", ""
+      VALUE "FileDescription", ""
+      VALUE "InternalName", "Pacenstein"
+      VALUE "LegalCopyright", ""
+      VALUE "OriginalFilename", "pacenstein.exe"
+      VALUE "ProductName", "Pacenstein"
+      VALUE "ProductVersion", "0.1"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1252
+  END
+END

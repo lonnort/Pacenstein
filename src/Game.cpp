@@ -11,6 +11,9 @@
 namespace Pacenstein {
     Game::Game(const std::string title) {
         this->data->window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), title, sf::Style::Default, sf::ContextSettings(24,8,4));
+        sf::Image icon_img;
+        icon_img.loadFromFile("res/logo.png");
+        this->data->window.setIcon(256, 256, icon_img.getPixelsPtr());
         this->data->machine.addState(state_ref_t(std::make_unique<SplashState>(this->data)));
 
         this->run();

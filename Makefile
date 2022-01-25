@@ -5,20 +5,24 @@ ifeq ($(OS), Windows_NT)
 	CFLAGS := -I"$(SFML_DIR)/include" -DSFML_STATIC
 	LFLAGS := -L"$(SFML_DIR)/lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lfreetype -lopengl32 -lwinmm -lgdi32
 	MKDIR := mkdir -p
+	ICON := obj/resources.o
+	EXT := .exe
 else
 	CFLAGS :=
 	LFLAGS := -lsfml-system -lsfml-window -lsfml-graphics
 	MKDIR := mkdir -p
+	ICON :=
+	EXT := .elf
 endif
 
 PROJECT_NAME  := pacenstein
-TARGET        := $(PROJECT_NAME).exe
+TARGET        := $(PROJECT_NAME)$(EXT)
 
 BUILD_DIR  := obj
 SOURCE_DIR := src
 DATA_DIR   := $(SOURCE_DIR)/data
 
-DIRS        = . entities entities/items entities/items/ghosts states
+DIRS        = . entities entities/items entities/items/ghosts entities/items/fruits states
 SOURCE_DIRS = $(foreach dir, $(DIRS), $(addprefix $(SOURCE_DIR)/, $(dir)))
 TARGET_DIRS = $(foreach dir, $(DIRS), $(addprefix $(BUILD_DIR)/, $(dir)))
 INCLUDES    = $(foreach dir, $(SOURCE_DIRS), $(addprefix -I, $(dir)))
@@ -43,24 +47,24 @@ endef
 
 $(foreach targetdir, $(TARGET_DIRS), $(eval $(call generateRules, $(targetdir))))
 
-$(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(TARGET) $(LFLAGS)
+$(ICON): res/resources.rc
+	@windres $< -o $@
 
-$(DATA_DIR)/scores.csv $(DATA_DIR)/settings.conf:
-	@touch $@
+$(TARGET): $(OBJECTS) $(ICON)
+	$(CC) $(OBJECTS) $(ICON) -o $(TARGET) $(LFLAGS)
 
-build: $(DATA_DIR)/scores.csv $(DATA_DIR)/settings.conf $(TARGET)
+build: $(TARGET)
 
 clean:
 	@echo "Cleaning"
-	-@rm -r $(BUILD_DIR)/* $(PROJECT_NAME).exe
+	-@rm -r $(BUILD_DIR)/* $(PROJECT_NAME)$(EXT)
 	@echo "Done"
 
 rerun: clean run
 rebuild: clean build
 
 run: build
-	@./$(PROJECT_NAME).exe
+	@./$(PROJECT_NAME)$(EXT)
 
 doxy:
 	@doxygen

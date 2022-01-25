@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace Pacenstein {
     /**
@@ -10,10 +11,16 @@ namespace Pacenstein {
      */
     class Entity {
     public:
+        Entity(float px, float py, float dx, float dy, float sx, float sy, float ms = 0);
+        Entity(sf::Vector2f pos, sf::Vector2f dir, sf::Vector2f size, float ms = 0);
+        Entity();
 
-    private:
-    	sf::Vector2f position;
-    	sf::Vector2f direction;
-    	float move_speed;
+        sf::FloatRect getGlobalBounds();
+
+    protected:
+        sf::RectangleShape bounding_box;
+
+    	sf::Vector2f position, direction, size;
+    	float moveSpeed;
     };
 }

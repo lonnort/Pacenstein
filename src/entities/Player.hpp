@@ -9,9 +9,8 @@ namespace Pacenstein {
      * A player has movement functions to react to input, 
      * 3 lives and a score.
      */
-    class Player : public Entity{
+    class Player : public Entity {
     public:
-
         /**
          * Constructor of the player class.
          *
@@ -66,6 +65,15 @@ namespace Pacenstein {
          * a wall, this function does nothing.
          */
         void moveDown(const int worldMap[][19]);
+
+        /***/
+        sf::Vector2f getPos();
+
+        /***/
+        sf::Vector2f getDir();
+
+        /***/
+        sf::Vector2f getPlane();
 
         /**
          * Returns the x position of the player.
@@ -152,21 +160,9 @@ namespace Pacenstein {
          */
         void resetScore();
         
-
     private:
-    	unsigned int lives = 3;
-    	unsigned int score = 0;
-
-        double posX = 2;
-        double posY = 2;
-
-        double dirX = -1;
-        double dirY = 0;
-
-        double planeX = 0;
-        double planeY = 0.66;
-
-        double moveSpeed = 0;
-        double rotSpeed = 0;
+    	unsigned int lives, score;
+        sf::Vector2f plane;
+        double rotSpeed;
     };
 }
