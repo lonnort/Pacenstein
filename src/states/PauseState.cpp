@@ -62,6 +62,10 @@ namespace Pacenstein {
                         this->data->window.close();
                         break;
 
+                    case sf::Keyboard::Key::KEY_PAUSE:
+                    case sf::Keyboard::Key::KEY_ALT_PAUSE:
+                        this->data->machine.removeState();
+                        break;
                 }
             }
         }
