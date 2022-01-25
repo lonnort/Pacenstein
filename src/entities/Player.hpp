@@ -157,14 +157,7 @@ namespace Pacenstein {
     	unsigned int lives = 3;
     	unsigned int score = 0;
 
-        double posX = 2;
-        double posY = 2;
-
-        double dirX = -1;
-        double dirY = 0;
-
-        double planeX = 0;
-        double planeY = 0.66;
+        sf::Vector2f plane;
 
         double moveSpeed = 0;
         double rotSpeed = 0;
