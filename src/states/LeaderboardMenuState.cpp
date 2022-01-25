@@ -80,7 +80,7 @@ namespace Pacenstein {
                         this->data->window.close();
                         break;
 
-                    case sf::Mouse::Wheel::VerticalWheel
+                    // case sf::Mouse::Wheel::VerticalWheel
                 }
             }
         }
