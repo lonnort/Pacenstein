@@ -60,11 +60,11 @@ namespace Pacenstein {
         game_data_ref_t data;
 
         sf::Sprite title;
-        sf::Sprite scoreText;
-        sf::Sprite leaderboardText;
-        sf::Sprite leaderboardPosition;
-        sf::Sprite leaderboardName;
-        sf::Sprite leaderboardScore;
+        sf::Text   scoreText;
+        sf::Text   leaderboardTitleText;
+        sf::Text   leaderboardPositionText;
+        sf::Text   leaderboardNameText;
+        sf::Text   leaderboardPointsText;
         sf::Sprite backButton;
 
         sf::Cursor cursorHand;
