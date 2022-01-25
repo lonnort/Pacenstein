@@ -54,7 +54,7 @@ namespace Pacenstein {
 
         void parseScores(std::vector<std::string> file_content);
 
-		// void saveScore();
+		void saveScore();
 
     private:
         game_data_ref_t data;
