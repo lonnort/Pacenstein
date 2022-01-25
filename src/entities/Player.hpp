@@ -66,11 +66,9 @@ namespace Pacenstein {
          */
         void moveDown(const int worldMap[][19]);
 
+        //Nog niet getest!
         /***/
-        sf::Vector2f getPos();
-
-        /***/
-        sf::Vector2f getDir();
+        bool collide(Entity other);
 
         /***/
         sf::Vector2f getPlane();
