@@ -49,6 +49,7 @@ namespace Pacenstein {
 
     protected:
         game_data_ref_t data;
+        Player player;
 
         /**
          * Updates the in game state outside of key presses.
@@ -78,7 +79,5 @@ namespace Pacenstein {
 
         sf::Clock clock;
         sf::Time fps;
-
-        Player player;
     };
 }

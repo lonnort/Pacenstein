@@ -42,6 +42,10 @@ namespace Pacenstein {
                     this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
                 }
 
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::PageDown)) {
+                    player.removeLive();
+                }
+
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_EXIT)) {
                     this->data->window.close();
                 }
