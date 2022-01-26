@@ -59,6 +59,7 @@ namespace Pacenstein {
 
         std::string path = "";
         int offset = 0;
+        bool first = true;
         for (auto& setting : this->settings) {
             path = BUTTONS_FILEPATH + setting[1] + "_key.png";
 
@@ -71,7 +72,6 @@ namespace Pacenstein {
                 super_long_string += setting[0];
             }
             else {
-                static bool first = true;
                 if (first) {
                     offset = 0;
                     first = false;
