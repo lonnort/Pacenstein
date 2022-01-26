@@ -24,7 +24,7 @@ namespace Pacenstein {
          *
          * Should only be called once, upon adding it to the StateMachine.
          */
-        // void init();
+        void init() override {};
 
         /**
          * Handles user input.

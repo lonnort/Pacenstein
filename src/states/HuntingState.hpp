@@ -21,11 +21,18 @@ namespace Pacenstein {
         HuntingState(game_data_ref_t data);
 
         /**
+         * Initializes the scatter state variables
+         *
+         * Should only be called once, upon adding it to the StateMachine.
+         */
+        void init() override {};
+
+        /**
          * Handles input from the player.
          *
          * Reacts to the AWSD and arrow keys to move the character around.
          */
-        void handleInput();
+        void handleInput() override;
 
         /**
          * Updates the hunting state.
@@ -34,7 +41,7 @@ namespace Pacenstein {
          *
          * \param dt The maximum time to update in the game loop.
          */
-        void update(float dt);
+        void update(float dt) override;
 
     private:
         game_data_ref_t data;

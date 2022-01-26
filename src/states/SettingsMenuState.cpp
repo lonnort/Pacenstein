@@ -11,7 +11,7 @@ namespace Pacenstein {
     void SettingsMenuState::parseSettings(std::vector<std::string> file_content) {
         bool keybinds = false;
         bool alt_keys = false;
-        bool window = false;
+        bool window   = false;
 
         for (auto& line : file_content) {
             std::string setting = "";
@@ -25,17 +25,17 @@ namespace Pacenstein {
                 if (setting == "[keybindings]") {
                     keybinds = true;
                     alt_keys = false;
-                    window = false;
+                    window   = false;
                 }
                 else if (setting == "[keybindings.alt]") {
                     keybinds = false;
                     alt_keys = true;
-                    window = false;
+                    window   = false;
                 }
                 else if (setting == "[window]") {
                     keybinds = false;
                     alt_keys = false;
-                    window = true;
+                    window   = true;
                 }
             }
             else if (eq == "=" && value != "") {
