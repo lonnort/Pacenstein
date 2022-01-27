@@ -68,16 +68,9 @@ namespace Pacenstein {
         void generatePauseBackground();
 
     private:
-
-        // sf::Sprite background;
+        // std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap;
 
         int w, h;
-
-        // double posX, posY;
-        // double dirX, dirY;
-        // double planeX, planeY;
-        // double moveSpeed;
-        // double rotSpeed;
 
         sf::Clock clock;
         sf::Time fps;
