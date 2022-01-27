@@ -21,17 +21,29 @@ namespace Pacenstein {
     class AssetManager {
     public:
         /**
-         * Loads textures and gives them a name to make access easier.
+         * Loads textures from a file path and gives them a name to make access easier.
          *
          * \param name The name of the texture.
          * \param file The path to the file containing the texture.
          */
         void loadTexture(std::string name, std::string file);
 
-        /***/
+        /**
+         * Loads textures from an sf::Texture and gives them a name to make access easier.
+         *
+         * \param name The name of the texture.
+         * \param file The file as an sf::Texture.
+         */
         void loadTexture(std::string name, sf::Texture file);
 
-        /***/
+        /**
+         * Loads the map from a file and gives it a name to make access easier.
+         *
+         * The color of the pixels determines what will be drawn on the map.
+         *
+         * \param name The name of the image.
+         * \param file The path to the file containing the image.
+         */
         void loadImage(std::string name, std::string file);
 
         /**
@@ -66,7 +78,6 @@ namespace Pacenstein {
          * \param color    The color for the vertex.
          */
         void loadVertex(std::string name, sf::Vector2f location, sf::Color color);
-
 
         /**
          * Returns a texture by name.
@@ -116,6 +127,13 @@ namespace Pacenstein {
          */
         std::vector<std::string>& getConfFile(std::string name);
 
+        /**
+         * Saves the contents of a vector of strings to a csv file.
+         *
+         * \param name          The name given to the csv file in the asset manager.
+         * \param fileName      The name of the csv file.
+         * \param newContent    The vector with strings to write to the csv file.
+         */
         void saveCsvFile(std::string name, std::string fileName, std::vector<std::string> newContent);
 
     private:
