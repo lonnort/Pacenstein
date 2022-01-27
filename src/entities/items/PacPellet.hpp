@@ -11,7 +11,19 @@ namespace Pacenstein {
      * or progress to the next stage.
      */
     class PacPellet : public Item {
+        /**
+         * Constructor of the PacPellet class.
+         *
+         * \param x The x position as a float of a pellet.
+         * \param y The y position as a float of a pellet.
+         */
         PacPellet(float x, float y);
+
+        /**
+         * Constructor of the PacPellet class.
+         *
+         * \param xy The position of a pellet as a sf::Vector2f.
+         */
         PacPellet(sf::Vector2f xy);
     };
 }
