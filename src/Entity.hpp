@@ -33,6 +33,7 @@ namespace Pacenstein {
          *
          * \return A double of the x position.
          */
+        [[deprecated("Use Pacenstein::Entity::getPos() instead.")]]
         double getPosX();
 
         /**
@@ -42,6 +43,7 @@ namespace Pacenstein {
          *
          * \return A double of the y position.
          */
+        [[deprecated("Use Pacenstein::Entity::getPos() instead.")]]
         double getPosY();
 
         /**
@@ -51,6 +53,7 @@ namespace Pacenstein {
          *
          * \return A double of the x direction.
          */
+        [[deprecated("Use Pacenstein::Entity::getDir() instead.")]]
         double getDirX();
 
         /**
@@ -60,6 +63,7 @@ namespace Pacenstein {
          *
          * \return A double of the y direction.
          */
+        [[deprecated("Use Pacenstein::Entity::getDir() instead.")]]
         double getDirY();
 
         /***/
