@@ -52,8 +52,18 @@ namespace Pacenstein {
          */
         void draw(float dt);
 
+        /**
+         * Parses the previous scores from the vector with file content and saves them to the scores vector.
+         *
+         * \param file_content A vector with as elements the lines of the file.
+         */
         void parseScores(std::vector<std::string> file_content);
 
+        /**
+         * Saves the current score to the score file.
+         *
+         * Loads the content from the score file, adds the current score and saves the new content to the file.
+         */
 		void saveScore();
 
     private:
