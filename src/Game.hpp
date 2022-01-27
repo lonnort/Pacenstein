@@ -47,7 +47,8 @@ namespace Pacenstein {
         InputManager input;
 
         /**
-         * Score is an int, where the score is saved when the game is running.
+         * Score is an unsigned int, where the score is saved when the game is running.
+         * 
          */
         unsigned int score;
     };

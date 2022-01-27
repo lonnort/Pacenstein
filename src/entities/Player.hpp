@@ -7,8 +7,7 @@ namespace Pacenstein {
     /**
      * The player is an entity that moves around in the map according to the user's input.
      *
-     * A player has movement functions to react to input, 
-     * 3 lives and a score.
+     * A player has movement functions to react to input and 3 lives.
      */
     class Player : public Entity {
     public:
@@ -25,13 +24,6 @@ namespace Pacenstein {
          * \return An unsigned int of the number of lives.
          */
         unsigned int getLives();
-
-        /**
-         * Returns the score of the player.
-         *
-         * \return An unsigned int of the score.
-         */
-        unsigned int getScore();
 
         /**
          * Turns the player to the left.
@@ -68,10 +60,19 @@ namespace Pacenstein {
         void moveDown(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap);
 
         //Nog niet getest!
-        /***/
+        /**
+         * Checks if the player collides with another entity.
+         * 
+         * \param other The entity to check if the player collides with it.
+         * \return A bool of the collision. True if there is a collision, false if not.
+         */
         bool collide(Entity other);
 
-        /***/
+        /**
+         * Returns the plane of the player.
+         *
+         * \return An sf::Vector2f of the plane.
+         */
         sf::Vector2f getPlane();
 
         /**
@@ -103,14 +104,6 @@ namespace Pacenstein {
         void setRotSpeed(const double newRotSpeed);
 
         /**
-         * Adds the points of a fruit/pellet/ghost to the score
-         * of the player.
-         *
-         * \param points An unsigned int to add to the score.
-         */
-        void addToScore(unsigned int points);
-
-        /**
          * Removes one live of the player.
          */
         void removeLive();
@@ -122,17 +115,9 @@ namespace Pacenstein {
          * Used when a new game is started.
          */
         void resetLives();
-
-        /**
-         * Resets the score of the player back to the 
-         * original value of 0.
-         * 
-         * Used when a new game is started.
-         */
-        void resetScore();
-
+        
     private:
-    	unsigned int lives, score;
+    	unsigned int lives;
         sf::Vector2f plane;
         double rotSpeed;
     };

@@ -20,7 +20,7 @@ namespace Pacenstein {
         this->h = SCREEN_HEIGHT;
 
         player.resetLives();
-        player.resetScore();
+        this->data->score = 0;
     }
 
     void InGameState::generatePauseBackground() {
@@ -192,8 +192,8 @@ namespace Pacenstein {
 
         player.setMoveSpeed(fps.asSeconds() * 150.0); //the constant value is in squares/second
         player.setRotSpeed (fps.asSeconds() * 150.0); //the constant value is in radians/second
-
-        sf::Text scoreText("Score: " + std::to_string(player.getScore()), this->data->assets.getFont("Font"));
+        
+        sf::Text scoreText("Score: " + std::to_string(this->data->score), this->data->assets.getFont("Font"));
         scoreText.setPosition(5, 5);
         this->data->window.draw(scoreText);
 
