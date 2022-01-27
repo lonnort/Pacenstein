@@ -11,19 +11,48 @@ namespace Pacenstein {
      */
     class Entity {
     public:
-        /***/
+        /**
+         * Constructor of the Entity class.
+         *
+         * \param px The x position of the entity.
+         * \param py The y position of the entity.
+         * \param dx The x direction of the entity.
+         * \param dy The y direction of the entity.
+         * \param sx The size in the x direction of the entity.
+         * \param sy The size in the y direction of the entity.
+         * \param ms The move speed of the entity. Default is 0.
+         */
         Entity(float px, float py, float dx, float dy, float sx, float sy, float ms = 0);
 
-        /***/
+        /**
+         * Constructor of the Entity class.
+         *
+         * \param pos The position of the entity as an sf::Vector2f.
+         * \param dir The direction of the entity as an sf::Vector2f.
+         * \param size The size of the entity as an sf::Vector2f.
+         * \param ms The move speed of the entity. Default is 0.
+         */
         Entity(sf::Vector2f pos, sf::Vector2f dir, sf::Vector2f size, float ms = 0);
 
-        /***/
+        /**
+         * Constructor of the Entity class.
+         *
+         * Initializes all the member variables with 0.
+         */
         Entity();
 
-        /***/
+        /**
+         * Returns the position of the entity.
+         *
+         * \return The position of the entity as an sf::Vector2f.
+         */
         sf::Vector2f getPos();
 
-        /***/
+        /**
+         * Returns the direction of the entity.
+         *
+         * \return The direction of the entity as an sf::Vector2f.
+         */
         sf::Vector2f getDir();
 
         /**
@@ -66,7 +95,11 @@ namespace Pacenstein {
         [[deprecated("Use Pacenstein::Entity::getDir() instead.")]]
         double getDirY();
 
-        /***/
+        /**
+         * Returns the global bounding box of the entity.
+         *
+         * \return The global bounds of the bounding box as an sf::FloatRect.
+         */
         sf::FloatRect getGlobalBounds();
 
     protected:
