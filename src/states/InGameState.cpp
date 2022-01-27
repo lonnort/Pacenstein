@@ -6,6 +6,7 @@
 #include "Definitions.hpp"
 
 #include <SFML/Graphics/PrimitiveType.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include <cmath>
 
@@ -81,46 +82,58 @@ namespace Pacenstein {
         if (direction == "up")    player.moveUp(worldMap);
         if (direction == "down")  player.moveDown(worldMap);
     }
+    
+    void InGameState::drawWalls(std::array<std::array<int,MAP_HEIGHT>,MAP_WIDTH> worldMap, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane) {
+	double positionX = position.x;
+	double positionY = position.y;
 
-    void InGameState::draw(float dt) {
-        this->data->window.clear();
+	double directionX = direction.x;
+	double directionY = direction.y;
 
-        const auto worldMap = this->data->assets.getImage("Map");
+	double planeX = plane.x;
+	double planeY = plane.y;
+	
+	float textureSectionX;
+	sf::Sprite WallTexture;
+	float scaleY;
+	int scaleX;
+	int LastMapX = -1, LastMapY = -1;
+	int LastSide = -1;
+	int Repeats = 0;
 
-        for(int x = 0; x < w; x++) {
-            // calculate ray position and direction
-            double cameraX = 2 * x / double(w) - 1; // x-coordinate in camera space
-            double rayPosX = player.getPosX();
-            double rayPosY = player.getPosY();
-            double rayDirX = player.getDirX() + player.getPlaneX() * cameraX;
-            double rayDirY = player.getDirY() + player.getPlaneY() * cameraX;
+	for(int x = 0; x < w; x++) {
+            //calculate ray position and direction
+            double cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
+            double rayPosX = positionX;
+            double rayPosY = positionY;
+            double rayDirX = directionX + planeX * cameraX;
+            double rayDirY = directionY + planeY * cameraX;
 
-            // which box of the map we're in
+            //which box of the map we're in
             int mapX = int(rayPosX);
             int mapY = int(rayPosY);
 
-            // length of ray from current position to next x or y-side
+            //length of ray from current position to next x or y-side
             double sideDistX;
             double sideDistY;
 
-            // length of ray from one x or y-side to next x or y-side
-            double deltaDistX = std::sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
-            double deltaDistY = std::sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
+            //length of ray from one x or y-side to next x or y-side
+            double deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
+            double deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
             double perpWallDist;
 
-            // what direction to step in x or y-direction (either +1 or -1)
+            //what direction to step in x or y-direction (either +1 or -1)
             int stepX;
             int stepY;
 
-            bool hit = false; // was there a wall hit?
-            bool side = 0;    // was a NS or a EW wall hit?
+            int hit = 0; //was there a wall hit?
+            int side;    //was a NS or a EW wall hit?
 
             //calculate step and initial sideDist
             if (rayDirX < 0) {
                 stepX = -1;
                 sideDistX = (rayPosX - mapX) * deltaDistX;
-            }
-            else {
+            } else {
                 stepX = 1;
                 sideDistX = (mapX + 1.0 - rayPosX) * deltaDistX;
             }
@@ -128,62 +141,267 @@ namespace Pacenstein {
             if (rayDirY < 0) {
                 stepY = -1;
                 sideDistY = (rayPosY - mapY) * deltaDistY;
-            }
-            else {
+            } else {
                 stepY = 1;
                 sideDistY = (mapY + 1.0 - rayPosY) * deltaDistY;
             }
 
-            // perform DDA
-            while (!hit) {
-                // jump to next map square, OR in x-direction, OR in y-direction
+            //perform DDA
+            while (hit == 0) {
+                //jump to next map square, OR in x-direction, OR in y-direction
                 if (sideDistX < sideDistY) {
                     sideDistX += deltaDistX;
                     mapX += stepX;
                     side = 0;
-                }
-                else {
+                }  else {
                     sideDistY += deltaDistY;
                     mapY += stepY;
                     side = 1;
                 }
-                // Check if ray has hit a wall
-                if (worldMap[mapX][mapY] > 0) hit = true;
+                //Check if ray has hit a wall
+                if (worldMap[mapX][mapY] > 0) hit = 1;
             }
 
-            // Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
-            if (!side) perpWallDist = std::fabs((mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
-            else       perpWallDist = std::fabs((mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
+	    //Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
+	    if (side == 0) {
+		perpWallDist = fabs((mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
+		while (rayPosY > 1) {
+		    rayPosY =- 1;
+		}
+		textureSectionX = rayPosY;
+	    } else {
+		perpWallDist = fabs((mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
+		while (rayPosX > 1)
+		{
+		    rayPosX =- 1;
+		}
+		textureSectionX = rayPosX;
+	    }
+	    
+	    if (textureSectionX < 0) {
+		textureSectionX = fabs(textureSectionX);
+	    }
 
             //Calculate height of line to draw on screen
-            int lineHeight = std::abs(int(h / perpWallDist));
+            float lineHeight = abs(int(h / perpWallDist));
+	    scaleY = lineHeight / 64;
+	    scaleX = worldMap[mapX][mapY] / 64;
 
-            //calculate lowest and highest pixel to fill in current stripe
-            int drawStart = -lineHeight / 2 + h / 2;
-            if (drawStart < 0) drawStart = 0;
-            int drawEnd = lineHeight / 2 + h / 2;
-            if (drawEnd >= h) drawEnd = h - 1;
+	    //Calculate height of line to draw on screen
+	    if (scaleX < 1) {
+		scaleX = 1;
+	    }
 
-            //choose wall color
-            sf::Color color;
-            switch(worldMap[mapX][mapY]) {
-                case 1:  color = sf::Color::Red;    break;
-                case 2:  color = sf::Color::Green;  break;
-                case 3:  color = sf::Color::Blue;   break;
-                case 4:  color = sf::Color::White;  break;
-                default: color = sf::Color::Yellow; break;
-            }
+	    switch (worldMap[mapX][mapY]) {
+	    case 1:  WallTexture.setTexture(wallTexture); break;
+	    case 2:  WallTexture.setTexture(doorTexture); break;
+	    case 3:  WallTexture.setTexture(wallTexture); break;
+	    case 4:  WallTexture.setTexture(wallTexture); break;
+	    default: WallTexture.setTexture(wallTexture); break;
+	    }
 
-            //give x and y sides different brightness
-            if (side == 1) color = sf::Color(color.r/2, color.g/2, color.b/2);
+	    if (LastMapY == mapY && LastMapX == mapX && side == LastSide) {
+		Repeats++;
+	    } else {
+		Repeats = 0;
+	    }
+	    
+	    textureSectionX = textureSectionX + Repeats;
+	    
+	    //give x and y sides different brightness
+	    if (side == 1) {
+		WallTexture.setColor(sf::Color(148,148,148,255));
+		textureSectionX = 64 - textureSectionX;
+	    }
+	    
+	    float y = 288 - ((64 * scaleY) / 2);
+	    
+	    //Draw the walls
+	    WallTexture.setScale(1, scaleY);
+	    WallTexture.setTextureRect(sf::IntRect(textureSectionX,0,1,64));
+	    
+	    int drawTexture = 0;
 
-            //draw the pixels of the stripe as a vertical line
-            sf::Vertex line[2] = {
-                sf::Vertex(sf::Vector2f(x, drawStart), color),
-                sf::Vertex(sf::Vector2f(x, drawEnd), color)
-            };
-            this->data->window.draw(line , 2, sf::Lines);
-        } // end for-loop
+	    while (drawTexture < scaleX) {
+		WallTexture.setPosition(x, y);
+		this->data->window.draw(WallTexture);
+		drawTexture++;
+		x++;
+	    }
+	    x--;
+	    
+	    WallTexture.setColor(sf::Color(255, 255, 255, 255));
+	    
+	    LastMapY = mapY;
+	    LastMapX = mapX;
+	    LastSide = side;
+
+	    //SET THE ZBUFFER FOR THE SPRITE CASTING
+	    this->ZBuffer[x] = perpWallDist; //perpendicular distance is used
+        } // end for-loop for wall casting
+    }
+
+void InGameState::drawEntities(std::vector<Sprite> sprites, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane) {
+	double positionX = position.x;
+	double positionY = position.y;
+
+	double dirX = direction.x;
+	double dirY = direction.y;
+
+	double planeX = plane.x;
+	double planeY = plane.y;
+
+	std::vector<int> spriteOrder;
+	std::vector<float> spriteDistance;
+
+	// for (unsigned int i = 0; i < sprites.size(); ++i) {
+
+	for (unsigned int i = 0; i < sprites.size(); ++i) {
+	    float dist = ((positionX - sprites[i].x) * (positionX - sprites[i].x) + (positionY - sprites[i].y) * (positionY - sprites[i].y));
+	    spriteOrder.push_back(i);
+	    spriteDistance.push_back(dist); // sqrt not taken, unneeded
+	}
+
+	//after sorting the sprites, do the projection and draw them
+	for(int i = 0; i < sprites.size(); i++) {
+	    //translate sprite position to relative to camera
+	    double spriteX = sprites[spriteOrder[i]].x - positionX;
+	    double spriteY = sprites[spriteOrder[i]].y - positionY;
+
+	    //transform sprite with the inverse camera matrix
+	    // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
+	    // [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
+	    // [ planeY   dirY ]                                          [ -planeY  planeX ]
+	    
+	    double invDet = 1.0 / (planeX * dirY - dirX * planeY); //required for correct matrix multiplication
+	    
+	    double transformX = invDet * (dirY * spriteX - dirX * spriteY);
+	    double transformY = invDet * (-planeY * spriteX + planeX * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+
+	    if (transformY < 0){
+		continue;
+	    }
+	    
+	    int spriteScreenX = int((w / 2) * (1 + transformX / transformY));
+	    
+	    //calculate height of the sprite on screen
+	    int spriteHeight = abs(int(h / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
+	    //calculate lowest and highest pixel to fill in current stripe
+	    int drawStartY = -spriteHeight / 2 + h / 2;
+	    if(drawStartY < 0) drawStartY = 0;
+	    int drawEndY = spriteHeight / 2 + h / 2;
+	    if(drawEndY >= h) drawEndY = h - 1;
+	    
+	    //calculate width of the sprite
+	    int spriteWidth = abs(int(h / (transformY)));
+	    int drawStartX = -spriteWidth / 2 + spriteScreenX;
+	    int drawEndX = spriteWidth / 2 + spriteScreenX;
+	    
+	    int drawWidth = drawEndX - drawStartX;
+	    int drawOrigStartX = drawStartX;
+
+	    int texture_width = 16;
+	    int texture_height = 16;
+	    
+	    int spriteLeft = 0;
+	    int spriteRight = texture_width;
+	    int spriteTop = 0;
+	    int spriteBottom = texture_height;
+	    
+	    int width = w;
+
+	    if (drawStartX > width || drawEndX < 0){
+		continue;
+	    }
+	    
+	    //loop through every vertical stripe of the sprite on screen
+	    for (int stripe = drawStartX; stripe <= drawEndX; ++stripe){
+		if (stripe < 0){
+		    drawStartX += 1;
+		    continue;
+		}
+		// are other walls in front
+		if (transformY > this->ZBuffer[stripe]){
+		    drawStartX += 1;
+		    continue;
+		}
+		
+		break;
+	    }
+	    
+	    int newWidth = drawEndX - drawStartX;
+	    float d = (float)drawWidth / (float)newWidth;
+	    
+	    spriteLeft = texture_width - (float)texture_width / d;
+	    
+	    for (int stripe = drawEndX; stripe > drawStartX; --stripe) {
+		if (stripe > width) {
+		    drawEndX -= 1;
+		    continue;
+		}
+		if (transformY > this->ZBuffer[stripe]) {
+		    drawEndX -= 1;
+		    continue;
+		}
+		break;
+	    }
+	    
+	    newWidth = drawEndX - drawOrigStartX;
+	    d = (float)drawWidth / (float)newWidth;
+	    
+	    spriteRight = (float)texture_width / d;
+	    
+	    sf::VertexArray spriteQuad(sf::Quads, 4);
+	    
+	    spriteQuad[0].position = sf::Vector2f(drawStartX, drawStartY);
+	    spriteQuad[0].texCoords = sf::Vector2f(spriteLeft, spriteTop);
+
+	    spriteQuad[1].texCoords = sf::Vector2f(spriteRight, spriteTop);
+	    spriteQuad[1].position = sf::Vector2f(drawEndX, drawStartY);
+
+	    spriteQuad[2].position = sf::Vector2f(drawEndX, drawEndY);
+	    spriteQuad[2].texCoords = sf::Vector2f(spriteRight, spriteBottom);
+
+	    spriteQuad[3].position = sf::Vector2f(drawStartX, drawEndY);
+	    spriteQuad[3].texCoords = sf::Vector2f(spriteLeft, spriteBottom);
+	    
+	    this->data->window.draw(spriteQuad, &sprites[i].tex);
+	}
+    }
+    void InGameState::draw(float dt) {
+
+	if (!this->wallTexture.loadFromFile("./res/textures/wall.png")) {
+	    std::cout << "Failed to load texture!" << '\n';
+	}
+	if (!this->doorTexture.loadFromFile("./res/textures/door.png")) {
+	    std::cout << "Failed to load texture!" << '\n';
+	}
+	if (!this->blinkyTexture.loadFromFile("./res/sprites/ghosts/blinky_middle_one.png")) {
+	    std::cout << "Failed to load texture!" << '\n';
+	}
+	if (!this->clydeTexture.loadFromFile("./res/sprites/ghosts/clyde_middle_two.png")) {
+	    std::cout << "Failed to load texture!" << '\n';
+	}
+	if (!this->pacTexture.loadFromFile("./res/sprites/items/pellets/pac.png")) {
+	    std::cout << "Failed to load texture!" << '\n';
+	}
+
+        this->data->window.clear();
+
+        const auto worldMap = this->data->assets.getImage("Map");
+
+	std::vector<Sprite> sprites = {
+	    {1.5,3.5, blinkyTexture},
+	    {1.5,5.5, blinkyTexture},
+	    {1.5,7.5, blinkyTexture},
+	};
+	
+	sf::Vector2f position = player.getPos();
+	sf::Vector2f direction = player.getDir();
+	sf::Vector2f plane = player.getPlane();
+	
+	drawWalls(worldMap, position, direction, plane);
+	drawEntities(sprites, position, direction, plane);
 
         this->fps = this->clock.getElapsedTime();
         // float fpsValue = 1e6/fps.asMicroseconds();
