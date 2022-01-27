@@ -32,3 +32,5 @@
 // Map size
 #define MAP_WIDTH  19
 #define MAP_HEIGHT 21
+
+typedef unsigned int uint;
