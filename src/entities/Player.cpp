@@ -4,7 +4,7 @@
 namespace Pacenstein {
     Player::Player():
         Entity(2,2,-1,0,0,0),
-        lives(3), score(0),
+        lives(3),
         plane({0.0, 0.66}),
         rotSpeed(0)
     {}
@@ -38,9 +38,10 @@ namespace Pacenstein {
     }
 
     bool Player::collide(Entity other){
-        sf::FloatRect playerRect(this->position.x, this->position.y, 2 * this->boundsSize, 2 * this->boundsSize);
-        sf::FloatRect otherRect(other.getPos().x, other.getPos().y, 2 * other.getBoundsSize(), 2 * other.getBoundsSize());
-        return playerRect.intersects(otherRect);
+        // sf::FloatRect playerRect(this->position.x, this->position.y, 2 * this->boundsSize, 2 * this->boundsSize);
+        // sf::FloatRect otherRect(other.getPos().x, other.getPos().y, 2 * other.getBoundsSize(), 2 * other.getBoundsSize());
+
+        return this->getGlobalBounds().intersects(other.getGlobalBounds());
     }
 
     sf::Vector2f Player::getPlane() { return sf::Vector2f(this->plane.x, this->plane.y); }
@@ -54,10 +55,6 @@ namespace Pacenstein {
 
     void Player::setMoveSpeed(const double newMoveSpeed) { this->moveSpeed = newMoveSpeed; }
     void Player::setRotSpeed (const double newRotSpeed)  { this->rotSpeed  = newRotSpeed; }
-
-    void Player::addToScore(const unsigned int points) { this->score += points; }
-    void Player::resetScore() { this->score = 0; }
-    unsigned int Player::getScore() { return this->score; }
 
     void Player::removeLive() { this->lives--; }
     void Player::resetLives() { this->lives = 3; }

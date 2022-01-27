@@ -6,8 +6,7 @@ namespace Pacenstein {
     /**
      * The player is an entity that moves around in the map according to the user's input.
      *
-     * A player has movement functions to react to input, 
-     * 3 lives and a score.
+     * A player has movement functions to react to input and 3 lives.
      */
     class Player : public Entity {
     public:
@@ -24,13 +23,6 @@ namespace Pacenstein {
          * \return An unsigned int of the number of lives.
          */
         unsigned int getLives();
-
-        /**
-         * Returns the score of the player.
-         *
-         * \return An unsigned int of the score.
-         */
-        unsigned int getScore();
 
         /**
          * Turns the player to the left.
@@ -130,14 +122,6 @@ namespace Pacenstein {
         void setRotSpeed(const double newRotSpeed);
 
         /**
-         * Adds the points of a fruit/pellet/ghost to the score
-         * of the player.
-         *
-         * \param points An unsigned int to add to the score.
-         */
-        void addToScore(unsigned int points);
-
-        /**
          * Removes one live of the player.
          */
         void removeLive();
@@ -149,17 +133,9 @@ namespace Pacenstein {
          * Used when a new game is started.
          */
         void resetLives();
-
-        /**
-         * Resets the score of the player back to the 
-         * original value of 0.
-         * 
-         * Used when a new game is started.
-         */
-        void resetScore();
         
     private:
-    	unsigned int lives, score;
+    	unsigned int lives;
         sf::Vector2f plane;
         double rotSpeed;
     };
