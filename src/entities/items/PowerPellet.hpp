@@ -11,7 +11,19 @@ namespace Pacenstein {
      * eaten will also grant bonus points.
      */
     class PowerPellet : public Item {
+        /**
+         * Constructor of the PowerPellet class.
+         *
+         * \param x The x position as a float of a power pellet.
+         * \param y The y position as a float of a power pellet.
+         */
         PowerPellet(float x, float y);
+
+        /**
+         * Constructor of the PowerPellet class.
+         *
+         * \param xy The position of a power pellet as a sf::Vector2f.
+         */
         PowerPellet(sf::Vector2f xy);
     };
 }
