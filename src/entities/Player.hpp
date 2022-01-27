@@ -59,10 +59,19 @@ namespace Pacenstein {
         void moveDown(const int worldMap[][19]);
 
         //Nog niet getest!
-        /***/
+        /**
+         * Checks if the player collides with another entity.
+         * 
+         * \param other The entity to check if the player collides with it.
+         * \return A bool of the collision. True if there is a collision, false if not.
+         */
         bool collide(Entity other);
 
-        /***/
+        /**
+         * Returns the plane of the player.
+         *
+         * \return An sf::Vector2f of the plane.
+         */
         sf::Vector2f getPlane();
 
         /**
