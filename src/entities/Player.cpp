@@ -38,17 +38,13 @@ namespace Pacenstein {
     }
 
     bool Player::collide(Entity other){
-        sf::FloatRect playerRect(this->position.x, this->position.y, 2 * this->boundsSize, 2 * this->boundsSize);
-        sf::FloatRect otherRect(other.getPos().x, other.getPos().y, 2 * other.getBoundsSize(), 2 * other.getBoundsSize());
+        sf::FloatRect playerRect(this->position.x, this->position.y, 2 * this->boundsSize,      2 * this->boundsSize);
+        sf::FloatRect otherRect (other.getPos().x, other.getPos().y, 2 * other.getBoundsSize(), 2 * other.getBoundsSize());
         return playerRect.intersects(otherRect);
     }
 
     sf::Vector2f Player::getPlane() { return sf::Vector2f(this->plane.x, this->plane.y); }
 
-    double Player::getPosX() { return this->position.x; }
-    double Player::getPosY() { return this->position.y; }
-    double Player::getDirX() { return this->direction.x; }
-    double Player::getDirY() { return this->direction.y; }
     double Player::getPlaneX() { return this->plane.x; }
     double Player::getPlaneY() { return this->plane.y; }
 

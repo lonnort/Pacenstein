@@ -74,34 +74,6 @@ namespace Pacenstein {
         sf::Vector2f getPlane();
 
         /**
-         * Returns the x position of the player.
-         *
-         * \return A double of the x position.
-         */
-        double getPosX();
-
-        /**
-         * Returns the y position of the player.
-         *
-         * \return A double of the y position.
-         */
-        double getPosY();
-
-        /**
-         * Returns the x direction of the player.
-         *
-         * \return A double of the x direction.
-         */
-        double getDirX();
-
-        /**
-         * Returns the y direction of the player.
-         *
-         * \return A double of the y direction.
-         */
-        double getDirY();
-
-        /**
          * Returns the x plane of the player.
          *
          * \return A double of the x plane.
@@ -157,7 +129,7 @@ namespace Pacenstein {
          * Used when a new game is started.
          */
         void resetScore();
-        
+
     private:
     	unsigned int lives, score;
         sf::Vector2f plane;

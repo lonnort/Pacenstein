@@ -27,26 +27,11 @@ namespace Pacenstein {
         void init() override {};
 
         /**
-         * Handles user input.
-         *
-         * Mouse movements to move the camera left to right, and key presses for moving the player
-         * around.
-         */
-        // void handleInput();
-
-        /**
          * Updates the scatter state.
          *
          * \param dt The maximum time to update in the game loop.
          */
         void update(float dt) override;
-
-        /**
-         * Draws the screen objects on the screen.
-         *
-         * \param dt The maximum time to draw in the game loop.
-         */
-        // void draw(float dt) override;
 
     private:
         game_data_ref_t data;
