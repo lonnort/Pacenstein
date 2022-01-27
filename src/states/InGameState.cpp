@@ -12,13 +12,12 @@
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data) : 
         data(data),
-        player()
+        player(),
+        w(SCREEN_WIDTH),
+        h(SCREEN_HEIGHT)
     {}
     
     void InGameState::init() {
-        this->w = SCREEN_WIDTH;
-        this->h = SCREEN_HEIGHT;
-
         player.resetLives();
         this->data->score = 0;
     }
@@ -74,7 +73,7 @@ namespace Pacenstein {
         // }
     }
 
-    void InGameState::move(std::string direction) {
+    void InGameState::move(const std::string& direction) {
         const auto worldMap = this->data->assets.getImage("Map");
 
         if (direction == "left")  player.moveLeft();
@@ -113,8 +112,8 @@ namespace Pacenstein {
             int stepX;
             int stepY;
 
-            int hit = 0; // was there a wall hit?
-            int side;    // was a NS or a EW wall hit?
+            bool hit = false; // was there a wall hit?
+            bool side = 0;    // was a NS or a EW wall hit?
 
             //calculate step and initial sideDist
             if (rayDirX < 0) {
@@ -136,7 +135,7 @@ namespace Pacenstein {
             }
 
             // perform DDA
-            while (hit == 0) {
+            while (!hit) {
                 // jump to next map square, OR in x-direction, OR in y-direction
                 if (sideDistX < sideDistY) {
                     sideDistX += deltaDistX;
@@ -149,12 +148,12 @@ namespace Pacenstein {
                     side = 1;
                 }
                 // Check if ray has hit a wall
-                if (worldMap[mapX][mapY] > 0) hit = 1;
+                if (worldMap[mapX][mapY] > 0) hit = true;
             }
 
             // Calculate distance projected on camera direction (oblique distance will give fisheye effect!)
-            if (side == 0) perpWallDist = std::fabs((mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
-            else           perpWallDist = std::fabs((mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
+            if (!side) perpWallDist = std::fabs((mapX - rayPosX + (1 - stepX) / 2) / rayDirX);
+            else       perpWallDist = std::fabs((mapY - rayPosY + (1 - stepY) / 2) / rayDirY);
 
             //Calculate height of line to draw on screen
             int lineHeight = std::abs(int(h / perpWallDist));
@@ -187,7 +186,7 @@ namespace Pacenstein {
         } // end for-loop
 
         this->fps = this->clock.getElapsedTime();
-        float fpsValue = 1e6/fps.asMicroseconds();
+        // float fpsValue = 1e6/fps.asMicroseconds();
         this->clock.restart();
 
         player.setMoveSpeed(fps.asSeconds() * 150.0); //the constant value is in squares/second

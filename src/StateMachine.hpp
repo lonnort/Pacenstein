@@ -6,9 +6,6 @@
 #include "State.hpp"
 
 namespace Pacenstein {
-    /**
-     * This is a unique smart pointer to State.
-     */
     typedef std::unique_ptr<State> state_ref_t;
 
     /**
@@ -17,6 +14,8 @@ namespace Pacenstein {
      */
     class StateMachine {
     public:
+        StateMachine();
+
         /**
          * Call this to change to a new state.
          *
@@ -55,7 +54,6 @@ namespace Pacenstein {
     private:
         std::stack<state_ref_t> states;
         state_ref_t new_state;
-        bool is_removing;
-        bool is_adding, is_replacing;
+        bool is_removing, is_adding, is_replacing;
     };
 }

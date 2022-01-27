@@ -18,7 +18,7 @@ namespace Pacenstein {
          *
          * \param data A shared pointer to the game data.
          */
-        SettingsMenuState(game_data_ref_t data);
+        explicit SettingsMenuState(game_data_ref_t data);
 
         /**
          * Initializes settings menu variables and screen objects,

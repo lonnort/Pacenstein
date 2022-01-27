@@ -18,7 +18,7 @@ namespace Pacenstein {
             player_name.pop_back();
             this->scores.push_back({player_name, points});
         }
-        std::sort(scores.begin(), scores.end(), [](auto& l, auto& r){ return l.second > r.second; });
+        std::sort(scores.begin(), scores.end(), [](const auto& l, const auto& r){ return l.second > r.second; });
         for(int i = 0; i < scores.size(); i++){
             std::vector<std::string> tmp;
             tmp.push_back(std::to_string(i+1) + ".\n");
@@ -64,7 +64,7 @@ namespace Pacenstein {
     }
 
     void LeaderboardMenuState::init() {
-        sf::Font font = this->data->assets.getFont("Font");
+        // sf::Font font = this->data->assets.getFont("Font");
 
         this->parseScores(this->data->assets.getCsvFile("Scores"));
 

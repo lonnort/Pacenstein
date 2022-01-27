@@ -18,7 +18,7 @@ namespace Pacenstein {
          *
          * \param data The pointer to GameData. This contains the all important AssetManager.
          */
-        SplashState(game_data_ref_t data);
+        explicit SplashState(game_data_ref_t data);
 
         /**
          * Initializes pause state variables and screen objects.

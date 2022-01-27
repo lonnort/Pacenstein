@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace Pacenstein {
-    ScatterState::ScatterState(game_data_ref_t data) : HuntingState(data), data(data) {}
+    ScatterState::ScatterState(game_data_ref_t data): HuntingState(data) {}
 
     void ScatterState::update(float dt) {
         if (this->clock.getElapsedTime().asSeconds() > 5)

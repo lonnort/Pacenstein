@@ -1,15 +1,18 @@
 #include "StateMachine.hpp"
 
 namespace Pacenstein {
+    StateMachine::StateMachine() :
+        is_removing(false),
+        is_adding(false),
+        is_replacing(false)
+    {}
     void StateMachine::addState(state_ref_t new_state, bool is_replacing) {
         this->is_adding = true;
         this->is_replacing = is_replacing;
         this->new_state = std::move(new_state);
     }
 
-    void StateMachine::removeState() {
-        this->is_removing = true;
-    }
+    void StateMachine::removeState() { this->is_removing = true; }
 
     void StateMachine::processStateChanges() {
         if (this->is_removing && !this->states.empty()) {

@@ -24,6 +24,6 @@ namespace Pacenstein {
          *
          * \param xy The position of a power pellet as a sf::Vector2f.
          */
-        PowerPellet(sf::Vector2f xy);
+        explicit PowerPellet(sf::Vector2f xy);
     };
 }

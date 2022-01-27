@@ -22,7 +22,7 @@ namespace Pacenstein {
          *
          * \param data A shared pointer to the game data.
          */
-        LeaderboardMenuState(game_data_ref_t data);
+        explicit LeaderboardMenuState(game_data_ref_t data);
 
         /**
          * Initializes leaderboard menu variables and screen objects,

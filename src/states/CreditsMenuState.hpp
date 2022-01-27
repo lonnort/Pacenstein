@@ -20,7 +20,7 @@ namespace Pacenstein {
          *
          * \param data A shared pointer to the game data.
          */
-        CreditsMenuState(game_data_ref_t data);
+        explicit CreditsMenuState(game_data_ref_t data);
 
         /**
          * Initializes credit menu variables and screen objects.

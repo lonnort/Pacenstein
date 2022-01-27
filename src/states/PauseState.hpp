@@ -20,7 +20,7 @@ namespace Pacenstein {
          *
          * \param data A shared pointer to the GameData.
          */
-        PauseState(game_data_ref_t data);
+        explicit PauseState(game_data_ref_t data);
 
         /**
          * Initializes pause state variables and screen objects.

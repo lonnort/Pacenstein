@@ -10,7 +10,9 @@
 #include <iostream>
 
 namespace Pacenstein {
-    Game::Game(const std::string title) {
+    Game::Game(const std::string& title):
+        data(std::make_shared<GameData>())
+    {
         this->data->window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), title, sf::Style::Default, sf::ContextSettings(24,8,4));
         sf::Image icon_img;
         icon_img.loadFromFile("res/logo.png");
@@ -21,13 +23,12 @@ namespace Pacenstein {
     }
 
     void Game::run() {
-        float newTime       = 0;
-        float frameTime     = 0;
-        float interpolation = 0;
-        float accumulator   = 0;
-        float currentTime   = this->clock.getElapsedTime().asSeconds();
+        float accumulator = 0;
+        float currentTime = this->clock.getElapsedTime().asSeconds();
 
         while (this->data->window.isOpen()) {
+            float newTime, frameTime, interpolation;
+
             this->data->machine.processStateChanges();
 
             newTime = this->clock.getElapsedTime().asSeconds();

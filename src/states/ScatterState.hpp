@@ -17,7 +17,7 @@ namespace Pacenstein {
          *
          * \param data The pointer to GameData.
          */
-        ScatterState(game_data_ref_t data);
+        explicit ScatterState(game_data_ref_t data);
 
         /**
          * Initializes the scatter state variables
@@ -34,7 +34,7 @@ namespace Pacenstein {
         void update(float dt) override;
 
     private:
-        game_data_ref_t data;
+        // game_data_ref_t data;
 
         const bool huntingState = false;
 

@@ -4,7 +4,7 @@
 #include "ScatterState.hpp"
 
 namespace Pacenstein {
-    HuntingState::HuntingState(game_data_ref_t data) : InGameState(data), data(data) {}
+    HuntingState::HuntingState(game_data_ref_t data) : InGameState(data) {}
 
     void HuntingState::handleInput() {
         sf::Event event;

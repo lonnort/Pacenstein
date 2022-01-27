@@ -16,11 +16,6 @@ namespace Pacenstein {
      * This struct stores a few major objects required for the game.
      *
      * This class is a singleton, sadly. It does make accessing these things a lot easier.
-     * Contained within it are:
-     * - StateMachine
-     * - sf::RenderWindow
-     * - AssetManager
-     * - InputManager
      */
     struct GameData {
         /**
@@ -50,8 +45,9 @@ namespace Pacenstein {
          * Score is an unsigned int, where the score is saved when the game is running.
          * 
          */
-        unsigned int score;
+        uint score;
     };
+
 
     /**
      * This is a shared smart pointer to GameData.
@@ -76,12 +72,12 @@ namespace Pacenstein {
          *
          * \param title The title for the game window.
          */
-        Game(const std::string title);
+        explicit Game(const std::string& title);
 
     private:
         const float dt = 0.02;
         sf::Clock clock;
-        game_data_ref_t data = std::make_shared<GameData>();
+        game_data_ref_t data;
 
         /**
          * The function that does all the work for the game.

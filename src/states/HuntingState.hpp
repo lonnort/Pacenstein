@@ -18,7 +18,7 @@ namespace Pacenstein {
          *
          * \param data A shared pointer to the game data.
          */
-        HuntingState(game_data_ref_t data);
+        explicit HuntingState(game_data_ref_t data);
 
         /**
          * Initializes the scatter state variables
@@ -44,6 +44,6 @@ namespace Pacenstein {
         void update(float dt) override;
 
     private:
-        game_data_ref_t data;
+        // game_data_ref_t data;
     };
 }

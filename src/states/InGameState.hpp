@@ -22,7 +22,7 @@ namespace Pacenstein {
          *
          * \param data A shared pointer to the game data.
          */
-        InGameState(game_data_ref_t data);
+        explicit InGameState(game_data_ref_t data);
 
         /**
          * Initializes the variables of the game state.
@@ -63,7 +63,7 @@ namespace Pacenstein {
          *
          * \param direction A string indicating what direction the player should move.
          */
-        void move(std::string direction);
+        void move(const std::string& direction);
 
         void generatePauseBackground();
 

@@ -19,7 +19,7 @@ namespace Pacenstein {
          *
          * \param data This is a pointer to GameData.
          */
-        GameOverState(game_data_ref_t data);
+        explicit GameOverState(game_data_ref_t data);
 
         /**
          * Initializes the game over state variables and screen objects.

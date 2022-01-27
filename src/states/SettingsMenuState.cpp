@@ -11,7 +11,7 @@ namespace Pacenstein {
     void SettingsMenuState::parseSettings(std::vector<std::string> file_content) {
         bool keybinds = false;
         bool alt_keys = false;
-        bool window   = false;
+        // bool window   = false;
 
         for (auto& line : file_content) {
             std::string setting = "";
@@ -25,17 +25,17 @@ namespace Pacenstein {
                 if (setting == "[keybindings]") {
                     keybinds = true;
                     alt_keys = false;
-                    window   = false;
+                    // window   = false;
                 }
                 else if (setting == "[keybindings.alt]") {
                     keybinds = false;
                     alt_keys = true;
-                    window   = false;
+                    // window   = false;
                 }
                 else if (setting == "[window]") {
                     keybinds = false;
                     alt_keys = false;
-                    window   = true;
+                    // window   = true;
                 }
             }
             else if (eq == "=" && value != "") {
@@ -54,14 +54,14 @@ namespace Pacenstein {
     }
 
     void SettingsMenuState::init() {
-        sf::Font font = this->data->assets.getFont("Font");
+        // sf::Font font = this->data->assets.getFont("Font");
         this->parseSettings(this->data->assets.getConfFile("Settings"));
 
-        std::string path = "";
+        // std::string path;
         int offset = 0;
         bool first = true;
         for (auto& setting : this->settings) {
-            path = BUTTONS_FILEPATH + setting[1] + "_key.png";
+            // path = BUTTONS_FILEPATH + setting[1] + "_key.png";
 
             // std::cout << setting[0] << std::endl;
 
