@@ -47,12 +47,6 @@ endef
 
 $(foreach targetdir, $(TARGET_DIRS), $(eval $(call generateRules, $(targetdir))))
 
-$(TARGET): $(OBJECTS) $(ICON)
-	$(CC) $(OBJECTS) $(ICON) -o $(TARGET) $(LFLAGS)
-
-$(ICON): res/resources.rc
-	@windres $< -o $@
-
 build: $(TARGET)
 
 clean:
@@ -68,3 +62,9 @@ run: build
 
 doxy:
 	@doxygen
+
+$(TARGET): $(OBJECTS) $(ICON)
+	$(CC) $(OBJECTS) $(ICON) -o $(TARGET) $(LFLAGS)
+
+$(ICON): res/resources.rc
+	@windres $< -o $@

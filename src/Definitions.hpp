@@ -14,6 +14,7 @@
 #define PACENSTEIN_LOGO_FILEPATH "res/pacenstein.png"
 #define PELLET_FILEPATH          "res/sprites/items/pellets/"
 #define GAME_FILEPATH            "res/game/"
+#define MAP_FILEPATH             "res/map.png"
 
 // Keyboard input keys
 #define KEY_UP        W
@@ -28,6 +29,6 @@
 #define KEY_ALT_PAUSE Pause
 #define KEY_EXIT      Delete
 
-// Map definitions
+// Map size
 #define MAP_WIDTH  19
 #define MAP_HEIGHT 21

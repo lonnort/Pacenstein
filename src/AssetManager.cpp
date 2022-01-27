@@ -26,6 +26,32 @@ namespace Pacenstein {
         input.close();
     }
 
+    void AssetManager::loadImage(std::string name, std::string file) {
+        sf::Image map_img;
+        map_img.loadFromFile(file);
+
+        this->images[name].fill({0});
+
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            for (int y = 0; y < MAP_HEIGHT; y++) {
+                sf::Color pixel = map_img.getPixel(x, y);
+                if      (pixel == sf::Color(255, 255, 255)) this->images.at(name).at(x).at(y) = 0;
+                else if (pixel == sf::Color(255,   0,   0)) this->images.at(name).at(x).at(y) = 1;
+                else if (pixel == sf::Color(  0, 255,   0)) this->images.at(name).at(x).at(y) = 2;
+                else if (pixel == sf::Color(  0,   0, 255)) this->images.at(name).at(x).at(y) = 3;
+                else if (pixel == sf::Color(255, 255,   0)) this->images.at(name).at(x).at(y) = 4;
+                else this->images.at(name).at(x).at(y) = 5;
+            }
+        }
+
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            for (int y = 0; y < MAP_HEIGHT; y++) {
+                std::cout << this->images.at(name).at(x).at(y) << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
     void AssetManager::loadConfFile(std::string name, std::string file) {
         std::string str;
         std::ifstream input(file);
@@ -42,21 +68,21 @@ namespace Pacenstein {
     sf::Texture& AssetManager::getTexture (std::string name) { return this->textures.at(name); }
     sf::Font&    AssetManager::getFont    (std::string name) { return this->fonts.at(name); }
     sf::Vertex&  AssetManager::getVertex  (std::string name) { return this->vertexes.at(name); }
+    std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH>& AssetManager::getImage(std::string name) { return this->images.at(name); }
     std::vector<std::string>& AssetManager::getCsvFile (std::string name) { return this->csv_files.at(name); }
     std::vector<std::string>& AssetManager::getConfFile (std::string name) { return this->conf_files.at(name); }
 
     void AssetManager::saveCsvFile(std::string name, std::string fileName, std::vector<std::string> newContent) {
         std::ofstream file;
         file.open(fileName);
-        if(file.is_open()){
-            for(auto line : newContent){
+        if (file.is_open()) {
+            for (auto line : newContent) {
                 file << line;
                 file << "\n";
             }
             file.close();
-        }else{
-            std::cout << "error with opening file!\n";
         }
+        else std::cout << "error with opening file!\n";
         this->loadCsvFile(name, fileName);
     }
 }

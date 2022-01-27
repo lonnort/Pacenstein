@@ -8,6 +8,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <array>
 
 namespace Pacenstein {
     /**
@@ -29,6 +30,9 @@ namespace Pacenstein {
 
         /***/
         void loadTexture(std::string name, sf::Texture file);
+
+        /***/
+        void loadImage(std::string name, std::string file);
 
         /**
          * Loads fonts and gives them a name to make access easier.
@@ -73,6 +77,14 @@ namespace Pacenstein {
         sf::Texture& getTexture(std::string name);
 
         /**
+         * Returns an image by name.
+         *
+         * \param  name The name of the image.
+         * \return      The image with the given name.
+         */
+        std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH>& getImage(std::string name);
+
+        /**
          * Returns a font by name.
          *
          * \param  name The name of the font.
@@ -110,6 +122,7 @@ namespace Pacenstein {
         std::map<std::string, sf::Texture> textures;
         std::map<std::string, sf::Font>    fonts;
         std::map<std::string, sf::Vertex>  vertexes;
+        std::map<std::string, std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH>> images;
         std::map<std::string, std::vector<std::string>> csv_files;
         std::map<std::string, std::vector<std::string>> conf_files;
     };
