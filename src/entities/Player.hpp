@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "Definitions.hpp"
 
 namespace Pacenstein {
     /**
@@ -55,7 +56,7 @@ namespace Pacenstein {
          * is moved forwards. If the player is against
          * a wall, this function does nothing.
          */
-        void moveUp(const int worldMap[][19]);
+        void moveUp(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap);
 
         /**
          * Moves the player backwards.
@@ -64,7 +65,7 @@ namespace Pacenstein {
          * is moved backwards. If the player is against
          * a wall, this function does nothing.
          */
-        void moveDown(const int worldMap[][19]);
+        void moveDown(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap);
 
         //Nog niet getest!
         /***/

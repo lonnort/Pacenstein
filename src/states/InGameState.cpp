@@ -38,26 +38,6 @@ namespace Pacenstein {
 
             if (sf::Event::Closed == event.type) this->data->window.close();
 
-            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
-            // ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)) {
-            //     this->move("up");
-            // }
-
-            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
-            // ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_DOWN)) {
-            //     this->move("down");
-            // }
-
-            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_RIGHT)
-            // ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_RIGHT)) {
-            //     this->move("right");
-            // }
-
-            // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_LEFT)
-            // ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_LEFT)) {
-            //     this->move("left");
-            // }
-
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
             ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)
             ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
@@ -95,29 +75,7 @@ namespace Pacenstein {
     }
 
     void InGameState::move(std::string direction) {
-        const int worldMap[21][19] {
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-            {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0,1},
-            {1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1},
-            {1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1},
-            {0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0},
-            {1,1,1,1,0,1,0,1,1,2,1,1,0,1,0,1,1,1,1},
-            {0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
-            {1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1},
-            {0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0},
-            {1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1},
-            {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-            {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
-            {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
-            {1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1},
-            {1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1},
-            {1,0,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-        };
+        const auto worldMap = this->data->assets.getImage("Map");
 
         if (direction == "left")  player.moveLeft();
         if (direction == "right") player.moveRight();
@@ -128,29 +86,7 @@ namespace Pacenstein {
     void InGameState::draw(float dt) {
         this->data->window.clear();
 
-        const int worldMap[21][19] {
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-            {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0,1},
-            {1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1},
-            {1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1},
-            {0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0},
-            {1,1,1,1,0,1,0,1,1,2,1,1,0,1,0,1,1,1,1},
-            {0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0},
-            {1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1},
-            {0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0},
-            {1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1},
-            {1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1},
-            {1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1},
-            {1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1},
-            {1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1},
-            {1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1},
-            {1,0,1,1,1,1,1,1,0,1,0,1,1,1,1,1,1,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-        };
+        const auto worldMap = this->data->assets.getImage("Map");
 
         for(int x = 0; x < w; x++) {
             // calculate ray position and direction
@@ -255,9 +191,9 @@ namespace Pacenstein {
         this->clock.restart();
 
         player.setMoveSpeed(fps.asSeconds() * 150.0); //the constant value is in squares/second
-        player.setRotSpeed(fps.asSeconds() * 150.0);  //the constant value is in radians/second
+        player.setRotSpeed (fps.asSeconds() * 150.0); //the constant value is in radians/second
 
-        sf::Text scoreText("Score: "  + std::to_string(player.getScore()), this->data->assets.getFont("Font"));
+        sf::Text scoreText("Score: " + std::to_string(player.getScore()), this->data->assets.getFont("Font"));
         scoreText.setPosition(5, 5);
         this->data->window.draw(scoreText);
 
@@ -273,6 +209,5 @@ namespace Pacenstein {
         }
 
         this->data->window.display();
-        // this->data->window.clear();
     }
 }

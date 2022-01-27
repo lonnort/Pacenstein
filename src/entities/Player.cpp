@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include <cmath>
+#include <iostream>
 
 namespace Pacenstein {
     Player::Player():
@@ -27,17 +28,17 @@ namespace Pacenstein {
         this->plane.y = oldPlaneX * std::sin(-this->rotSpeed) + this->plane.y * std::cos(-this->rotSpeed);
     }
 
-    void Player::moveUp(const int worldMap[][19]){
-        if(worldMap[int(position.x + this->direction.x * this->moveSpeed)][int(position.y)] == false) position.x += this->direction.x * this->moveSpeed;
-        if(worldMap[int(position.x)][int(position.y + this->direction.y * this->moveSpeed)] == false) position.y += this->direction.y * this->moveSpeed;
+    void Player::moveUp(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap) {
+        if (worldMap[int(position.x + this->direction.x * this->moveSpeed)][int(position.y)] == 0) position.x += this->direction.x * this->moveSpeed;
+        if (worldMap[int(position.x)][int(position.y + this->direction.y * this->moveSpeed)] == 0) position.y += this->direction.y * this->moveSpeed;
     }
 
-    void Player::moveDown(const int worldMap[][19]){
-        if(worldMap[int(position.x - this->direction.x * this->moveSpeed)][int(position.y)] == false) position.x -= this->direction.x * this->moveSpeed;
-        if(worldMap[int(position.x)][int(position.y - this->direction.y * this->moveSpeed)] == false) position.y -= this->direction.y * this->moveSpeed;
+    void Player::moveDown(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap) {
+        if (worldMap[int(position.x - this->direction.x * this->moveSpeed)][int(position.y)] == 0) position.x -= this->direction.x * this->moveSpeed;
+        if (worldMap[int(position.x)][int(position.y - this->direction.y * this->moveSpeed)] == 0) position.y -= this->direction.y * this->moveSpeed;
     }
 
-    bool Player::collide(Entity other){
+    bool Player::collide(Entity other) {
         sf::FloatRect playerRect(this->position.x, this->position.y, 2 * this->boundsSize,      2 * this->boundsSize);
         sf::FloatRect otherRect (other.getPos().x, other.getPos().y, 2 * other.getBoundsSize(), 2 * other.getBoundsSize());
         return playerRect.intersects(otherRect);
