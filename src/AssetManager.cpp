@@ -43,13 +43,6 @@ namespace Pacenstein {
                 else this->images.at(name).at(x).at(y) = 5;
             }
         }
-
-        for (int x = 0; x < MAP_WIDTH; x++) {
-            for (int y = 0; y < MAP_HEIGHT; y++) {
-                std::cout << this->images.at(name).at(x).at(y) << " ";
-            }
-            std::cout << std::endl;
-        }
     }
 
     void AssetManager::loadConfFile(std::string name, std::string file) {
