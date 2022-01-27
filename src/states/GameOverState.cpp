@@ -113,8 +113,8 @@ namespace Pacenstein {
         title.setTexture(this->data->assets.getTexture("Game Over Title"));
         backButton.setTexture(this->data->assets.getTexture("Back To Main Button"));
 
-        title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 30);
-        backButton.setPosition((SCREEN_WIDTH / 2) - (backButton.getGlobalBounds().width / 2), SCREEN_HEIGHT - 100);
+        title.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 30);
+        backButton.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (backButton.getGlobalBounds().width / 2), std::stoi(this->data->settings.at("window").at("Height")) - 100);
 
         cursorHand.loadFromSystem(sf::Cursor::Hand);
         cursorArrow.loadFromSystem(sf::Cursor::Arrow);
@@ -188,11 +188,11 @@ namespace Pacenstein {
         sf::Text leaderboardPointsText(this->pointsString, this->data->assets.getFont("Font"));
         sf::Text leaderboardPositionText(this->positionString, this->data->assets.getFont("Font"));
         leaderboardTitleText.setOrigin(leaderboardTitleText.getGlobalBounds().width / 2, leaderboardTitleText.getGlobalBounds().height / 2);
-        scoreText.setPosition((SCREEN_WIDTH / 2) - (scoreText.getGlobalBounds().width / 2), 75);
-        leaderboardTitleText.setPosition((SCREEN_WIDTH / 2), 150);
-        leaderboardNameText.setPosition((SCREEN_WIDTH / 2) -30, 200);
-        leaderboardPointsText.setPosition((SCREEN_WIDTH / 2) +160, 200);
-        leaderboardPositionText.setPosition((SCREEN_WIDTH / 2) -160, 200);
+        scoreText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (scoreText.getGlobalBounds().width / 2), 75);
+        leaderboardTitleText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2), 150);
+        leaderboardNameText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) -30, 200);
+        leaderboardPointsText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) +160, 200);
+        leaderboardPositionText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) -160, 200);
 
         this->data->window.draw(scoreText);
         this->data->window.draw(leaderboardTitleText);
@@ -204,14 +204,14 @@ namespace Pacenstein {
         if(nameDone){
             sf::Text leaderboardInfo("Your score is saved!", this->data->assets.getFont("Font"));
             leaderboardInfo.setOrigin(leaderboardInfo.getGlobalBounds().width / 2, leaderboardInfo.getGlobalBounds().height / 2);
-            leaderboardInfo.setPosition((SCREEN_WIDTH / 2), SCREEN_HEIGHT - 180);
+            leaderboardInfo.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2), std::stoi(this->data->settings.at("window").at("Height")) - 180);
 
             this->data->window.draw(leaderboardInfo);
             this->data->window.draw(this->backButton);
         }else{
             sf::Text leaderboardInfo("Please type your name and press enter to save!", this->data->assets.getFont("Font"));
             leaderboardInfo.setOrigin(leaderboardInfo.getGlobalBounds().width / 2, leaderboardInfo.getGlobalBounds().height / 2);
-            leaderboardInfo.setPosition((SCREEN_WIDTH / 2), SCREEN_HEIGHT - 180);
+            leaderboardInfo.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2), std::stoi(this->data->settings.at("window").at("Height")) - 180);
 
             this->data->window.draw(leaderboardInfo);
         }

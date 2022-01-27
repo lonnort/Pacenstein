@@ -13,10 +13,12 @@
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data) : 
         data(data),
-        player(),
-        w(SCREEN_WIDTH),
-        h(SCREEN_HEIGHT)
-    {}
+        player()
+    {
+        w = std::stoi(data->settings.at("window").at("Width"));
+        h = std::stoi(data->settings.at("window").at("Height"));
+        ZBuffer.reserve(std::stoi(data->settings.at("window").at("Width")));
+    }
     
     void InGameState::init() {
         player.resetLives();
@@ -415,13 +417,13 @@ void InGameState::drawEntities(std::vector<Sprite> sprites, sf::Vector2f positio
         this->data->window.draw(scoreText);
 
         sf::Text livesText("Lives: ", this->data->assets.getFont("Font"));
-        livesText.setPosition(5, SCREEN_HEIGHT - livesText.getGlobalBounds().height - 25);
+        livesText.setPosition(5, std::stoi(this->data->settings.at("window").at("Height")) - livesText.getGlobalBounds().height - 25);
         this->data->window.draw(livesText);
 
         for(unsigned int i = 0; i < player.getLives(); i++){
             sf::Sprite heart;
             heart.setTexture(this->data->assets.getTexture("Heart"));
-            heart.setPosition(livesText.getGlobalBounds().width + ((10 + heart.getGlobalBounds().width) * i ), SCREEN_HEIGHT - heart.getGlobalBounds().height - 5);
+            heart.setPosition(livesText.getGlobalBounds().width + ((10 + heart.getGlobalBounds().width) * i ), std::stoi(this->data->settings.at("window").at("Height")) - heart.getGlobalBounds().height - 5);
             this->data->window.draw(heart);
         }
 

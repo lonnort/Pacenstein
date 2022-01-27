@@ -1,8 +1,10 @@
 #pragma once
 
 // Screen
-#define SCREEN_WIDTH  1200
-#define SCREEN_HEIGHT 720
+// #define SCREEN_WIDTH  1200
+// #define SCREEN_HEIGHT 720
+// #define FULLSCREEN    false
+// #define AA_LEVEL      4
 
 // File paths
 #define BACKGROUND_FILEPATH      "res/splash/background.png"
@@ -33,4 +35,5 @@
 #define MAP_WIDTH  19
 #define MAP_HEIGHT 21
 
+// Typedef
 typedef unsigned int uint;

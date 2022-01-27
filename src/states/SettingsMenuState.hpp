@@ -66,7 +66,5 @@ namespace Pacenstein {
 
         std::vector<std::vector<std::string>> settings;
         std::string super_long_string = "";
-
-        void parseSettings(std::vector<std::string> file_content);
     };
 }

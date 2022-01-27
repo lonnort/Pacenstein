@@ -18,12 +18,12 @@ namespace Pacenstein {
         QuitButton.setTexture(this->data->assets.getTexture("Quit Game Button"));
         CreditsButton.setTexture(this->data->assets.getTexture("Credits Button"));
 
-        title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2 * 0.3), title.getGlobalBounds().height / 2 * 0.3);
-        StartButton.setPosition((SCREEN_WIDTH / 2) - (StartButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (StartButton.getGlobalBounds().height / 2));
-        LeaderboardButton.setPosition((SCREEN_WIDTH / 2) - (LeaderboardButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (LeaderboardButton.getGlobalBounds().height / 2) + 75);
-        SettingsButton.setPosition((SCREEN_WIDTH / 2) - (SettingsButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (SettingsButton.getGlobalBounds().height / 2) + 150);
-        QuitButton.setPosition((SCREEN_WIDTH / 2) - (QuitButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (QuitButton.getGlobalBounds().height / 2) + 225);
-        CreditsButton.setPosition(100, (SCREEN_HEIGHT - 100) - (CreditsButton.getGlobalBounds().height));
+        title.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (title.getGlobalBounds().width / 2 * 0.3), title.getGlobalBounds().height / 2 * 0.3);
+        StartButton.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (StartButton.getGlobalBounds().width / 2), (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (StartButton.getGlobalBounds().height / 2));
+        LeaderboardButton.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (LeaderboardButton.getGlobalBounds().width / 2), (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (LeaderboardButton.getGlobalBounds().height / 2) + 75);
+        SettingsButton.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (SettingsButton.getGlobalBounds().width / 2), (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (SettingsButton.getGlobalBounds().height / 2) + 150);
+        QuitButton.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (QuitButton.getGlobalBounds().width / 2), (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (QuitButton.getGlobalBounds().height / 2) + 225);
+        CreditsButton.setPosition(100, (std::stoi(this->data->settings.at("window").at("Height")) - 100) - (CreditsButton.getGlobalBounds().height));
 
         cursorHand.loadFromSystem(sf::Cursor::Hand);
         cursorArrow.loadFromSystem(sf::Cursor::Arrow);

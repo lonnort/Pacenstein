@@ -46,6 +46,9 @@ namespace Pacenstein {
          * 
          */
         uint score;
+
+        /***/
+        std::map<std::string, std::map<std::string, std::string>> settings;
     };
 
 
@@ -87,5 +90,6 @@ namespace Pacenstein {
          * active State.
          */
         void run();
+        void parseSettings();
     };
 }

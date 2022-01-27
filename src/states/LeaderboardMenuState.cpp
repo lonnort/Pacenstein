@@ -56,9 +56,9 @@ namespace Pacenstein {
             }
 
             if(end != leaderboard.size()){
-                positionString  += "...\n";
-                nameString      += "...\n";
-                pointsString    += "...\n";
+                positionString += "...\n";
+                nameString     += "...\n";
+                pointsString   += "...\n";
             }
         }
     }
@@ -73,7 +73,7 @@ namespace Pacenstein {
         title.setTexture(this->data->assets.getTexture("Leaderboard Text"));
         backButton.setTexture(this->data->assets.getTexture("Back Button"));
 
-        title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
+        title.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
         backButton.setPosition((backButton.getGlobalBounds().width / 2) + 50, (backButton.getGlobalBounds().height / 2) + 50);
 
         cursorHand.loadFromSystem(sf::Cursor::Hand);
@@ -148,10 +148,10 @@ namespace Pacenstein {
         sf::Text leaderboardPointsText(this->pointsString, this->data->assets.getFont("Font"));
         sf::Text leaderboardPositionText(this->positionString, this->data->assets.getFont("Font"));
         leaderboardTitleText.setOrigin(leaderboardTitleText.getGlobalBounds().width / 2, leaderboardTitleText.getGlobalBounds().height / 2);
-        leaderboardTitleText.setPosition((SCREEN_WIDTH / 2), 150);
-        leaderboardNameText.setPosition((SCREEN_WIDTH / 2) -30, 200);
-        leaderboardPointsText.setPosition((SCREEN_WIDTH / 2) +160, 200);
-        leaderboardPositionText.setPosition((SCREEN_WIDTH / 2) -160, 200);
+        leaderboardTitleText.setPosition   ((std::stoi(data->settings.at("window").at("Width")) / 2),       150);
+        leaderboardNameText.setPosition    ((std::stoi(data->settings.at("window").at("Width")) / 2) -  30, 200);
+        leaderboardPointsText.setPosition  ((std::stoi(data->settings.at("window").at("Width")) / 2) + 160, 200);
+        leaderboardPositionText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - 160, 200);
 
         this->data->window.draw(leaderboardTitleText);
         this->data->window.draw(leaderboardPositionText);

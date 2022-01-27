@@ -46,12 +46,12 @@ namespace Pacenstein {
         this->data->assets.loadTexture("Continue Button", (BUTTONS_FILEPATH "continue.png"));
 
         // Settings menu
+        this->data->assets.loadTexture("Move Backward",     (BUTTONS_FILEPATH "S_key.png"));
         this->data->assets.loadTexture("Move Forward",      (BUTTONS_FILEPATH "W_key.png"));
-        this->data->assets.loadTexture("Move Backward",     (BUTTONS_FILEPATH "A_key.png"));
-        this->data->assets.loadTexture("Move Left",         (BUTTONS_FILEPATH "S_key.png"));
+        this->data->assets.loadTexture("Move Left",         (BUTTONS_FILEPATH "A_key.png"));
         this->data->assets.loadTexture("Move Right",        (BUTTONS_FILEPATH "D_key.png"));
-        this->data->assets.loadTexture("Move Forward alt",  (BUTTONS_FILEPATH "up_key.png"));
         this->data->assets.loadTexture("Move Backward alt", (BUTTONS_FILEPATH "down_key.png"));
+        this->data->assets.loadTexture("Move Forward alt",  (BUTTONS_FILEPATH "up_key.png"));
         this->data->assets.loadTexture("Move Left alt",     (BUTTONS_FILEPATH "left_key.png"));
         this->data->assets.loadTexture("Move Right alt",    (BUTTONS_FILEPATH "right_key.png"));
         this->data->assets.loadTexture("Pause",             (BUTTONS_FILEPATH "esc_key.png"));
@@ -63,7 +63,7 @@ namespace Pacenstein {
 
         this->background.setTexture(this->data->assets.getTexture("Splash Image"));
         this->background.setOrigin(this->background.getGlobalBounds().width / 2, this->background.getGlobalBounds().height / 2);
-        this->background.setPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        this->background.setPosition(std::stoi(data->settings.at("window").at("Width")) / 2, std::stoi(this->data->settings.at("window").at("Height")) / 2);
         this->background.scale(.5, .5);
     }
 

@@ -6,14 +6,29 @@
 #include "MainMenuState.hpp"
 #include "PauseState.hpp"
 #include "ScatterState.hpp"
+#include "Definitions.hpp"
 
 #include <iostream>
+#include <sstream>
 
 namespace Pacenstein {
     Game::Game(const std::string& title):
         data(std::make_shared<GameData>())
     {
-        this->data->window.create(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), title, sf::Style::Default, sf::ContextSettings(24,8,4));
+        this->parseSettings();
+
+        bool fullscreen;
+        std::istringstream(this->data->settings.at("window").at("Fullscreen")) >> std::boolalpha >> fullscreen;
+
+        this->data->window.create(
+            sf::VideoMode(
+                std::stoi(this->data->settings.at("window").at("Width")),
+                std::stoi(this->data->settings.at("window").at("Height"))
+            ),
+            title,
+            sf::Style::Default | (fullscreen ? sf::Style::Fullscreen : 0),
+            sf::ContextSettings(24,8,std::stoi(this->data->settings.at("window").at("Antialiasing")))
+        );
         sf::Image icon_img;
         icon_img.loadFromFile("res/logo.png");
         this->data->window.setIcon(256, 256, icon_img.getPixelsPtr());
@@ -47,6 +62,58 @@ namespace Pacenstein {
 
             interpolation = accumulator / this->dt;
             this->data->machine.getActiveState()->draw(interpolation);
+        }
+    }
+
+    void Game::parseSettings() {
+        bool keybinds = false;
+        bool alt_keys = false;
+        bool window   = false;
+
+        this->data->assets.loadConfFile("Settings", SETTINGS_FILEPATH);
+        std::vector<std::string> file_content = this->data->assets.getConfFile("Settings");
+
+        for (auto& line : file_content) {
+            if (line[0] == ';') continue;
+            line = line.substr(0, line.find(';'));
+
+            std::string setting = "";
+            std::string eq = "";
+            std::string value = "";
+
+            std::stringstream ss(line);
+            ss >> setting >> eq >> value;
+
+            if (eq == "" && value == "") {
+                if (setting == "[keybindings]") {
+                    keybinds = true;
+                    alt_keys = false;
+                    window   = false;
+                }
+                else if (setting == "[keybindings.alt]") {
+                    keybinds = false;
+                    alt_keys = true;
+                    window   = false;
+                }
+                else if (setting == "[window]") {
+                    keybinds = false;
+                    alt_keys = false;
+                    window   = true;
+                }
+            }
+            else if (eq == "=" && value != "") {
+                if (keybinds) {
+                    if (value.size() == 1) setting = "Move " + setting;
+                    this->data->settings["keybindings"][setting] = value;
+                }
+                else if (alt_keys) {
+                    setting = "Move " + setting + " alt";
+                    this->data->settings["keybindings.alt"][setting] = value;
+                }
+                else if (window) {
+                    this->data->settings["window"][setting] = value;
+                }
+            }
         }
     }
 }

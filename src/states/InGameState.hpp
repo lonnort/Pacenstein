@@ -93,26 +93,17 @@ namespace Pacenstein {
         void generatePauseBackground();
 
     private:
-        // std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap;
-
         int w, h;
 
         sf::Clock clock;
         sf::Time fps;
-	
-	int ZBuffer[SCREEN_WIDTH];
 
-	// double posX;
-	// double posY;
-	// double dirX;
-	// double dirY;
-	// double planeX;
-	// double planeY;
+        std::vector<int> ZBuffer;
 	
-	sf::Texture wallTexture;
-	sf::Texture doorTexture;
-	sf::Texture blinkyTexture;
-	sf::Texture clydeTexture;
-	sf::Texture pacTexture;
+    	sf::Texture wallTexture;
+    	sf::Texture doorTexture;
+    	sf::Texture blinkyTexture;
+    	sf::Texture clydeTexture;
+    	sf::Texture pacTexture;
     };
 }
