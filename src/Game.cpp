@@ -6,6 +6,7 @@
 #include "MainMenuState.hpp"
 #include "PauseState.hpp"
 #include "ScatterState.hpp"
+
 #include <iostream>
 
 namespace Pacenstein {

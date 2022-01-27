@@ -18,6 +18,43 @@ namespace Pacenstein {
         sf::Vector2f getPos();
         sf::Vector2f getDir();
 
+        /**
+         * Returns the x position of the entity.
+         *
+         * \deprecated Use `getPos()` instead.
+         *
+         * \return A double of the x position.
+         */
+        double getPosX();
+
+        /**
+         * Returns the y position of the entity.
+         *
+         * \deprecated Use `getPos()` instead.
+         *
+         * \return A double of the y position.
+         */
+        double getPosY();
+
+        /**
+         * Returns the x direction of the entity.
+         *
+         * \deprecated Use `getDir()` instead.
+         *
+         * \return A double of the x direction.
+         */
+        double getDirX();
+
+        /**
+         * Returns the y direction of the entity.
+         *
+         * \deprecated Use `getDir()` instead.
+         *
+         * \return A double of the y direction.
+         */
+        double getDirY();
+
+        /***/
         sf::FloatRect getGlobalBounds();
 
     protected:
