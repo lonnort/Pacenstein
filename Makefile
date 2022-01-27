@@ -15,6 +15,8 @@ else
 	EXT := .elf
 endif
 
+CFLAGS += "-Wunused"
+
 PROJECT_NAME  := pacenstein
 TARGET        := $(PROJECT_NAME)$(EXT)
 
