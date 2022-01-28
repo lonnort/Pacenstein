@@ -200,7 +200,7 @@ namespace Pacenstein {
                 case 2:  WallTexture.setTexture(pacTexture); break;
                 case 3:  WallTexture.setTexture(wallTexture); break;
                 case 4:  WallTexture.setTexture(pacTexture); break;
-                default: WallTexture.setTexture(wallTexture); break;
+                // default: WallTexture.setTexture(wallTexture); break;
             }
 
             if (LastMapY == mapY && LastMapX == mapX && side == LastSide) Repeats++;
