@@ -383,6 +383,20 @@ namespace Pacenstein {
             {1.5, 7.5, blinkyTexture},
         };
 
+        for(int i = 0; i < worldMap.size(); i++){
+            for(int j = 0; j < worldMap[i].size(); j++){
+                switch (worldMap[i][j]){
+                case 2:
+                    sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
+                    break;
+                
+                case 4:
+                    break;
+                    sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
+                }
+            }
+        }
+
         sf::Vector2f position  = player.getPos();
         sf::Vector2f direction = player.getDir();
         sf::Vector2f plane     = player.getPlane();
