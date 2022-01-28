@@ -196,10 +196,10 @@ namespace Pacenstein {
             if (scaleX < 1) scaleX = 1;
 
             switch (worldMap[mapX][mapY]) {
-                case 1:  WallTexture.setTexture(wallTexture); break;
-                case 2:  WallTexture.setTexture(doorTexture); break;
-                // case 3:  WallTexture.setTexture(wallTexture); break;
-                // case 4:  WallTexture.setTexture(wallTexture); break;
+                case 1:  WallTexture.setTexture(doorTexture); break;
+                case 2:  WallTexture.setTexture(pacTexture); break;
+                case 3:  WallTexture.setTexture(wallTexture); break;
+                case 4:  WallTexture.setTexture(pacTexture); break;
                 default: WallTexture.setTexture(wallTexture); break;
             }
 
