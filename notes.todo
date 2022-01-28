@@ -1,0 +1,24 @@
+InGameState.cpp:
+  ☐ 89:  Dit gebeurt op heel veel plekken, aliases aanmaken is - naar mijn idee - niet noodzakelijk.
+  ☐ 173: Hier staat het volgende
+
+    while (rayPosY > 1) {
+      rayPosY =- 1;
+    }
+
+    De reden van de while ontgaat mij, rayPosY wordt direct op -1 gezet namelijk. Ik kan me voorstellen dat dit een -= had moeten zijn.
+  ☐ 181: Hetzelfde als 176.
+  ☐ 185: Je maak er een absolute waarde van, de controle of het lager is dan 0 is overbodig.
+  ☐ 189: Waarom float voor scaleY en int voor scaleX?
+  ☐ 330: Op veel plekken wordt een waarde geconstruct - int(waarde) - en hier wordt het gecast - (int)waarde. Consistency much?
+  ☐ 343: Random break op het einde van de loop, vergeten te verwijderen mby?
+  ☐ 367: Verplaats naar splash state bitte sehr.
+
+InGameState.hpp:
+  ☐ 28: Waarom niet sf::Sprite gebruiken?
+
+PauseState.hpp:
+  ☐ 68: Cursors verplaatsen naar de asset manager misschien? (dit zit in meerdere states)
+
+LeaderBoardMenuState.cpp:
+  ☐ 34: Hele regel niet nodig, incl. de twee eronder (volgens mij).

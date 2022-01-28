@@ -7,11 +7,12 @@
 #include "InputManager.hpp"
 #include "StateMachine.hpp"
 
-/**
- * \namespace Pacenstein
- * The namespace for this game, this is useful for differentiating when using this code elsewhere.
- */
 namespace Pacenstein {
+    /**
+     * A `std::map` containing a `std::string` and a `std::map`, which contains `std::string` times 2.
+     */
+    typedef std::map<std::string, std::map<std::string, std::string>> settings_t;
+
     /**
      * This struct stores a few major objects required for the game.
      *
@@ -52,6 +53,9 @@ namespace Pacenstein {
          * 
          */
         uint lives;
+        
+        /***/
+        settings_t settings;
     };
 
 
@@ -85,13 +89,7 @@ namespace Pacenstein {
         sf::Clock clock;
         game_data_ref_t data;
 
-        /**
-         * The function that does all the work for the game.
-         *
-         * Keeps track of the time that has passed, allowing to show fps and frame times. Calls the
-         * `processStateChanges()` on StateMachine, `handleInput()`, `update()`, and `draw()` on the
-         * active State.
-         */
         void run();
+        void parseSettings();
     };
 }

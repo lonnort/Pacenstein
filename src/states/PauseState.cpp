@@ -7,10 +7,9 @@
 #include <SFML/Graphics/Shader.hpp>
 
 namespace Pacenstein {
-    PauseState::PauseState(game_data_ref_t data) : data(data) {}
+    PauseState::PauseState(game_data_ref_t data): data(data) {}
 
     void PauseState::init() {
-
         this->background.setTexture    (this->data->assets.getTexture("Pause Background"));
         this->title.setTexture         (this->data->assets.getTexture("Pause Title"));
         this->highscoreText.setTexture (this->data->assets.getTexture("Highscore Text"));
@@ -19,24 +18,24 @@ namespace Pacenstein {
         this->settingsButton.setTexture(this->data->assets.getTexture("Settings Text"));
 
         this->title.setPosition(
-            (SCREEN_WIDTH / 2) - (this->title.getGlobalBounds().width / 2),
+            (std::stoi(this->data->settings.at("window").at("Width")) / 2) - (this->title.getGlobalBounds().width / 2),
             this->title.getGlobalBounds().height / 2
         );
         this->highscoreText.setPosition(
-            (SCREEN_WIDTH / 2) - (this->highscoreText.getGlobalBounds().width / 2),
-            (SCREEN_HEIGHT / 2) - (this->highscoreText.getGlobalBounds().height / 2) - 200
+            (std::stoi(this->data->settings.at("window").at("Width")) / 2) - (this->highscoreText.getGlobalBounds().width / 2),
+            (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (this->highscoreText.getGlobalBounds().height / 2) - 200
         );
         this->continueButton.setPosition(
-            (SCREEN_WIDTH / 2) - (this->continueButton.getGlobalBounds().width / 2),
-            105 + (SCREEN_HEIGHT / 2) - (this->continueButton.getGlobalBounds().height / 2) + 2 * (this->continueButton.getGlobalBounds().height)
+            (std::stoi(this->data->settings.at("window").at("Width")) / 2) - (this->continueButton.getGlobalBounds().width / 2),
+            105 + (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (this->continueButton.getGlobalBounds().height / 2) + 2 * (this->continueButton.getGlobalBounds().height)
         );
         this->giveUpButton.setPosition(
-            (SCREEN_WIDTH / 2) - (this->giveUpButton.getGlobalBounds().width / 2) - 200,
-            100 + (SCREEN_HEIGHT / 2) - (this->continueButton.getGlobalBounds().height / 2) + 2 * (this->continueButton.getGlobalBounds().height)
+            (std::stoi(this->data->settings.at("window").at("Width")) / 2) - (this->giveUpButton.getGlobalBounds().width / 2) - 200,
+            100 + (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (this->continueButton.getGlobalBounds().height / 2) + 2 * (this->continueButton.getGlobalBounds().height)
         );
         this->settingsButton.setPosition(
-            (SCREEN_WIDTH / 2) - (this->settingsButton.getGlobalBounds().width / 2) + 200,
-            100 + (SCREEN_HEIGHT / 2) - (this->settingsButton.getGlobalBounds().height / 2) + 2 * (this->settingsButton.getGlobalBounds().height)
+            (std::stoi(this->data->settings.at("window").at("Width")) / 2) - (this->settingsButton.getGlobalBounds().width / 2) + 200,
+            100 + (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (this->settingsButton.getGlobalBounds().height / 2) + 2 * (this->settingsButton.getGlobalBounds().height)
         );
 
         this->cursorHand.loadFromSystem(sf::Cursor::Hand);

@@ -58,21 +58,18 @@ namespace Pacenstein {
         this->vertexes[name] = ver;
     }
 
-    sf::Texture& AssetManager::getTexture (std::string name) { return this->textures.at(name); }
-    sf::Font&    AssetManager::getFont    (std::string name) { return this->fonts.at(name); }
-    sf::Vertex&  AssetManager::getVertex  (std::string name) { return this->vertexes.at(name); }
-    std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH>& AssetManager::getImage(std::string name) { return this->images.at(name); }
-    std::vector<std::string>& AssetManager::getCsvFile (std::string name) { return this->csv_files.at(name); }
-    std::vector<std::string>& AssetManager::getConfFile (std::string name) { return this->conf_files.at(name); }
+    sf::Texture& AssetManager::getTexture(std::string name) { return this->textures.at(name); }
+    sf::Font&    AssetManager::getFont   (std::string name) { return this->fonts.at   (name); }
+    sf::Vertex&  AssetManager::getVertex (std::string name) { return this->vertexes.at(name); }
+    map_t&       AssetManager::getImage  (std::string name) { return this->images.at  (name); }
+    std::vector<std::string>& AssetManager::getCsvFile (std::string name) { return this->csv_files.at (name); }
+    std::vector<std::string>& AssetManager::getConfFile(std::string name) { return this->conf_files.at(name); }
 
     void AssetManager::saveCsvFile(std::string name, std::string fileName, std::vector<std::string> newContent) {
         std::ofstream file;
         file.open(fileName);
         if (file.is_open()) {
-            for (auto line : newContent) {
-                file << line;
-                file << "\n";
-            }
+            for (auto& line : newContent) file << line << "\n";
             file.close();
         }
         else std::cout << "error with opening file!\n";

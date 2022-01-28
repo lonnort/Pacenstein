@@ -27,10 +27,10 @@ namespace Pacenstein {
         /**
          * Constructor of the Entity class.
          *
-         * \param pos The position of the entity as an sf::Vector2f.
-         * \param dir The direction of the entity as an sf::Vector2f.
+         * \param pos  The position of the entity as an sf::Vector2f.
+         * \param dir  The direction of the entity as an sf::Vector2f.
          * \param size The size of the entity as an sf::Vector2f.
-         * \param ms The move speed of the entity. Default is 0.
+         * \param ms   The move speed of the entity. Default is 0.
          */
         Entity(sf::Vector2f pos, sf::Vector2f dir, sf::Vector2f size, float ms = 0);
 
@@ -60,42 +60,42 @@ namespace Pacenstein {
         /**
          * Returns the x position of the entity.
          *
-         * \deprecated Use `getPos()` instead.
+         * \deprecated Use `Pacenstein::Entity::getPos()` instead.
          *
-         * \return A double of the x position.
+         * \return A float of the x position.
          */
         [[deprecated("Use Pacenstein::Entity::getPos() instead.")]]
-        double getPosX();
+        float getPosX();
 
         /**
          * Returns the y position of the entity.
          *
-         * \deprecated Use `getPos()` instead.
+         * \deprecated Use `Pacenstein::Entity::getPos()` instead.
          *
-         * \return A double of the y position.
+         * \return A float of the y position.
          */
         [[deprecated("Use Pacenstein::Entity::getPos() instead.")]]
-        double getPosY();
+        float getPosY();
 
         /**
          * Returns the x direction of the entity.
          *
-         * \deprecated Use `getDir()` instead.
+         * \deprecated Use `Pacenstein::Entity::getDir()` instead.
          *
-         * \return A double of the x direction.
+         * \return A float of the x direction.
          */
         [[deprecated("Use Pacenstein::Entity::getDir() instead.")]]
-        double getDirX();
+        float getDirX();
 
         /**
          * Returns the y direction of the entity.
          *
-         * \deprecated Use `getDir()` instead.
+         * \deprecated Use `Pacenstein::Entity::getDir()` instead.
          *
-         * \return A double of the y direction.
+         * \return A float of the y direction.
          */
         [[deprecated("Use Pacenstein::Entity::getDir() instead.")]]
-        double getDirY();
+        float getDirY();
 
         /**
          * Returns the global bounding box of the entity.
@@ -106,7 +106,6 @@ namespace Pacenstein {
 
     protected:
         sf::RectangleShape bounding_box;
-
     	sf::Vector2f position, direction, size;
     	float moveSpeed;
     };

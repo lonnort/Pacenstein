@@ -12,6 +12,13 @@
 
 namespace Pacenstein {
     /**
+     * An array with it's length equal to the width of the map,
+     * it contains an array it's length equal to the map's width,
+     * it contains integers.
+     */
+    typedef std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> map_t;
+
+    /**
      * The class managing assets.
      *
      * Assets are things like images, vertices, text, and everything used by the game besides code.
@@ -93,7 +100,8 @@ namespace Pacenstein {
          * \param  name The name of the image.
          * \return      The image with the given name.
          */
-        std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH>& getImage(std::string name);
+        /** \todo Rename to getMap(); */
+        map_t& getImage(std::string name);
 
         /**
          * Returns a font by name.
@@ -140,7 +148,7 @@ namespace Pacenstein {
         std::map<std::string, sf::Texture> textures;
         std::map<std::string, sf::Font>    fonts;
         std::map<std::string, sf::Vertex>  vertexes;
-        std::map<std::string, std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH>> images;
+        std::map<std::string, map_t>       images;
         std::map<std::string, std::vector<std::string>> csv_files;
         std::map<std::string, std::vector<std::string>> conf_files;
     };

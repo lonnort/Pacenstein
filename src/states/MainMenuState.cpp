@@ -11,22 +11,45 @@ namespace Pacenstein {
     MainMenuState::MainMenuState(game_data_ref_t data) : data(data) {}
 
     void MainMenuState::init() {
-        title.setTexture(this->data->assets.getTexture("Splash Image"));
-        StartButton.setTexture(this->data->assets.getTexture("Start Game Button"));
+        title.setTexture            (this->data->assets.getTexture("Splash Image"));
+        StartButton.setTexture      (this->data->assets.getTexture("Start Game Button"));
         LeaderboardButton.setTexture(this->data->assets.getTexture("Leaderboard Text"));
-        SettingsButton.setTexture(this->data->assets.getTexture("Settings Text"));
-        QuitButton.setTexture(this->data->assets.getTexture("Quit Game Button"));
-        CreditsButton.setTexture(this->data->assets.getTexture("Credits Button"));
+        SettingsButton.setTexture   (this->data->assets.getTexture("Settings Text"));
+        QuitButton.setTexture       (this->data->assets.getTexture("Quit Game Button"));
+        CreditsButton.setTexture    (this->data->assets.getTexture("Credits Button"));
 
-        title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2 * 0.3), title.getGlobalBounds().height / 2 * 0.3);
-        StartButton.setPosition((SCREEN_WIDTH / 2) - (StartButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (StartButton.getGlobalBounds().height / 2));
-        LeaderboardButton.setPosition((SCREEN_WIDTH / 2) - (LeaderboardButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (LeaderboardButton.getGlobalBounds().height / 2) + 75);
-        SettingsButton.setPosition((SCREEN_WIDTH / 2) - (SettingsButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (SettingsButton.getGlobalBounds().height / 2) + 150);
-        QuitButton.setPosition((SCREEN_WIDTH / 2) - (QuitButton.getGlobalBounds().width / 2), (SCREEN_HEIGHT / 2) - (QuitButton.getGlobalBounds().height / 2) + 225);
-        CreditsButton.setPosition(100, (SCREEN_HEIGHT - 100) - (CreditsButton.getGlobalBounds().height));
+        title.setPosition(
+            (std::stoi(this->data->settings.at("window").at("Width")) / 2) - (title.getGlobalBounds().width / 2 * 0.3),
+            title.getGlobalBounds().height / 2 * 0.3
+        );
 
-        cursorHand.loadFromSystem(sf::Cursor::Hand);
-        cursorArrow.loadFromSystem(sf::Cursor::Arrow);
+        StartButton.setPosition(
+            (std::stoi(this->data->settings.at("window").at("Width"))  / 2) - (StartButton.getGlobalBounds().width  / 2),
+            (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (StartButton.getGlobalBounds().height / 2)
+        );
+
+        LeaderboardButton.setPosition(
+            (std::stoi(this->data->settings.at("window").at("Width"))  / 2) - (LeaderboardButton.getGlobalBounds().width  / 2),
+            (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (LeaderboardButton.getGlobalBounds().height / 2) + 75
+        );
+
+        SettingsButton.setPosition(
+            (std::stoi(this->data->settings.at("window").at("Width"))  / 2) - (SettingsButton.getGlobalBounds().width  / 2),
+            (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (SettingsButton.getGlobalBounds().height / 2) + 150
+        );
+
+        QuitButton.setPosition(
+            (std::stoi(this->data->settings.at("window").at("Width"))  / 2) - (QuitButton.getGlobalBounds().width  / 2),
+            (std::stoi(this->data->settings.at("window").at("Height")) / 2) - (QuitButton.getGlobalBounds().height / 2) + 225
+        );
+
+        CreditsButton.setPosition(
+            100,
+            (std::stoi(this->data->settings.at("window").at("Height")) - 100) - (CreditsButton.getGlobalBounds().height)
+        );
+
+        this->cursorHand.loadFromSystem(sf::Cursor::Hand);
+        this->cursorArrow.loadFromSystem(sf::Cursor::Arrow);
     }
 
     void MainMenuState::handleInput() {
@@ -37,12 +60,11 @@ namespace Pacenstein {
 
             if (sf::Event::Closed == event.type) this->data->window.close();
 
-            if( this->data->input.isSpriteHovered(this->StartButton, this->data->window)
+            if( this->data->input.isSpriteHovered(this->StartButton,       this->data->window)
             ||  this->data->input.isSpriteHovered(this->LeaderboardButton, this->data->window)
-            ||  this->data->input.isSpriteHovered(this->SettingsButton, this->data->window)
-            ||  this->data->input.isSpriteHovered(this->QuitButton, this->data->window)
-            ||  this->data->input.isSpriteHovered(this->CreditsButton, this->data->window))
-            {
+            ||  this->data->input.isSpriteHovered(this->SettingsButton,    this->data->window)
+            ||  this->data->input.isSpriteHovered(this->QuitButton,        this->data->window)
+            ||  this->data->input.isSpriteHovered(this->CreditsButton,     this->data->window)) {
                 this->data->window.setMouseCursor(this->cursorHand);
             }
             else this->data->window.setMouseCursor(this->cursorArrow);
@@ -72,9 +94,7 @@ namespace Pacenstein {
         }
     }
 
-    void MainMenuState::update(float dt) {
-        // std::cout << "In main menu" << std::endl;
-    }
+    void MainMenuState::update(float dt) {}
 
     void MainMenuState::draw(float dt) {
         this->data->window.clear();

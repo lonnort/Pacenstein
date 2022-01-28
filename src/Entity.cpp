@@ -30,10 +30,10 @@ namespace Pacenstein {
     sf::Vector2f Entity::getPos() { return sf::Vector2f(this->position.x, this->position.y); }
     sf::Vector2f Entity::getDir() { return sf::Vector2f(this->direction.x, this->direction.y); }
 
-    double Entity::getPosX() { return this->position.x; }
-    double Entity::getPosY() { return this->position.y; }
-    double Entity::getDirX() { return this->direction.x; }
-    double Entity::getDirY() { return this->direction.y; }
+    float Entity::getPosX() { return this->position.x; }
+    float Entity::getPosY() { return this->position.y; }
+    float Entity::getDirX() { return this->direction.x; }
+    float Entity::getDirY() { return this->direction.y; }
 
     sf::FloatRect Entity::getGlobalBounds() { return bounding_box.getGlobalBounds(); }
 }

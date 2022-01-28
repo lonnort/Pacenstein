@@ -1,7 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Vertex.hpp>
+#include <SFML/System/Vector2.hpp>
 #include "State.hpp"
 #include "Game.hpp"
 #include "Player.hpp"
@@ -13,10 +15,18 @@ namespace Pacenstein {
      * The class for the in game state.
      *
      * The InGameState is used to display the current game, via raycasting.
-     * It also manages the movement of the game character. 
+     * It also manages the movement of the game character.
      */
     class InGameState : public State {
     public:
+        /**
+         * Struct containing the information needed to draw it on the screen.
+         */
+        struct Sprite {
+            double x, y;
+            sf::Texture tex;
+        };
+
         /**
          * Constructor to initialize InGamestate class.
          *
@@ -54,25 +64,29 @@ namespace Pacenstein {
          */
         void draw(float dt);
 
+
     protected:
         game_data_ref_t data;
         Player player;
 
-        /**
-         * Moves the character.
-         *
-         * \param direction A string indicating what direction the player should move.
-         */
         void move(const std::string& direction);
-
         void generatePauseBackground();
 
     private:
-        // std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap;
-
         int w, h;
 
         sf::Clock clock;
         sf::Time fps;
+
+        std::vector<int> ZBuffer;
+
+        sf::Texture wallTexture;
+        sf::Texture doorTexture;
+        sf::Texture blinkyTexture;
+        sf::Texture clydeTexture;
+        sf::Texture pacTexture;
+
+        void drawWalls(map_t worldMap, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);
+        void drawEntities(std::vector<Sprite> sprites, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);
     };
 }

@@ -29,41 +29,36 @@ namespace Pacenstein {
     }
 
     void GameOverState::init() {
-        // sf::Font font = this->data->assets.getFont("Font");
-
         this->parseScores(this->data->assets.getCsvFile("Scores"));
-
-        // if(this->data->score == 0){
-        //     this->data->score = 629;
-        // }
         
         this->position = -1;
         for (int i = 0; i < scores.size(); i++) {
-            if(this->data->score > scores[i].second){
+            if (this->data->score > scores[i].second) {
                 position = i;
                 break;
             }
         }
-        if(position == -1){
-            this->position = scores.size();
-        }
+        if (position == -1) this->position = scores.size();
 
-        if(position <= 7){
-            for(int i = 0; i < position; i++){
-                positionString += std::to_string(i+1) + ".\n";
+        if (position <= 7) {
+            for (uint i = 0; i < position; i++) {
+                positionString   += std::to_string(i+1) + ".\n";
                 nameStringBefore += scores[i].first + "\n";
-                pointsString += std::to_string(scores[i].second) + "\n";
+                pointsString     += std::to_string(scores[i].second) + "\n";
             }
+
             positionString += std::to_string(position+1) + ".\n";
             pointsString += std::to_string(this->data->score) + "\n";
-            if(scores.size() < 9){
-                for(int i = position; i < scores.size(); i++){
-                    positionString += std::to_string(i+2) + ".\n";
+
+            if (scores.size() < 9) {
+                for (int i = position; i < scores.size(); i++) {
+                    positionString  += std::to_string(i+2) + ".\n";
                     nameStringAfter += scores[i].first + "\n";
-                    pointsString += std::to_string(scores[i].second) + "\n";
+                    pointsString    += std::to_string(scores[i].second) + "\n";
                 }
-            }else{
-                for(int i = position; i < 8; i++){
+            }
+            else {
+                for (int i = position; i < 8; i++){
                     positionString += std::to_string(i+2) + ".\n";
                     nameStringAfter += scores[i].first + "\n";
                     pointsString += std::to_string(scores[i].second) + "\n";
@@ -113,8 +108,8 @@ namespace Pacenstein {
         title.setTexture(this->data->assets.getTexture("Game Over Title"));
         backButton.setTexture(this->data->assets.getTexture("Back To Main Button"));
 
-        title.setPosition((SCREEN_WIDTH / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 30);
-        backButton.setPosition((SCREEN_WIDTH / 2) - (backButton.getGlobalBounds().width / 2), SCREEN_HEIGHT - 100);
+        title.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 30);
+        backButton.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (backButton.getGlobalBounds().width / 2), std::stoi(this->data->settings.at("window").at("Height")) - 100);
 
         cursorHand.loadFromSystem(sf::Cursor::Hand);
         cursorArrow.loadFromSystem(sf::Cursor::Arrow);
@@ -188,11 +183,11 @@ namespace Pacenstein {
         sf::Text leaderboardPointsText(this->pointsString, this->data->assets.getFont("Font"));
         sf::Text leaderboardPositionText(this->positionString, this->data->assets.getFont("Font"));
         leaderboardTitleText.setOrigin(leaderboardTitleText.getGlobalBounds().width / 2, leaderboardTitleText.getGlobalBounds().height / 2);
-        scoreText.setPosition((SCREEN_WIDTH / 2) - (scoreText.getGlobalBounds().width / 2), 75);
-        leaderboardTitleText.setPosition((SCREEN_WIDTH / 2), 150);
-        leaderboardNameText.setPosition((SCREEN_WIDTH / 2) -30, 200);
-        leaderboardPointsText.setPosition((SCREEN_WIDTH / 2) +160, 200);
-        leaderboardPositionText.setPosition((SCREEN_WIDTH / 2) -160, 200);
+        scoreText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (scoreText.getGlobalBounds().width / 2), 75);
+        leaderboardTitleText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2), 150);
+        leaderboardNameText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) -30, 200);
+        leaderboardPointsText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) +160, 200);
+        leaderboardPositionText.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) -160, 200);
 
         this->data->window.draw(scoreText);
         this->data->window.draw(leaderboardTitleText);
@@ -204,14 +199,14 @@ namespace Pacenstein {
         if(nameDone){
             sf::Text leaderboardInfo("Your score is saved!", this->data->assets.getFont("Font"));
             leaderboardInfo.setOrigin(leaderboardInfo.getGlobalBounds().width / 2, leaderboardInfo.getGlobalBounds().height / 2);
-            leaderboardInfo.setPosition((SCREEN_WIDTH / 2), SCREEN_HEIGHT - 180);
+            leaderboardInfo.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2), std::stoi(this->data->settings.at("window").at("Height")) - 180);
 
             this->data->window.draw(leaderboardInfo);
             this->data->window.draw(this->backButton);
         }else{
             sf::Text leaderboardInfo("Please type your name and press enter to save!", this->data->assets.getFont("Font"));
             leaderboardInfo.setOrigin(leaderboardInfo.getGlobalBounds().width / 2, leaderboardInfo.getGlobalBounds().height / 2);
-            leaderboardInfo.setPosition((SCREEN_WIDTH / 2), SCREEN_HEIGHT - 180);
+            leaderboardInfo.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2), std::stoi(this->data->settings.at("window").at("Height")) - 180);
 
             this->data->window.draw(leaderboardInfo);
         }

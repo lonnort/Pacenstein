@@ -4,7 +4,7 @@
 #include "State.hpp"
 #include "Game.hpp"
 #include <vector>
-#include <utility> // bevat std::pair
+#include <utility>
 #include <string>
 
 namespace Pacenstein {
@@ -67,9 +67,11 @@ namespace Pacenstein {
         sf::Cursor cursorArrow;
 
         std::vector<std::vector<std::string>> leaderboard;
+
         std::string positionString = "";
-        std::string nameString = "";
-        std::string pointsString = "";
+        std::string nameString     = "";
+        std::string pointsString   = "";
+
         int begin = 0;
         int end = 12;
 

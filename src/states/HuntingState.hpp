@@ -42,8 +42,5 @@ namespace Pacenstein {
          * \param dt The maximum time to update in the game loop.
          */
         void update(float dt) override;
-
-    private:
-        // game_data_ref_t data;
     };
 }
