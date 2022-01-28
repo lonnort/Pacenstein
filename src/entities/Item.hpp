@@ -2,6 +2,7 @@
 
 #include "Entity.hpp"
 #include "Definitions.hpp"
+#include "Game.hpp"
 
 namespace Pacenstein {
     /**
@@ -32,6 +33,9 @@ namespace Pacenstein {
          * \return An unsigned int of the points.
          */
         unsigned int getPoints();
+
+        // // virtual void interact(std::shared_ptr<Entity> player, game_data_ref_t data) = 0;
+        virtual void interact(game_data_ref_t data) = 0;
 
     protected:
         const unsigned int points;

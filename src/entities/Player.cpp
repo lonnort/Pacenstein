@@ -3,9 +3,9 @@
 #include <iostream>
 
 namespace Pacenstein {
-    Player::Player():
+    Player::Player(game_data_ref_t data):
         Entity(2,2,-1,0,0,0),
-        lives(3),
+        data(data),
         plane({0.0, 0.66}),
         rotSpeed(0)
     {}
@@ -38,8 +38,10 @@ namespace Pacenstein {
         if (worldMap[int(position.x)][int(position.y - this->direction.y * this->moveSpeed)] == 0) position.y -= this->direction.y * this->moveSpeed;
     }
 
-    bool Player::collide(Entity other){
-        return this->getGlobalBounds().intersects(other.getGlobalBounds());
+    bool Player::intersect(std::shared_ptr<Item> other, game_data_ref_t data){
+        bool collision = this->getGlobalBounds().intersects(other->getGlobalBounds());
+        if(collision) other->interact(this->data);
+        return collision;
     }
 
     sf::Vector2f Player::getPlane() { return sf::Vector2f(this->plane.x, this->plane.y); }
@@ -49,8 +51,4 @@ namespace Pacenstein {
 
     void Player::setMoveSpeed(const double newMoveSpeed) { this->moveSpeed = newMoveSpeed; }
     void Player::setRotSpeed (const double newRotSpeed)  { this->rotSpeed  = newRotSpeed; }
-
-    void Player::removeLive() { this->lives--; }
-    void Player::resetLives() { this->lives = 3; }
-    unsigned int Player::getLives() { return this->lives; }
 }

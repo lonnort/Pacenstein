@@ -42,7 +42,7 @@ namespace Pacenstein {
                 }
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::PageDown)) {
-                    player.removeLive();
+                    this->data->lives--;
                 }
 
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_EXIT)) {

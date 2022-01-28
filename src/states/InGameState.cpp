@@ -12,14 +12,14 @@
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data) : 
         data(data),
-        player(),
+        player(data),
         w(SCREEN_WIDTH),
         h(SCREEN_HEIGHT)
     {}
     
     void InGameState::init() {
-        player.resetLives();
         this->data->score = 0;
+        this->data->lives = 3;
     }
 
     void InGameState::generatePauseBackground() {
@@ -200,7 +200,7 @@ namespace Pacenstein {
         livesText.setPosition(5, SCREEN_HEIGHT - livesText.getGlobalBounds().height - 25);
         this->data->window.draw(livesText);
 
-        for(unsigned int i = 0; i < player.getLives(); i++){
+        for(unsigned int i = 0; i < this->data->lives; i++){
             sf::Sprite heart;
             heart.setTexture(this->data->assets.getTexture("Heart"));
             heart.setPosition(livesText.getGlobalBounds().width + ((10 + heart.getGlobalBounds().width) * i ), SCREEN_HEIGHT - heart.getGlobalBounds().height - 5);

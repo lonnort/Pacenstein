@@ -41,6 +41,8 @@ namespace Pacenstein {
          */
         Entity();
 
+        // Entity(const std::shared_ptr<Entity> entity);
+
         /**
          * Returns the position of the entity.
          *

@@ -19,6 +19,14 @@ namespace Pacenstein {
         Entity(0,0,0,0,0,0,0)
     {}
 
+    // Entity::Entity(const std::shared_ptr<Entity> entity){
+    //     bounding_box = entity->bounding_box;
+    //     position = entity->position;
+    //     direction = entity->direction;
+    //     size = entity->size;
+    //     moveSpeed = entity->moveSpeed;
+    // }
+
     sf::Vector2f Entity::getPos() { return sf::Vector2f(this->position.x, this->position.y); }
     sf::Vector2f Entity::getDir() { return sf::Vector2f(this->direction.x, this->direction.y); }
 

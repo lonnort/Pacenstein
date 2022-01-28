@@ -25,5 +25,15 @@ namespace Pacenstein {
          * \param xy The position of a power pellet as a sf::Vector2f.
          */
         explicit PowerPellet(sf::Vector2f xy);
+
+        /**
+         * Interaction of a power pellet with the player.
+         *
+         * Gives the player 100 points and changes the state to scattering.
+         *
+         * \param player A reference to the player.
+         * \param data A reference to the data object.
+         */
+        void interact(game_data_ref_t data) override;
     };
 }

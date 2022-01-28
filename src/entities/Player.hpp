@@ -1,13 +1,17 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "Item.hpp"
 #include "Definitions.hpp"
+#include "Game.hpp"
+#include <memory>
 
 namespace Pacenstein {
+
     /**
      * The player is an entity that moves around in the map according to the user's input.
      *
-     * A player has movement functions to react to input and 3 lives.
+     * A player has movement functions to react to input.
      */
     class Player : public Entity {
     public:
@@ -16,14 +20,7 @@ namespace Pacenstein {
          *
          * Initializes member variables of the player class.
          */
-        Player();
-
-        /**
-         * Returns the number of lives of the player.
-         *
-         * \return An unsigned int of the number of lives.
-         */
-        unsigned int getLives();
+        Player(game_data_ref_t data);
 
         /**
          * Turns the player to the left.
@@ -61,12 +58,12 @@ namespace Pacenstein {
 
         //Nog niet getest!
         /**
-         * Checks if the player collides with another entity.
+         * Checks if the player intersects with another entity.
          * 
          * \param other The entity to check if the player collides with it.
          * \return A bool of the collision. True if there is a collision, false if not.
          */
-        bool collide(Entity other);
+        bool intersect(std::shared_ptr<Item> other, game_data_ref_t data);
 
         /**
          * Returns the plane of the player.
@@ -102,22 +99,10 @@ namespace Pacenstein {
          * \param newRotSpeed A const double of the new rotation speed.
          */
         void setRotSpeed(const double newRotSpeed);
-
-        /**
-         * Removes one live of the player.
-         */
-        void removeLive();
-
-        /**
-         * Resets the lives of the player back to the 
-         * original value of 3.
-         * 
-         * Used when a new game is started.
-         */
-        void resetLives();
         
     private:
-    	unsigned int lives;
+        game_data_ref_t data;
+
         sf::Vector2f plane;
         double rotSpeed;
     };

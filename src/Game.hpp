@@ -46,6 +46,12 @@ namespace Pacenstein {
          * 
          */
         uint score;
+
+        /**
+         * Lives is an unsigned int, where the lives are saved when the game is running.
+         * 
+         */
+        uint lives;
     };
 
 
