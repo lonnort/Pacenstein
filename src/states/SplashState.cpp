@@ -73,9 +73,7 @@ namespace Pacenstein {
         while (this->data->window.pollEvent(event)) {
             this->data->window.setMouseCursorVisible(true);
 
-            if (sf::Event::Closed == event.type){
-                this->data->window.close();
-            }
+            if (sf::Event::Closed == event.type) this->data->window.close();
 
             if (sf::Event::KeyPressed == event.type) {
                 switch (event.key.code) {
@@ -88,7 +86,7 @@ namespace Pacenstein {
     }
 
     void SplashState::update(float dt) {
-        if (this->clock.getElapsedTime().asSeconds() > 1)
+        if (this->clock.getElapsedTime().asSeconds() > 3)
             this->data->machine.addState(state_ref_t(std::make_unique<MainMenuState>(data)), true);
     }
 

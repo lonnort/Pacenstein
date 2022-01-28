@@ -11,7 +11,7 @@ namespace Pacenstein {
         title.setTexture(this->data->assets.getTexture("Credits Title"));
         backButton.setTexture(this->data->assets.getTexture("Back Button"));
 
-        title.setPosition((std::stoi(data->settings.at("window").at("Width")) / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
+        title.setPosition((std::stoi(this->data->settings.at("window").at("Width")) / 2) - (title.getGlobalBounds().width / 2), title.getGlobalBounds().height / 2 + 50);
         backButton.setPosition((backButton.getGlobalBounds().width / 2) + 50, (backButton.getGlobalBounds().height / 2) + 50);
 
         cursorHand.loadFromSystem(sf::Cursor::Hand);
@@ -43,13 +43,10 @@ namespace Pacenstein {
         }
     }
 
-    void CreditsMenuState::update(float dt) {
-        // std::cout << "In credits menu" << std::endl;
-    }
+    void CreditsMenuState::update(float dt) {}
 
     void CreditsMenuState::draw(float dt) {
         this->data->window.clear();
-        this->background.setScale(20, 20);
 
         this->data->window.draw(this->title);
         this->data->window.draw(this->backButton);

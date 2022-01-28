@@ -34,10 +34,6 @@ namespace Pacenstein {
         void update(float dt) override;
 
     private:
-        // game_data_ref_t data;
-
-        const bool huntingState = false;
-
         sf::Clock clock;
     };
 }

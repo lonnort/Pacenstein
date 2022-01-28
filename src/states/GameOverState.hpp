@@ -70,22 +70,24 @@ namespace Pacenstein {
         game_data_ref_t data;
 
         sf::Sprite title;
-        sf::Text   scoreText;
-        sf::Text   leaderboardTitleText;
-        sf::Text   leaderboardPositionText;
-        sf::Text   leaderboardNameText;
-        sf::Text   leaderboardPointsText;
         sf::Sprite backButton;
+
+        sf::Text scoreText;
+        sf::Text leaderboardTitleText;
+        sf::Text leaderboardPositionText;
+        sf::Text leaderboardNameText;
+        sf::Text leaderboardPointsText;
 
         sf::Cursor cursorHand;
         sf::Cursor cursorArrow;
 
         std::vector<std::pair<std::string, int>> scores;
-        std::string positionString = "";
+
+        std::string positionString   = "";
         std::string nameStringBefore = "";
-		std::string playerInput = "";
-		std::string nameStringAfter = "";
-        std::string pointsString = "";
+		std::string playerInput      = "";
+		std::string nameStringAfter  = "";
+        std::string pointsString     = "";
 
 		const int maxChar = 12;
 		bool nameDone = false;

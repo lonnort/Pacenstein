@@ -29,41 +29,36 @@ namespace Pacenstein {
     }
 
     void GameOverState::init() {
-        // sf::Font font = this->data->assets.getFont("Font");
-
         this->parseScores(this->data->assets.getCsvFile("Scores"));
-
-        // if(this->data->score == 0){
-        //     this->data->score = 629;
-        // }
         
         this->position = -1;
         for (int i = 0; i < scores.size(); i++) {
-            if(this->data->score > scores[i].second){
+            if (this->data->score > scores[i].second) {
                 position = i;
                 break;
             }
         }
-        if(position == -1){
-            this->position = scores.size();
-        }
+        if (position == -1) this->position = scores.size();
 
-        if(position <= 7){
-            for(int i = 0; i < position; i++){
-                positionString += std::to_string(i+1) + ".\n";
+        if (position <= 7) {
+            for (uint i = 0; i < position; i++) {
+                positionString   += std::to_string(i+1) + ".\n";
                 nameStringBefore += scores[i].first + "\n";
-                pointsString += std::to_string(scores[i].second) + "\n";
+                pointsString     += std::to_string(scores[i].second) + "\n";
             }
+
             positionString += std::to_string(position+1) + ".\n";
             pointsString += std::to_string(this->data->score) + "\n";
-            if(scores.size() < 9){
-                for(int i = position; i < scores.size(); i++){
-                    positionString += std::to_string(i+2) + ".\n";
+
+            if (scores.size() < 9) {
+                for (int i = position; i < scores.size(); i++) {
+                    positionString  += std::to_string(i+2) + ".\n";
                     nameStringAfter += scores[i].first + "\n";
-                    pointsString += std::to_string(scores[i].second) + "\n";
+                    pointsString    += std::to_string(scores[i].second) + "\n";
                 }
-            }else{
-                for(int i = position; i < 8; i++){
+            }
+            else {
+                for (int i = position; i < 8; i++){
                     positionString += std::to_string(i+2) + ".\n";
                     nameStringAfter += scores[i].first + "\n";
                     pointsString += std::to_string(scores[i].second) + "\n";

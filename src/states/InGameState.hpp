@@ -15,18 +15,18 @@ namespace Pacenstein {
      * The class for the in game state.
      *
      * The InGameState is used to display the current game, via raycasting.
-     * It also manages the movement of the game character. 
+     * It also manages the movement of the game character.
      */
     class InGameState : public State {
     public:
-      /**
-       * Struct containing the information needed to draw it on the screen.
-       */
-	struct Sprite {
-	    double x;
-	    double y;
-	    sf::Texture tex;
-	};
+        /**
+         * Struct containing the information needed to draw it on the screen.
+         */
+        struct Sprite {
+            double x, y;
+            sf::Texture tex;
+        };
+
         /**
          * Constructor to initialize InGamestate class.
          *
@@ -64,32 +64,12 @@ namespace Pacenstein {
          */
         void draw(float dt);
 
-        /**
-         * Updates the in game state outside of key presses.
-         *
-         * \param dt A float.
-         */
-	void drawWalls(std::array<std::array<int,MAP_HEIGHT>,MAP_WIDTH> worldMap, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);
-
-        /**
-         * Updates the in game state outside of key presses.
-         *
-         * \param dt A float.
-         */
-        void drawEntities(std::vector<Sprite> sprites, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);
-
 
     protected:
         game_data_ref_t data;
         Player player;
 
-        /**
-         * Moves the character.
-         *
-         * \param direction A string indicating what direction the player should move.
-         */
         void move(const std::string& direction);
-
         void generatePauseBackground();
 
     private:
@@ -99,11 +79,14 @@ namespace Pacenstein {
         sf::Time fps;
 
         std::vector<int> ZBuffer;
-	
-    	sf::Texture wallTexture;
-    	sf::Texture doorTexture;
-    	sf::Texture blinkyTexture;
-    	sf::Texture clydeTexture;
-    	sf::Texture pacTexture;
+
+        sf::Texture wallTexture;
+        sf::Texture doorTexture;
+        sf::Texture blinkyTexture;
+        sf::Texture clydeTexture;
+        sf::Texture pacTexture;
+
+        void drawWalls(map_t worldMap, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);
+        void drawEntities(std::vector<Sprite> sprites, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);
     };
 }

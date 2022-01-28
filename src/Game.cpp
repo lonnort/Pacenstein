@@ -29,6 +29,7 @@ namespace Pacenstein {
             sf::Style::Default | (fullscreen ? sf::Style::Fullscreen : 0),
             sf::ContextSettings(24,8,std::stoi(this->data->settings.at("window").at("Antialiasing")))
         );
+
         sf::Image icon_img;
         icon_img.loadFromFile("res/logo.png");
         this->data->window.setIcon(256, 256, icon_img.getPixelsPtr());
@@ -74,8 +75,8 @@ namespace Pacenstein {
         std::vector<std::string> file_content = this->data->assets.getConfFile("Settings");
 
         for (auto& line : file_content) {
-            if (line[0] == ';') continue;
-            line = line.substr(0, line.find(';'));
+            if (line[0] == ';') continue; // if line starts with ';', the whole line is a comment
+            line = line.substr(0, line.find(';')); // remove everything from ';' onward if it's not the first character.
 
             std::string setting = "";
             std::string eq = "";

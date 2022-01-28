@@ -64,7 +64,7 @@ namespace Pacenstein {
 
         std::vector<sf::Sprite> sprites;
 
-        std::vector<std::vector<std::string>> settings;
+        settings_t settings;
         std::string super_long_string = "";
     };
 }

@@ -1,17 +1,12 @@
 #pragma once
 
-// Screen
-// #define SCREEN_WIDTH  1200
-// #define SCREEN_HEIGHT 720
-// #define FULLSCREEN    false
-// #define AA_LEVEL      4
-
 // File paths
 #define SETTINGS_FILEPATH        "data/settings.conf"
-#define SCORE_FILEPATH           "src/data/scores.csv"
+#define SCORE_FILEPATH           "data/scores.csv"
 
 #define BUTTONS_FILEPATH         "res/ui/"
 #define GAME_FILEPATH            "res/game/"
+#define TEXTURES_FILEPATH        "res/textures/"
 #define GHOSTS_FILEPATH          "res/sprites/ghosts/"
 #define PELLET_FILEPATH          "res/sprites/items/pellets/"
 
