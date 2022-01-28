@@ -14,6 +14,7 @@ namespace Pacenstein {
         double oldDirX = this->direction.x;
         this->direction.x = this->direction.x * std::cos(this->rotSpeed) - this->direction.y * std::sin(this->rotSpeed);
         this->direction.y = oldDirX * std::sin(this->rotSpeed) + this->direction.y * std::cos(this->rotSpeed);
+
         double oldPlaneX = this->plane.x;
         this->plane.x = this->plane.x * std::cos(this->rotSpeed) - this->plane.y * std::sin(this->rotSpeed);
         this->plane.y = oldPlaneX * std::sin(this->rotSpeed) + this->plane.y * std::cos(this->rotSpeed);
@@ -23,19 +24,38 @@ namespace Pacenstein {
         double oldDirX = direction.x;
         this->direction.x = this->direction.x * std::cos(-this->rotSpeed) - this->direction.y * std::sin(-this->rotSpeed);
         this->direction.y = oldDirX * std::sin(-this->rotSpeed) + this->direction.y * std::cos(-this->rotSpeed);
+
         double oldPlaneX = plane.x;
         this->plane.x = this->plane.x * std::cos(-this->rotSpeed) - this->plane.y * std::sin(-this->rotSpeed);
         this->plane.y = oldPlaneX * std::sin(-this->rotSpeed) + this->plane.y * std::cos(-this->rotSpeed);
     }
 
     void Player::moveUp(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap) {
-        if (worldMap[int(position.x + this->direction.x * this->moveSpeed)][int(position.y)] == 0) position.x += this->direction.x * this->moveSpeed;
-        if (worldMap[int(position.x)][int(position.y + this->direction.y * this->moveSpeed)] == 0) position.y += this->direction.y * this->moveSpeed;
+        int px = position.x + this->direction.x * this->moveSpeed;
+        int py = position.y;
+        if (worldMap[px][py] == 0 || worldMap[px][py] == 3 || worldMap[px][py] == 4) {
+            position.x += this->direction.x * this->moveSpeed;
+        }
+
+        px = position.x;
+        py = position.y + this->direction.y * this->moveSpeed;
+        if (worldMap[px][py] == 0 || worldMap[px][py] == 3 || worldMap[px][py] == 4) {
+            position.y += this->direction.y * this->moveSpeed;
+        }
     }
 
     void Player::moveDown(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap) {
-        if (worldMap[int(position.x - this->direction.x * this->moveSpeed)][int(position.y)] == 0) position.x -= this->direction.x * this->moveSpeed;
-        if (worldMap[int(position.x)][int(position.y - this->direction.y * this->moveSpeed)] == 0) position.y -= this->direction.y * this->moveSpeed;
+        int px = position.x - this->direction.x * this->moveSpeed;
+        int py = position.y;
+        if (worldMap[px][py] == 0 || worldMap[px][py] == 3 || worldMap[px][py] == 4) {
+            position.x -= this->direction.x * this->moveSpeed;
+        }
+
+        px = position.x;
+        py = position.y - this->direction.y * this->moveSpeed;
+        if (worldMap[px][py] == 0 || worldMap[px][py] == 3 || worldMap[px][py] == 4) {
+            position.y -= this->direction.y * this->moveSpeed;
+        }
     }
 
     bool Player::collide(Entity other){

@@ -99,7 +99,7 @@ namespace Pacenstein {
         sf::Sprite WallTexture;
 
         float scaleY;
-        int scaleX;
+        float scaleX;
 
         int LastMapX = -1, LastMapY = -1;
         int LastSide = -1;
@@ -214,7 +214,7 @@ namespace Pacenstein {
                 textureSectionX = 64 - textureSectionX;
             }
 
-            float y = 288 - (64 * scaleY) / 2;
+            float y = 540 - (64 * scaleY) / 2;
 
             //Draw the walls
             WallTexture.setScale(1, scaleY);
@@ -378,8 +378,8 @@ namespace Pacenstein {
 
         std::vector<Sprite> sprites = {
             {1.5, 3.5, blinkyTexture},
-            {1.5, 5.5, blinkyTexture},
-            {1.5, 7.5, blinkyTexture},
+            // {1.5, 5.5, blinkyTexture},
+            // {1.5, 7.5, blinkyTexture},
         };
 
         sf::Vector2f position  = player.getPos();
@@ -392,8 +392,8 @@ namespace Pacenstein {
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
 
-        player.setMoveSpeed(fps.asSeconds() * 20.0); //the constant value is in squares/second
-        player.setRotSpeed (fps.asSeconds() * 20.0); //the constant value is in radians/second
+        player.setMoveSpeed(fps.asSeconds() * 10.0); //the constant value is in squares/second
+        player.setRotSpeed (fps.asSeconds() * 10.0); //the constant value is in radians/second
         
         sf::Text scoreText("Score: " + std::to_string(this->data->score), this->data->assets.getFont("Font"));
         scoreText.setPosition(5, 5);
