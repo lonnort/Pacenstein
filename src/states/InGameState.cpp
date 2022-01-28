@@ -197,9 +197,9 @@ namespace Pacenstein {
 
             switch (worldMap[mapX][mapY]) {
                 case 1:  WallTexture.setTexture(doorTexture); break;
-                case 2:  WallTexture.setTexture(pacTexture); break;
+                // case 2:  WallTexture.setTexture(pacTexture); break;
                 case 3:  WallTexture.setTexture(wallTexture); break;
-                case 4:  WallTexture.setTexture(pacTexture); break;
+                // case 4:  WallTexture.setTexture(pacTexture); break;
                 // default: WallTexture.setTexture(wallTexture); break;
             }
 
