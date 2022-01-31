@@ -78,6 +78,16 @@ namespace Pacenstein {
         this->data->assets.loadTexture("Clyde Middle Two",  (GHOSTS_FILEPATH "clyde_middle_two.png"));
         this->data->assets.loadTexture("Clyde Right One",   (GHOSTS_FILEPATH "clyde_right_one.png"));
         this->data->assets.loadTexture("Clyde Right Two",   (GHOSTS_FILEPATH "clyde_right_two.png"));
+
+        // Inky
+        this->data->assets.loadTexture("Inky Back One",    (GHOSTS_FILEPATH "inky_back_one.png"));
+        this->data->assets.loadTexture("Inky Back Two",    (GHOSTS_FILEPATH "inky_back_two.png"));
+        this->data->assets.loadTexture("Inky Left One",    (GHOSTS_FILEPATH "inky_left_one.png"));
+        this->data->assets.loadTexture("Inky Left Two",    (GHOSTS_FILEPATH "inky_left_two.png"));
+        this->data->assets.loadTexture("Inky Middle One",  (GHOSTS_FILEPATH "inky_middle_one.png"));
+        this->data->assets.loadTexture("Inky Middle Two",  (GHOSTS_FILEPATH "inky_middle_two.png"));
+        this->data->assets.loadTexture("Inky Right One",   (GHOSTS_FILEPATH "inky_right_one.png"));
+        this->data->assets.loadTexture("Inky Right Two",   (GHOSTS_FILEPATH "inky_right_two.png"));
     }
 
     void SplashState::init() {
