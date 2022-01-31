@@ -78,6 +78,26 @@ namespace Pacenstein {
         this->data->assets.loadTexture("Clyde Middle Two",  (GHOSTS_FILEPATH "clyde_middle_two.png"));
         this->data->assets.loadTexture("Clyde Right One",   (GHOSTS_FILEPATH "clyde_right_one.png"));
         this->data->assets.loadTexture("Clyde Right Two",   (GHOSTS_FILEPATH "clyde_right_two.png"));
+
+        // Inky
+        this->data->assets.loadTexture("Inky Back One",    (GHOSTS_FILEPATH "inky_back_one.png"));
+        this->data->assets.loadTexture("Inky Back Two",    (GHOSTS_FILEPATH "inky_back_two.png"));
+        this->data->assets.loadTexture("Inky Left One",    (GHOSTS_FILEPATH "inky_left_one.png"));
+        this->data->assets.loadTexture("Inky Left Two",    (GHOSTS_FILEPATH "inky_left_two.png"));
+        this->data->assets.loadTexture("Inky Middle One",  (GHOSTS_FILEPATH "inky_middle_one.png"));
+        this->data->assets.loadTexture("Inky Middle Two",  (GHOSTS_FILEPATH "inky_middle_two.png"));
+        this->data->assets.loadTexture("Inky Right One",   (GHOSTS_FILEPATH "inky_right_one.png"));
+        this->data->assets.loadTexture("Inky Right Two",   (GHOSTS_FILEPATH "inky_right_two.png"));
+
+        // Pinky
+        this->data->assets.loadTexture("Pinky Back One",    (GHOSTS_FILEPATH "pinky_back_one.png"));
+        this->data->assets.loadTexture("Pinky Back Two",    (GHOSTS_FILEPATH "pinky_back_two.png"));
+        this->data->assets.loadTexture("Pinky Left One",    (GHOSTS_FILEPATH "pinky_left_one.png"));
+        this->data->assets.loadTexture("Pinky Left Two",    (GHOSTS_FILEPATH "pinky_left_two.png"));
+        this->data->assets.loadTexture("Pinky Middle One",  (GHOSTS_FILEPATH "pinky_middle_one.png"));
+        this->data->assets.loadTexture("Pinky Middle Two",  (GHOSTS_FILEPATH "pinky_middle_two.png"));
+        this->data->assets.loadTexture("Pinky Right One",   (GHOSTS_FILEPATH "pinky_right_one.png"));
+        this->data->assets.loadTexture("Pinky Right Two",   (GHOSTS_FILEPATH "pinky_right_two.png"));
     }
 
     void SplashState::init() {
