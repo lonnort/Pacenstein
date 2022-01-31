@@ -7,7 +7,7 @@ InGameState.cpp:
     }
 
     De reden van de while ontgaat mij, rayPosY wordt direct op -1 gezet namelijk. Ik kan me voorstellen dat dit een -= had moeten zijn.
-  ☐ 181: Hetzelfde als 176.
+  ☐ 181: Hetzelfde als 173.
   ☐ 185: Je maak er een absolute waarde van, de controle of het lager is dan 0 is overbodig.
   ☐ 189: Waarom float voor scaleY en int voor scaleX?
   ☐ 330: Op veel plekken wordt een waarde geconstruct - int(waarde) - en hier wordt het gecast - (int)waarde. Consistency much?

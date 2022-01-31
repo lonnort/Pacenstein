@@ -30,6 +30,8 @@ namespace Pacenstein {
             sf::ContextSettings(24,8,std::stoi(this->data->settings.at("window").at("Antialiasing")))
         );
 
+        this->data->window.setFramerateLimit(60);
+
         sf::Image icon_img;
         icon_img.loadFromFile("res/logo.png");
         this->data->window.setIcon(256, 256, icon_img.getPixelsPtr());
