@@ -56,6 +56,18 @@ namespace Pacenstein {
         this->data->assets.loadTexture("Move Right alt",    (BUTTONS_FILEPATH "right_key.png"));
         this->data->assets.loadTexture("Pause",             (BUTTONS_FILEPATH "esc_key.png"));
         this->data->assets.loadTexture("Quit",              (BUTTONS_FILEPATH "del_key.png"));
+
+        // Ghosts
+
+        // Blinky
+        this->data->assets.loadTexture("Blinky Back One",   (GHOSTS_FILEPATH "blinky_back_one.png"));
+        this->data->assets.loadTexture("Blinky Back Two",   (GHOSTS_FILEPATH "blinky_back_two.png"));
+        this->data->assets.loadTexture("Blinky Left One",   (GHOSTS_FILEPATH "blinky_left_one.png"));
+        this->data->assets.loadTexture("Blinky Left Two",   (GHOSTS_FILEPATH "blinky_left_two.png"));
+        this->data->assets.loadTexture("Blinky Middle One", (GHOSTS_FILEPATH "blinky_middle_one.png"));
+        this->data->assets.loadTexture("Blinky Middle Two", (GHOSTS_FILEPATH "blinky_middle_two.png"));
+        this->data->assets.loadTexture("Blinky Right One",  (GHOSTS_FILEPATH "blinky_right_one.png"));
+        this->data->assets.loadTexture("Blinky Right Two",  (GHOSTS_FILEPATH "blinky_right_two.png"));
     }
 
     void SplashState::init() {
