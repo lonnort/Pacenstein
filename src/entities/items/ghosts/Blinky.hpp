@@ -38,6 +38,12 @@ namespace Pacenstein {
          */
         sf::Sprite getGhostSprite(game_data_ref_t data);
 
+        /**
+         * 
+         * 
+         */
+        void move(map_t worldMap);
+
     private:
         std::vector<std::string> blinkyDirections = {   "Blinky Back One",
                                                         "Blinky Back Two",

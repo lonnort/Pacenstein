@@ -3,7 +3,6 @@
 #include "PauseState.hpp"
 #include "HuntingState.hpp"
 #include "ScatterState.hpp"
-#include "Definitions.hpp"
 
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -408,21 +407,25 @@ namespace Pacenstein {
 
         const auto worldMap = this->data->assets.getImage("Map");
 
+        std::vector<Sprite> spooks = {
+            {1.5, 3.5,  blinkyTexture},
+	        {4.5, 15.5, clydeTexture},
+	        {4.5, 3.5, clydeTexture},
+
+        };
+
         std::vector<Sprite> sprites = {
-	    {1.5, 3.5,  blinkyTexture},
-	    {4.5, 15.5, clydeTexture},
-	    {4.5, 3.5, clydeTexture},
             {4.5, 4.5,  pacTexture},
             {4.5, 5.5,  pacTexture},
             {4.5, 6.5,  pacTexture},
-	    {4.5, 7.5,  pacTexture},
-	    {4.5, 8.5,  pacTexture},
-	    {4.5, 9.5,  pacTexture},
-	    {4.5, 10.5, pacTexture},
-	    {4.5, 11.5, pacTexture},
-	    {4.5, 12.5, pacTexture},
-	    {4.5, 13.5, pacTexture},
-	    {4.5, 14.5, pacTexture},
+            {4.5, 7.5,  pacTexture},
+            {4.5, 8.5,  pacTexture},
+            {4.5, 9.5,  pacTexture},
+            {4.5, 10.5, pacTexture},
+            {4.5, 11.5, pacTexture},
+            {4.5, 12.5, pacTexture},
+            {4.5, 13.5, pacTexture},
+            {4.5, 14.5, pacTexture},
 
         };
 
@@ -440,11 +443,14 @@ namespace Pacenstein {
         //     }
         // }
 
+        // spooks[0].move(worldMap);
+
         sf::Vector2f position  = player.getPos();
         sf::Vector2f direction = player.getDir();
         sf::Vector2f plane     = player.getPlane();
 
         drawWalls   (worldMap, position, direction, plane);
+        drawEntities(spooks,  position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
 
         this->fps = this->clock.getElapsedTime();
