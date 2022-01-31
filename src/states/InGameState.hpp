@@ -58,6 +58,15 @@ namespace Pacenstein {
         void update(float dt);
 
         /**
+         * Sort the sprites based on distance using combsort.
+         *
+         * \param &order A reference to a order vector.
+         * \param &dist A reference to a vector filled with distances.
+         * \param size A int with size.
+         */
+	void sortSprites(std::vector<int> &order, std::vector<float> &dist, int size);
+
+        /**
          * Updates the in game state outside of key presses.
          *
          * \param dt A float.

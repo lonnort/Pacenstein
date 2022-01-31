@@ -85,6 +85,27 @@ namespace Pacenstein {
         if (direction == "down")  player.moveDown(worldMap);
     }
     
+    void InGameState::sortSprites(std::vector<int> &order, std::vector<float> &dist, int size) {
+	int gap = size;
+	bool flag = true;
+	while (gap != 1 || flag){
+	    gap = (gap * 10) / 13;
+	    if (gap < 1){
+		gap = 1;
+	     }
+	    flag = false;
+	    for (int i = 0; i < size - gap; i++){
+		int j = i + gap;
+                if (dist[i] < dist[j]){
+                    std::swap(dist[i],dist[j]);
+                    std::swap(order[i],order[j]);
+                    flag = true;
+                }
+	    }
+	}
+    }
+
+    
     void InGameState::drawWalls(map_t worldMap, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane) {
         double positionX = position.x;
         double positionY = position.y;
@@ -95,10 +116,10 @@ namespace Pacenstein {
         double planeX = plane.x;
         double planeY = plane.y;
 
-        float textureSectionX;
+        double textureSectionX;
         sf::Sprite WallTexture;
 
-        float scaleY;
+        double scaleY;
         int scaleX;
 
         int LastMapX = -1, LastMapY = -1;
@@ -196,11 +217,10 @@ namespace Pacenstein {
             if (scaleX < 1) scaleX = 1;
 
             switch (worldMap[mapX][mapY]) {
-                case 0:  break;
                 case 1:  WallTexture.setTexture(wallTexture); break;
-                case 2:  break;
-                case 3:  WallTexture.setTexture(wallTexture); break;
-                case 4:  break;
+                case 2:  WallTexture.setTexture(doorTexture); break;
+                // case 3:  WallTexture.setTexture(wallTexture); break;
+                // case 4:  WallTexture.setTexture(wallTexture); break;
                 default: WallTexture.setTexture(wallTexture); break;
             }
 
@@ -215,7 +235,10 @@ namespace Pacenstein {
                 textureSectionX = 64 - textureSectionX;
             }
 
-            float y = 288 - (64 * scaleY) / 2;
+	    // original value was 288 instead of 540
+	    // float y = 540 - (64 * scaleY) / 2;
+	    float y = 360 - (64 * scaleY) / 2;
+
 
             //Draw the walls
             WallTexture.setScale(1, scaleY);
@@ -254,19 +277,27 @@ namespace Pacenstein {
         std::vector<int>   spriteOrder;
         std::vector<float> spriteDistance;
 
+	// for (uint i = 0; i < sprites.size(); ++i) {
+        //     float dist = ((positionX - sprites[i].x) * (positionX - sprites[i].x) + (positionY - sprites[i].y) * (positionY - sprites[i].y));
+        //     spriteOrder.push_back(i);
+        //     spriteDistance.push_back(dist); // sqrt not taken, uneeded
+        // }
+	// sortSprites(spriteOrder, spriteDistance, spriteOrder.size());
 
-        // for (unsigned int i = 0; i < sprites.size(); ++i) {
-        for (uint i = 0; i < sprites.size(); ++i) {
-            float dist = ((positionX - sprites[i].x) * (positionX - sprites[i].x) + (positionY - sprites[i].y) * (positionY - sprites[i].y));
-            spriteOrder.push_back(i);
-            spriteDistance.push_back(dist); // sqrt not taken, unneeded
-        }
+	int counter = 0;
+	for (auto sprite : sprites ) {
+	    counter++;
+	    float dist = ((positionX - sprite.x) * (positionX - sprite.x) + (positionY - sprite.y) * (positionY - sprite.y));
+	    spriteOrder.push_back(counter);
+            spriteDistance.push_back(dist); // sqrt not taken, uneeded
+	}
+	sortSprites(spriteOrder, spriteDistance, spriteOrder.size());
 
         //after sorting the sprites, do the projection and draw them
-        for(uint i = 0; i < sprites.size(); i++) {
+	for (auto sprite : sprites ) {
             //translate sprite position to relative to camera
-            double spriteX = sprites[spriteOrder[i]].x - positionX;
-            double spriteY = sprites[spriteOrder[i]].y - positionY;
+	    double spriteX = sprite.x - positionX;
+	    double spriteY = sprite.y - positionY;
 
             //transform sprite with the inverse camera matrix
             // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
@@ -276,8 +307,9 @@ namespace Pacenstein {
             double invDet = 1.0 / (planeX * dirY - dirX * planeY); //required for correct matrix multiplication
 
             double transformX = invDet * (dirY * spriteX - dirX * spriteY);
-            double transformY = invDet * (-planeY * spriteX + planeX * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+            double transformY = (invDet * (-planeY * spriteX + planeX * spriteY)) * 0.9; //this is actually the depth inside the screen, that what Z is in 3D
 
+	    // if object is not visible, skip it.
             if (transformY < 0) continue;
 
             int spriteScreenX = int((w / 2) * (1 + transformX / transformY));
@@ -323,7 +355,6 @@ namespace Pacenstein {
                     drawStartX += 1;
                     continue;
                 }
-
                 break;
             }
 
@@ -360,8 +391,8 @@ namespace Pacenstein {
             spriteQuad[3].position  = sf::Vector2f(drawStartX,  drawEndY);
             spriteQuad[3].texCoords = sf::Vector2f(spriteLeft,  spriteBottom);
 
-            this->data->window.draw(spriteQuad, &sprites[i].tex);
-        }
+            this->data->window.draw(spriteQuad, &sprite.tex);
+	}
     }
 
     void InGameState::draw(float dt) {
@@ -378,24 +409,36 @@ namespace Pacenstein {
         const auto worldMap = this->data->assets.getImage("Map");
 
         std::vector<Sprite> sprites = {
-            {1.5, 3.5, blinkyTexture},
-            {1.5, 5.5, blinkyTexture},
-            {1.5, 7.5, blinkyTexture},
+	    {1.5, 3.5,  blinkyTexture},
+	    {4.5, 15.5, clydeTexture},
+	    {4.5, 3.5, clydeTexture},
+            {4.5, 4.5,  pacTexture},
+            {4.5, 5.5,  pacTexture},
+            {4.5, 6.5,  pacTexture},
+	    {4.5, 7.5,  pacTexture},
+	    {4.5, 8.5,  pacTexture},
+	    {4.5, 9.5,  pacTexture},
+	    {4.5, 10.5, pacTexture},
+	    {4.5, 11.5, pacTexture},
+	    {4.5, 12.5, pacTexture},
+	    {4.5, 13.5, pacTexture},
+	    {4.5, 14.5, pacTexture},
+
         };
 
-        for(int i = 0; i < worldMap.size(); i++){
-            for(int j = 0; j < worldMap[i].size(); j++){
-                switch (worldMap[i][j]){
-                case 2:
-                    sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
-                    break;
+        // for(int i = 0; i < worldMap.size(); i++){
+        //     for(int j = 0; j < worldMap[i].size(); j++){
+        //         switch (worldMap[i][j]){
+        //         case 2:
+        //             sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
+        //             break;
                 
-                case 4:
-                    break;
-                    sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
-                }
-            }
-        }
+        //         case 4:
+        //             break;
+        //             sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
+        //         }
+        //     }
+        // }
 
         sf::Vector2f position  = player.getPos();
         sf::Vector2f direction = player.getDir();
