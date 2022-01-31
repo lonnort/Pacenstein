@@ -14,32 +14,6 @@ namespace Pacenstein {
 
             if (sf::Event::Closed == event.type) this->data->window.close();
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
-            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)) {
-                this->move("up");
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
-            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_DOWN)) {
-                this->move("down");
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_RIGHT)
-            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_RIGHT)) {
-                this->move("right");
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_LEFT)
-            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_LEFT)) {
-                this->move("left");
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_PAUSE)
-            ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_PAUSE)) {
-                this->generatePauseBackground();
-                this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
-            }
-
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::PageDown)) {
                 this->data->lives--;
             }
@@ -47,6 +21,32 @@ namespace Pacenstein {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_EXIT)) {
                 this->data->window.close();
             }
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_UP)
+        ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_UP)) {
+            this->move("up");
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_DOWN)
+        ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_DOWN)) {
+            this->move("down");
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_RIGHT)
+        ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_RIGHT)) {
+            this->move("right");
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_LEFT)
+        ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_LEFT)) {
+            this->move("left");
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_PAUSE)
+        ||  sf::Keyboard::isKeyPressed(sf::Keyboard::Key::KEY_ALT_PAUSE)) {
+            this->generatePauseBackground();
+            this->data->machine.addState(state_ref_t(std::make_unique<PauseState>(this->data)), false);
         }
     }
 
