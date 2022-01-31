@@ -44,15 +44,23 @@ namespace Pacenstein {
 
         /**
          * Score is an unsigned int, where the score is saved when the game is running.
-         * 
          */
         uint score;
 
         /**
          * Lives is an unsigned int, where the lives are saved when the game is running.
-         * 
          */
         uint lives;
+
+        /**
+         * ghostsEaten is an unsigned int, where the number of ghosts eaten is saved when the game is running.
+         */
+        uint ghostsEaten;
+
+        /**
+         * scattering is a bool, where the state of scattering is saved when the game is running.
+         */
+        bool scattering;
         
         /***/
         settings_t settings;
