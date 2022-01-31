@@ -15,7 +15,8 @@ else
 	EXT := .elf
 endif
 
-CFLAGS += "-Wunused"
+WARNINGS += -Wunused
+# WARNINGS += -Wdouble-promotion
 
 PROJECT_NAME  := pacenstein
 TARGET        := $(PROJECT_NAME)$(EXT)
@@ -40,7 +41,7 @@ OBJECTS := $(patsubst $(SOURCE_DIR)/%, $(BUILD_DIR)/%, $(SOURCES:%.cpp=%.o))
 define generateRules
 $(1)/%.o: %.cpp
 	$-@$(MKDIR) $$(@D)
-	$(CC) -c $$(INCLUDES) $$(CFLAGS) -o $$@ $$<
+	$(CC) -c $$(INCLUDES) $$(CFLAGS) $$(WARNINGS) -o $$@ $$<
 endef
 
 .PHONY: build dirs clean run rerun rebuild doxy
