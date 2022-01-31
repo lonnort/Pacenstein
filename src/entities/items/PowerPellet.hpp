@@ -11,6 +11,7 @@ namespace Pacenstein {
      * eaten will also grant bonus points.
      */
     class PowerPellet : public Item {
+    public:
         /**
          * Constructor of the PowerPellet class.
          *
@@ -31,7 +32,6 @@ namespace Pacenstein {
          *
          * Gives the player 100 points and changes the state to scattering.
          *
-         * \param player A reference to the player.
          * \param data A reference to the data object.
          */
         void interact(game_data_ref_t data) override;

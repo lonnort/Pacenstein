@@ -11,6 +11,7 @@ namespace Pacenstein {
      * or progress to the next stage.
      */
     class PacPellet : public Item {
+    public:
         /**
          * Constructor of the PacPellet class.
          *
@@ -25,5 +26,14 @@ namespace Pacenstein {
          * \param xy The position of a pellet as a sf::Vector2f.
          */
         explicit PacPellet(sf::Vector2f xy);
+
+        /**
+         * Interaction of a pac pellet with the player.
+         *
+         * Gives the player 10 points.
+         *
+         * \param data A reference to the data object.
+         */
+        void interact(game_data_ref_t data) override;
     };
 }

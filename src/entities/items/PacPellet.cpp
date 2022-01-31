@@ -8,4 +8,9 @@ namespace Pacenstein {
     PacPellet::PacPellet(sf::Vector2f xy):
         PacPellet(xy.x, xy.y)
     {}
+
+    void PowerPellet::interact(game_data_ref_t data) {
+        //remove pellet from map
+        data->score += points;
+    }
 }

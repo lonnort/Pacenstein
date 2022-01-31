@@ -12,7 +12,8 @@ namespace Pacenstein {
     {}
 
     void PowerPellet::interact(game_data_ref_t data) {
-        data->score += 100;
+        //remove pellet from map
+        data->score += points;
         data->machine.addState(state_ref_t(std::make_unique<ScatterState>(data)), true);
     }
 }
