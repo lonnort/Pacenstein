@@ -31,8 +31,9 @@ namespace Pacenstein {
         explicit Blinky(sf::Vector2f xy);
 
         /**
-         * Returns the sprite of blinky based on the direction and the corresponding png.
+         * Returns the sprite of blinky based on the direction and the corresponding texture.
          *
+         * \param data A reference to the game data object.
          * \return An sf::Sprite of the direction of Blinky.
          */
         sf::Sprite getGhostSprite(game_data_ref_t data);
