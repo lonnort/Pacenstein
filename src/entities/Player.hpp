@@ -58,9 +58,10 @@ namespace Pacenstein {
 
         //Nog niet getest!
         /**
-         * Checks if the player intersects with another entity.
+         * Checks if the player intersects with an Item. If they intersect, 
+         * call the interact function of the item.
          * 
-         * \param other The entity to check if the player collides with it.
+         * \param other The Item to check if the player collides with it.
          * \return A bool of the collision. True if there is a collision, false if not.
          */
         bool intersect(std::shared_ptr<Item> other, game_data_ref_t data);
