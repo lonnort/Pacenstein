@@ -34,7 +34,13 @@ namespace Pacenstein {
          */
         unsigned int getPoints();
 
-        // // virtual void interact(std::shared_ptr<Entity> player, game_data_ref_t data) = 0;
+        /**
+         * Virtual interact function. Implemented in the subclasses of Item.
+         *
+         * Interaction of an item subclass with a player.
+         *
+         * \param data A reference to the game data.
+         */
         virtual void interact(game_data_ref_t data) = 0;
 
     protected:
