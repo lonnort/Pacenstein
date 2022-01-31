@@ -6,6 +6,10 @@
 namespace Pacenstein {
     HuntingState::HuntingState(game_data_ref_t data): InGameState(data) {}
 
+    void HuntingState::init(){
+        this->data->scattering = false;
+    }
+
     void HuntingState::handleInput() {
         sf::Event event;
 

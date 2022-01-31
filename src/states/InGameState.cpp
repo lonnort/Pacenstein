@@ -23,6 +23,7 @@ namespace Pacenstein {
     void InGameState::init() {
         this->data->score = 0;
         this->data->lives = 3;
+        this->data->ghostsEaten = 0;
     }
 
     void InGameState::generatePauseBackground() {
