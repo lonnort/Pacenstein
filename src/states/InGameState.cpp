@@ -85,25 +85,25 @@ namespace Pacenstein {
         if (direction == "down")  player.moveDown(worldMap);
     }
     
-    void InGameState::sortSprites(std::vector<int> &order, std::vector<float> &dist, int size) {
-	int gap = size;
-	bool flag = true;
-	while (gap != 1 || flag){
-	    gap = (gap * 10) / 13;
-	    if (gap < 1){
-		gap = 1;
-	     }
-	    flag = false;
-	    for (int i = 0; i < size - gap; i++){
-		int j = i + gap;
-                if (dist[i] < dist[j]){
-                    std::swap(dist[i],dist[j]);
-                    std::swap(order[i],order[j]);
-                    flag = true;
-                }
-	    }
-	}
-    }
+    // void InGameState::sortSprites(std::vector<int> &order, std::vector<float> &dist, int size) {
+    // 	int gap = size;
+    // 	bool flag = true;
+    // 	while (gap != 1 || flag){
+    // 	    gap = (gap * 10) / 13;
+    // 	    if (gap < 1){
+    // 		gap = 1;
+    // 	     }
+    // 	    flag = false;
+    // 	    for (int i = 0; i < size - gap; i++){
+    // 		int j = i + gap;
+    //                 if (dist[i] < dist[j]){
+    //                     std::swap(dist[i],dist[j]);
+    //                     std::swap(order[i],order[j]);
+    //                     flag = true;
+    //                 }
+    // 	    }
+    // 	}
+    // }
 
     
     void InGameState::drawWalls(map_t worldMap, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane) {
@@ -265,49 +265,31 @@ namespace Pacenstein {
     }
 
     void InGameState::drawEntities(std::vector<Sprite> sprites, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane) {
-        double positionX = position.x;
-        double positionY = position.y;
+        std::vector<std::pair<Sprite, float>> spriteDistanceOrder;
 
-        double dirX = direction.x;
-        double dirY = direction.y;
+        for (auto& sprite : sprites) spriteDistanceOrder.push_back({sprite, 0});
 
-        double planeX = plane.x;
-        double planeY = plane.y;
-
-        std::vector<int>   spriteOrder;
-        std::vector<float> spriteDistance;
-
-	// for (uint i = 0; i < sprites.size(); ++i) {
-        //     float dist = ((positionX - sprites[i].x) * (positionX - sprites[i].x) + (positionY - sprites[i].y) * (positionY - sprites[i].y));
-        //     spriteOrder.push_back(i);
-        //     spriteDistance.push_back(dist); // sqrt not taken, uneeded
-        // }
-	// sortSprites(spriteOrder, spriteDistance, spriteOrder.size());
-
-	int counter = 0;
-	for (auto sprite : sprites ) {
-	    counter++;
-	    float dist = ((positionX - sprite.x) * (positionX - sprite.x) + (positionY - sprite.y) * (positionY - sprite.y));
-	    spriteOrder.push_back(counter);
-            spriteDistance.push_back(dist); // sqrt not taken, uneeded
-	}
-	sortSprites(spriteOrder, spriteDistance, spriteOrder.size());
+        for (uint i = 0; i < spriteDistanceOrder.size(); i++) {
+            Sprite sprite = spriteDistanceOrder[i].first;
+            spriteDistanceOrder[i].second = (position.x - sprite.x) * (position.x - sprite.x) + (position.y - position.x) * (position.y - sprite.y);
+        }
 
         //after sorting the sprites, do the projection and draw them
-	for (auto sprite : sprites ) {
+	for (auto& item : spriteDistanceOrder) {
+        Sprite sprite = item.first;
             //translate sprite position to relative to camera
-	    double spriteX = sprite.x - positionX;
-	    double spriteY = sprite.y - positionY;
+	    double spriteX = sprite.x - position.x;
+	    double spriteY = sprite.y - position.y;
 
-            //transform sprite with the inverse camera matrix
+            // transform sprite with the inverse camera matrix
             // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
             // [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
             // [ planeY   dirY ]                                          [ -planeY  planeX ]
 
-            double invDet = 1.0 / (planeX * dirY - dirX * planeY); //required for correct matrix multiplication
+            double invDet = 1.0 / (plane.x * direction.y - direction.x * plane.y); //required for correct matrix multiplication
 
-            double transformX = invDet * (dirY * spriteX - dirX * spriteY);
-            double transformY = (invDet * (-planeY * spriteX + planeX * spriteY)) * 0.9; //this is actually the depth inside the screen, that what Z is in 3D
+            double transformX = invDet * (direction.y * spriteX - direction.x * spriteY);
+            double transformY = (invDet * (-plane.y * spriteX + plane.x * spriteY)) * 0.9; //this is actually the depth inside the screen, that what Z is in 3D
 
 	    // if object is not visible, skip it.
             if (transformY < 0) continue;
@@ -392,7 +374,7 @@ namespace Pacenstein {
             spriteQuad[3].texCoords = sf::Vector2f(spriteLeft,  spriteBottom);
 
             this->data->window.draw(spriteQuad, &sprite.tex);
-	}
+    	}
     }
 
     void InGameState::draw(float dt) {
@@ -409,21 +391,20 @@ namespace Pacenstein {
         const auto worldMap = this->data->assets.getImage("Map");
 
         std::vector<Sprite> sprites = {
-	    {1.5, 3.5,  blinkyTexture},
-	    {4.5, 15.5, clydeTexture},
-	    {4.5, 3.5, clydeTexture},
+    	    {1.5, 3.5,  blinkyTexture},
+    	    {4.5, 15.5, clydeTexture},
+    	    {4.5, 3.5,  clydeTexture},
             {4.5, 4.5,  pacTexture},
             {4.5, 5.5,  pacTexture},
             {4.5, 6.5,  pacTexture},
-	    {4.5, 7.5,  pacTexture},
-	    {4.5, 8.5,  pacTexture},
-	    {4.5, 9.5,  pacTexture},
-	    {4.5, 10.5, pacTexture},
-	    {4.5, 11.5, pacTexture},
-	    {4.5, 12.5, pacTexture},
-	    {4.5, 13.5, pacTexture},
-	    {4.5, 14.5, pacTexture},
-
+    	    {4.5, 7.5,  pacTexture},
+    	    {4.5, 8.5,  pacTexture},
+    	    {4.5, 9.5,  pacTexture},
+    	    {4.5, 10.5, pacTexture},
+    	    {4.5, 11.5, pacTexture},
+    	    {4.5, 12.5, pacTexture},
+    	    {4.5, 13.5, pacTexture},
+    	    {4.5, 14.5, pacTexture},
         };
 
         // for(int i = 0; i < worldMap.size(); i++){
@@ -432,7 +413,6 @@ namespace Pacenstein {
         //         case 2:
         //             sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
         //             break;
-                
         //         case 4:
         //             break;
         //             sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
