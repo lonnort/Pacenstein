@@ -36,5 +36,7 @@ namespace Pacenstein {
          * \param data A reference to the data object.
          */
         void interact(game_data_ref_t data) override;
+
+        virtual sf::Vector2f move();
     };
 }

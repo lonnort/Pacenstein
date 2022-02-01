@@ -7,6 +7,7 @@
 #include "State.hpp"
 #include "Game.hpp"
 #include "Player.hpp"
+#include "Blinky.hpp"
 
 #include "Definitions.hpp"
 
@@ -23,7 +24,7 @@ namespace Pacenstein {
          * Struct containing the information needed to draw it on the screen.
          */
         struct Sprite {
-            double x, y;
+            sf::Vector2f xy;
             sf::Texture tex;
         };
 
@@ -88,6 +89,8 @@ namespace Pacenstein {
         sf::Time fps;
 
         std::vector<int> ZBuffer;
+
+        Blinky blinky_ghost;
 
         sf::Texture wallTexture;
         sf::Texture doorTexture;

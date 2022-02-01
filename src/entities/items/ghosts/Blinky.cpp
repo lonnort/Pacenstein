@@ -3,8 +3,7 @@
 
 namespace Pacenstein {
     Blinky::Blinky(float x, float y):
-        Ghost(x, y),
-        direction(1)
+        Ghost(x, y)
     {}
 
     Blinky::Blinky(sf::Vector2f xy):
@@ -16,7 +15,7 @@ namespace Pacenstein {
         return blinkySprite;
     }
 
-    void Blinky::move(map_t worldMap){
+    sf::Vector2f Blinky::move(){
         float movement_speed = 0.1;
         switch (this->direction){
         case 1:
@@ -38,6 +37,7 @@ namespace Pacenstein {
             break;
             
         }
+        return this->position;
     }
 }
 

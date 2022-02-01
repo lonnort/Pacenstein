@@ -3,6 +3,7 @@
 #include "PauseState.hpp"
 #include "HuntingState.hpp"
 #include "ScatterState.hpp"
+#include "Ghost.hpp" 
 
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -12,7 +13,8 @@
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
         data(data),
-        player(data)
+        player(data),
+        blinky_ghost(1.5, 3.5)
     {
         w = std::stoi(data->settings.at("window").at("Width"));
         h = std::stoi(data->settings.at("window").at("Height"));
@@ -287,7 +289,7 @@ namespace Pacenstein {
 	int counter = 0;
 	for (auto sprite : sprites ) {
 	    counter++;
-	    float dist = ((positionX - sprite.x) * (positionX - sprite.x) + (positionY - sprite.y) * (positionY - sprite.y));
+	    float dist = ((positionX - sprite.xy.x) * (positionX - sprite.xy.x) + (positionY - sprite.xy.y) * (positionY - sprite.xy.y));
 	    spriteOrder.push_back(counter);
             spriteDistance.push_back(dist); // sqrt not taken, uneeded
 	}
@@ -296,8 +298,8 @@ namespace Pacenstein {
         //after sorting the sprites, do the projection and draw them
 	for (auto sprite : sprites ) {
             //translate sprite position to relative to camera
-	    double spriteX = sprite.x - positionX;
-	    double spriteY = sprite.y - positionY;
+	    double spriteX = sprite.xy.x - positionX;
+	    double spriteY = sprite.xy.y - positionY;
 
             //transform sprite with the inverse camera matrix
             // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
@@ -409,24 +411,24 @@ namespace Pacenstein {
         const auto worldMap = this->data->assets.getImage("Map");
 
         std::vector<Sprite> spooks = {
-            {1.5, 3.5,  blinkyTexture},
-	        {4.5, 15.5, clydeTexture},
-	        {4.5, 3.5, clydeTexture},
+            {blinky_ghost.move(),  blinkyTexture},
+	        {{4.5, 15.5}, clydeTexture},
+	        {{4.5, 3.5}, clydeTexture},
 
         };
 
         std::vector<Sprite> sprites = {
-            {4.5, 4.5,  pacTexture},
-            {4.5, 5.5,  pacTexture},
-            {4.5, 6.5,  pacTexture},
-            {4.5, 7.5,  pacTexture},
-            {4.5, 8.5,  pacTexture},
-            {4.5, 9.5,  pacTexture},
-            {4.5, 10.5, pacTexture},
-            {4.5, 11.5, pacTexture},
-            {4.5, 12.5, pacTexture},
-            {4.5, 13.5, pacTexture},
-            {4.5, 14.5, pacTexture},
+            {{4.5, 4.5},  pacTexture},
+            {{4.5, 5.5},  pacTexture},
+            {{4.5, 6.5},  pacTexture},
+            {{4.5, 7.5},  pacTexture},
+            {{4.5, 8.5},  pacTexture},
+            {{4.5, 9.5},  pacTexture},
+            {{4.5, 10.5}, pacTexture},
+            {{4.5, 11.5}, pacTexture},
+            {{4.5, 12.5}, pacTexture},
+            {{4.5, 13.5}, pacTexture},
+            {{4.5, 14.5}, pacTexture},
 
         };
 
