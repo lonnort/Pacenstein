@@ -37,6 +37,6 @@ namespace Pacenstein {
          */
         void interact(game_data_ref_t data) override;
 
-        virtual sf::Vector2f move();
+        virtual sf::Vector2f move() = 0;
     };
 }
