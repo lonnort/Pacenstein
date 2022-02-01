@@ -3,6 +3,8 @@
 #include "PauseState.hpp"
 #include "HuntingState.hpp"
 #include "ScatterState.hpp"
+#include "Ghost.hpp" 
+#include "PacPellet.hpp"
 
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -12,7 +14,8 @@
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
         data(data),
-        player(data)
+        player(data),
+        blinky_ghost(1.5, 3.5)
     {
         w = std::stoi(data->settings.at("window").at("Width"));
         h = std::stoi(data->settings.at("window").at("Height"));
@@ -23,6 +26,13 @@ namespace Pacenstein {
         this->data->score = 0;
         this->data->lives = 3;
         this->data->ghostsEaten = 0;
+
+        // pellets.clear();
+        std::vector<sf::Vector2f> pos = {{4.5, 4.5}, {4.5, 5.5}, {4.5, 6.5}, {4.5, 7.5}, {4.5, 8.5}, {4.5, 9.5}, {4.5, 10.5}, {4.5, 11.5}, {4.5, 12.5}, {4.5, 13.5}, {4.5, 14.5}};
+        for(auto p : pos){
+            PacPellet tmp(p);
+            pellets.push_back(tmp);
+        }
     }
 
     void InGameState::generatePauseBackground() {
@@ -287,7 +297,7 @@ namespace Pacenstein {
 	int counter = 0;
 	for (auto sprite : sprites ) {
 	    counter++;
-	    float dist = ((positionX - sprite.x) * (positionX - sprite.x) + (positionY - sprite.y) * (positionY - sprite.y));
+	    float dist = ((positionX - sprite.xy.x) * (positionX - sprite.xy.x) + (positionY - sprite.xy.y) * (positionY - sprite.xy.y));
 	    spriteOrder.push_back(counter);
             spriteDistance.push_back(dist); // sqrt not taken, uneeded
 	}
@@ -296,8 +306,8 @@ namespace Pacenstein {
         //after sorting the sprites, do the projection and draw them
 	for (auto sprite : sprites ) {
             //translate sprite position to relative to camera
-	    double spriteX = sprite.x - positionX;
-	    double spriteY = sprite.y - positionY;
+	    double spriteX = sprite.xy.x - positionX;
+	    double spriteY = sprite.xy.y - positionY;
 
             //transform sprite with the inverse camera matrix
             // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
@@ -409,26 +419,19 @@ namespace Pacenstein {
         const auto worldMap = this->data->assets.getImage("Map");
 
         std::vector<Sprite> spooks = {
-            {1.5, 3.5,  blinkyTexture},
-	        {4.5, 15.5, clydeTexture},
-	        {4.5, 3.5, clydeTexture},
+            {blinky_ghost.move(worldMap),  blinkyTexture},
+	        {{4.5, 15.5}, clydeTexture},
+	        {{4.5, 3.5}, clydeTexture},
 
         };
 
-        std::vector<Sprite> sprites = {
-            {4.5, 4.5,  pacTexture},
-            {4.5, 5.5,  pacTexture},
-            {4.5, 6.5,  pacTexture},
-            {4.5, 7.5,  pacTexture},
-            {4.5, 8.5,  pacTexture},
-            {4.5, 9.5,  pacTexture},
-            {4.5, 10.5, pacTexture},
-            {4.5, 11.5, pacTexture},
-            {4.5, 12.5, pacTexture},
-            {4.5, 13.5, pacTexture},
-            {4.5, 14.5, pacTexture},
+        std::vector<Sprite> sprites = {};
 
-        };
+        for(auto pellet : pellets){
+            if(!pellet.is_collected()){
+                sprites.push_back({pellet.getPosition(), pacTexture});
+            }
+        }
 
         // for(int i = 0; i < worldMap.size(); i++){
         //     for(int j = 0; j < worldMap[i].size(); j++){
@@ -444,21 +447,20 @@ namespace Pacenstein {
         //     }
         // }
 
-        // spooks[0].move(worldMap);
-
         sf::Vector2f position  = player.getPos();
         sf::Vector2f direction = player.getDir();
         sf::Vector2f plane     = player.getPlane();
 
         drawWalls   (worldMap, position, direction, plane);
-        drawEntities(spooks,  position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
+        drawEntities(spooks,  position, direction, plane);
+        
 
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
 
-        player.setMoveSpeed(fps.asSeconds() * 3.0); //the constant value is in squares/second
-        player.setRotSpeed (fps.asSeconds() * 2.5); //the constant value is in radians/second
+        player.setMoveSpeed(fps.asSeconds() * 2.0); //the constant value is in squares/second
+        player.setRotSpeed (fps.asSeconds() * 1.6); //the constant value is in radians/second
         
         sf::Text scoreText("Score: " + std::to_string(this->data->score), this->data->assets.getFont("Font"));
         scoreText.setPosition(5, 5);

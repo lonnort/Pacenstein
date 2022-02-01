@@ -7,6 +7,8 @@
 #include "State.hpp"
 #include "Game.hpp"
 #include "Player.hpp"
+#include "Blinky.hpp"
+#include "PacPellet.hpp"
 
 #include "Definitions.hpp"
 
@@ -23,7 +25,7 @@ namespace Pacenstein {
          * Struct containing the information needed to draw it on the screen.
          */
         struct Sprite {
-            double x, y;
+            sf::Vector2f xy;
             sf::Texture tex;
         };
 
@@ -64,7 +66,7 @@ namespace Pacenstein {
          * \param &dist A reference to a vector filled with distances.
          * \param size A int with size.
          */
-	// void sortSprites(std::vector<int> &order, std::vector<float> &dist, int size);
+	void sortSprites(std::vector<int> &order, std::vector<float> &dist, int size);
 
         /**
          * Updates the in game state outside of key presses.
@@ -88,6 +90,9 @@ namespace Pacenstein {
         sf::Time fps;
 
         std::vector<int> ZBuffer;
+
+        Blinky blinky_ghost;
+        std::vector<PacPellet> pellets;
 
         sf::Texture wallTexture;
         sf::Texture doorTexture;
