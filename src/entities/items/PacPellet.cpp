@@ -10,7 +10,15 @@ namespace Pacenstein {
     {}
 
     void PacPellet::interact(game_data_ref_t data) {
-        //remove pellet from map
+        // collected = true;
         data->score += points;
+    }
+
+    bool PacPellet::is_collected(){
+        return collected;
+    }
+
+    sf::Vector2f PacPellet::getPosition(){
+        return this->getPos();
     }
 }
