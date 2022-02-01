@@ -411,7 +411,7 @@ namespace Pacenstein {
         const auto worldMap = this->data->assets.getImage("Map");
 
         std::vector<Sprite> spooks = {
-            {blinky_ghost.move(),  blinkyTexture},
+            {blinky_ghost.move(worldMap),  blinkyTexture},
 	        {{4.5, 15.5}, clydeTexture},
 	        {{4.5, 3.5}, clydeTexture},
 
