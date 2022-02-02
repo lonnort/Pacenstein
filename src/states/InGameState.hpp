@@ -77,6 +77,8 @@ namespace Pacenstein {
 
 
     protected:
+    
+        std::vector<PacPellet> pellets = {{4.5, 4.5}, {4.5, 5.5}, {4.5, 6.5}, {4.5, 7.5}, {4.5, 8.5}, {4.5, 9.5}, {4.5, 10.5}, {4.5, 11.5}, {4.5, 12.5}, {4.5, 13.5}, {4.5, 14.5}};
         game_data_ref_t data;
         Player player;
 
@@ -92,7 +94,6 @@ namespace Pacenstein {
         std::vector<int> ZBuffer;
 
         Blinky blinky_ghost;
-        std::vector<PacPellet> pellets;
 
         sf::Texture wallTexture;
         sf::Texture doorTexture;

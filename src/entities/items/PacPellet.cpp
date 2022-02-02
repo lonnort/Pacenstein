@@ -10,7 +10,7 @@ namespace Pacenstein {
     {}
 
     void PacPellet::interact(game_data_ref_t data) {
-        // collected = true;
+        collected = true;
         data->score += points;
     }
 

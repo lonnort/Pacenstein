@@ -26,13 +26,6 @@ namespace Pacenstein {
         this->data->score = 0;
         this->data->lives = 3;
         this->data->ghostsEaten = 0;
-
-        // pellets.clear();
-        std::vector<sf::Vector2f> pos = {{4.5, 4.5}, {4.5, 5.5}, {4.5, 6.5}, {4.5, 7.5}, {4.5, 8.5}, {4.5, 9.5}, {4.5, 10.5}, {4.5, 11.5}, {4.5, 12.5}, {4.5, 13.5}, {4.5, 14.5}};
-        for(auto p : pos){
-            PacPellet tmp(p);
-            pellets.push_back(tmp);
-        }
     }
 
     void InGameState::generatePauseBackground() {
@@ -426,7 +419,7 @@ namespace Pacenstein {
         };
 
         std::vector<Sprite> sprites = {};
-
+        
         for(auto pellet : pellets){
             if(!pellet.is_collected()){
                 sprites.push_back({pellet.getPosition(), pacTexture});
@@ -434,7 +427,6 @@ namespace Pacenstein {
         }
 
 	sprites.insert(sprites.end(), spooks.begin(), spooks.end());
-
         // for(int i = 0; i < worldMap.size(); i++){
         //     for(int j = 0; j < worldMap[i].size(); j++){
         //         switch (worldMap[i][j]){
