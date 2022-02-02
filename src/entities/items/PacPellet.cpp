@@ -1,4 +1,5 @@
 #include "PacPellet.hpp"
+#include <iostream>
 
 namespace Pacenstein {
     PacPellet::PacPellet(float x, float y):
@@ -11,6 +12,7 @@ namespace Pacenstein {
 
     void PacPellet::interact(game_data_ref_t data) {
         collected = true;
+        std::cout << "Collencted: " << collected << std::endl;
         data->score += points;
     }
 

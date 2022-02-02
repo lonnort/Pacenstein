@@ -97,15 +97,15 @@ namespace Pacenstein {
         [[deprecated("Use Pacenstein::Entity::getDir() instead.")]]
         float getDirY();
 
-        /**
-         * Returns the global bounding box of the entity.
-         *
-         * \return The global bounds of the bounding box as an sf::FloatRect.
-         */
-        sf::FloatRect getGlobalBounds();
+        // /**
+        //  * Returns the global bounding box of the entity.
+        //  *
+        //  * \return The global bounds of the bounding box as an sf::FloatRect.
+        //  */
+        // sf::FloatRect getGlobalBounds();
 
     protected:
-        sf::RectangleShape bounding_box;
+        // sf::RectangleShape bounding_box;
     	sf::Vector2f position, direction, size;
     	float moveSpeed;
     };

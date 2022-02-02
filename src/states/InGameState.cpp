@@ -427,10 +427,15 @@ namespace Pacenstein {
         };
 
         std::vector<Sprite> sprites = {};
+        // std::vector<std::shared_ptr<Item>>
         
-        for(auto pellet : pellets){
+        for(auto & pellet : pellets){
             if(!pellet.is_collected()){
-                sprites.push_back({pellet.getPosition(), pacTexture});
+                auto plt = std::make_shared<PacPellet>(pellet);
+                if(!player.intersect(plt, this->data)){
+                    sprites.push_back({pellet.getPosition(), pacTexture});
+                    
+                }
             }
         }
 
@@ -462,6 +467,11 @@ namespace Pacenstein {
 
         drawWalls   (worldMap, position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
+
+        for(const auto & item : pellets){
+            auto plt = std::make_shared<PacPellet>(item);
+            player.intersect(plt, this->data);
+        }
 
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();

@@ -39,7 +39,12 @@ namespace Pacenstein {
     }
     
     bool Player::intersect(std::shared_ptr<Item> other, game_data_ref_t data){
-        bool collision = this->getGlobalBounds().intersects(other->getGlobalBounds());
+        // bool collision = this->getGlobalBounds().intersects(other->getGlobalBounds());
+        // sf::RectangleShape playerRect(this->getPos().x - 0.5, this->getPos().y - 0.5, 1, 1);
+        // sf::RectangleShape itemRect(this->getPos().x - 0.5, this->getPos().y - 0.5, 1, 1);
+        // bool collision = playerRect.getGlobalBounds().intersects(itemRect.getGlobalBounds());
+        bool collision = int(this->position.x) == int(other->getPos().x) && int(this->position.y) == int(other->getPos().y);
+        std::cout << collision << std::endl;
         if(collision) other->interact(this->data);
         return collision;
     }
