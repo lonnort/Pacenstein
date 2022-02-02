@@ -420,8 +420,8 @@ namespace Pacenstein {
 
         std::vector<Sprite> spooks = {
             {blinky_ghost.move(worldMap),  blinkyTexture},
-	        {{4.5, 15.5}, clydeTexture},
-	        {{4.5, 3.5}, clydeTexture},
+	    {{4.5, 15.5}, clydeTexture},
+	    {{4.5, 3.5}, clydeTexture},
 
         };
 
@@ -432,6 +432,8 @@ namespace Pacenstein {
                 sprites.push_back({pellet.getPosition(), pacTexture});
             }
         }
+
+	sprites.insert(sprites.end(), spooks.begin(), spooks.end());
 
         // for(int i = 0; i < worldMap.size(); i++){
         //     for(int j = 0; j < worldMap[i].size(); j++){
@@ -453,8 +455,6 @@ namespace Pacenstein {
 
         drawWalls   (worldMap, position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
-        drawEntities(spooks,  position, direction, plane);
-        
 
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
