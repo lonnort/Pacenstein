@@ -54,7 +54,10 @@ build: $(TARGET)
 
 clean:
 	@echo "Cleaning"
+	# clean sources
 	-@rm -r $(BUILD_DIR)/* $(PROJECT_NAME)$(EXT)
+	# clean latex output files
+	-@rm doc/*.aux doc/*.log doc/*.out doc/*.gz doc/*.toc
 	@echo "Done"
 
 rerun: clean run
