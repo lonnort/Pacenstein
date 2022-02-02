@@ -44,6 +44,13 @@ namespace Pacenstein {
         return collision;
     }
 
+    bool Player::inRange(Item & other){
+        sf::RectangleShape playerRect;
+        playerRect.setPosition(sf::Vector2f(this->position.x - 5, this->position.y - 5));
+        playerRect.setSize(sf::Vector2f(10.0, 10.0));
+        return playerRect.getGlobalBounds().contains(other.getPos());
+    }
+
     sf::Vector2f Player::getPlane() { return sf::Vector2f(this->plane.x, this->plane.y); }
 
     double Player::getPlaneX() { return this->plane.x; }

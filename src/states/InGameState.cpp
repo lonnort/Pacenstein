@@ -435,6 +435,7 @@ namespace Pacenstein {
             {clyde_ghost.move(worldMap),  clydeTexture},
             {inky_ghost.move(worldMap),  inkyTexture},
             {pinky_ghost.move(worldMap),  pinkyTexture}
+
         };
 
         std::vector<Sprite> sprites = {};
@@ -442,8 +443,8 @@ namespace Pacenstein {
         for(auto & pellet : pellets){
             if(!pellet.is_collected()){
                 if(!player.intersect(pellet, this->data)){
-                    sprites.push_back({pellet.getPosition(), pacTexture});
-                    
+                    if(player.inRange(pellet))
+                        sprites.push_back({pellet.getPosition(), pacTexture});
                 }
             }
         }
@@ -451,7 +452,8 @@ namespace Pacenstein {
         for(auto & p : power){
             if(!p.is_collected()){
                 if(!player.intersect(p, this->data)){
-                    sprites.push_back({p.getPosition(), powerTexture});
+                    if(player.inRange(p))
+                        sprites.push_back({p.getPosition(), powerTexture});
                     
                 }
             }

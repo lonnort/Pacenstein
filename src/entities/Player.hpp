@@ -56,15 +56,23 @@ namespace Pacenstein {
          */
         void moveDown(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap);
 
-        //Nog niet getest!
         /**
          * Checks if the player intersects with an Item. If they intersect, 
          * call the interact function of the item.
          * 
          * \param other The Item to check if the player collides with it.
+         * \param data A reference to the game data object.
          * \return A bool of the collision. True if there is a collision, false if not.
          */
         bool intersect(Item & other, game_data_ref_t data);
+
+        /**
+         * Checks if the player is in range(less than 5 blocks away) of an Item.
+         * 
+         * \param other The Item to check if it is in range.
+         * \return A bool of in range. True if the item is in range, false if not.
+         */
+        bool inRange(Item & other);
 
         /**
          * Returns the plane of the player.
