@@ -16,10 +16,10 @@ namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
         data(data),
         player(data),
-        blinky_ghost(14.5, 3.5),
-        clyde_ghost(6.5, 7.5),
-        inky_ghost(4.5, 18.5),
-        pinky_ghost(14.5, 18.5)
+        blinky_ghost(14.5, 3.5, 0.8),
+        clyde_ghost(6.5, 7.5, 0.8),
+        inky_ghost(4.5, 18.5, 0.8),
+        pinky_ghost(14.5, 18.5, 0.8)
 
     {
         w = std::stoi(data->settings.at("window").at("Width"));
@@ -31,6 +31,8 @@ namespace Pacenstein {
         this->data->score = 0;
         this->data->lives = 3;
         this->data->ghostsEaten = 0;
+        this->data->scattering = false;
+        this->data->invincible = false;
     }
 
     void InGameState::generatePauseBackground() {
@@ -82,6 +84,7 @@ namespace Pacenstein {
 
         //     if (item == powerPellet) goto scatterState;
         // }
+        
     }
 
     void InGameState::move(const std::string& direction) {
@@ -94,23 +97,23 @@ namespace Pacenstein {
     }
     
     void InGameState::sortSprites(std::vector<int> &order, std::vector<float> &dist, int size) {
-	int gap = size;
-	bool flag = true;
-	while (gap != 1 || flag){
-	    gap = (gap * 10) / 13;
-	    if (gap < 1){
-		gap = 1;
-	     }
-	    flag = false;
-	    for (int i = 0; i < size - gap; i++){
-		int j = i + gap;
+        int gap = size;
+        bool flag = true;
+        while (gap != 1 || flag){
+            gap = (gap * 10) / 13;
+            if (gap < 1){
+                gap = 1;
+            }
+            flag = false;
+	        for (int i = 0; i < size - gap; i++){
+		    int j = i + gap;
                 if (dist[i] < dist[j]){
                     std::swap(dist[i],dist[j]);
                     std::swap(order[i],order[j]);
                     flag = true;
                 }
+	        }
 	    }
-	}
     }
 
     
@@ -406,7 +409,7 @@ namespace Pacenstein {
     void InGameState::draw(float dt) {
         if (!this->wallTexture.loadFromFile  ((TEXTURES_FILEPATH "wall.png"))
         ||  !this->doorTexture.loadFromFile  ((TEXTURES_FILEPATH "door.png"))
-        ||  !this->blinkyTexture.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))
+        // ||  !this->blinkyTexture.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))
         ||  !this->clydeTexture.loadFromFile ((GHOSTS_FILEPATH "clyde_middle_one.png"))
         ||  !this->inkyTexture.loadFromFile  ((GHOSTS_FILEPATH "inky_middle_one.png"))
         ||  !this->pinkyTexture.loadFromFile ((GHOSTS_FILEPATH "pinky_middle_one.png"))
@@ -415,31 +418,52 @@ namespace Pacenstein {
             std::cout << "Failed to load texture!" << '\n';
         }
 
+        for(int i = 0; i < 1; i++){
+            sf::Texture tmp;
+            if(!tmp.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))){
+                std::cout << "Failed to load texture!" << '\n';
+            }
+            blinkyTexture.push_back(tmp);
+        }
+
         this->data->window.clear();
 
         const auto worldMap = this->data->assets.getImage("Map");
 
         std::vector<Sprite> spooks = {
-            {blinky_ghost.move(worldMap),  blinkyTexture},
+            {blinky_ghost.move(worldMap),  blinkyTexture[0]},
             {clyde_ghost.move(worldMap),  clydeTexture},
             {inky_ghost.move(worldMap),  inkyTexture},
             {pinky_ghost.move(worldMap),  pinkyTexture}
+
         };
 
         std::vector<Sprite> sprites = {};
         
-        for(auto& pellet : pellets){
-            if(!pellet.is_collected()) {
-                sprites.push_back({pellet.getPosition(), pacTexture});
+        for(auto & pellet : pellets){
+            if(!pellet.is_collected()){
+                if(!player.intersect(pellet, this->data)){
+                    if(player.inRange(pellet))
+                        sprites.push_back({pellet.getPosition(), pacTexture});
+                }
             }
         }
 
-        for(auto& p : power){
+        for(auto & p : power){
             if(!p.is_collected()){
-                sprites.push_back({p.getPosition(), powerTexture});
+                if(!player.intersect(p, this->data)){
+                    if(player.inRange(p))
+                        sprites.push_back({p.getPosition(), powerTexture});
+                    
+                }
             }
         }
 
+        player.intersect(blinky_ghost, this->data);
+        player.intersect(clyde_ghost, this->data);
+        player.intersect(inky_ghost, this->data);
+        player.intersect(pinky_ghost, this->data);
+        
 	    sprites.insert(sprites.end(), spooks.begin(), spooks.end());
 
         // for(int i = 0; i < worldMap.size(); i++){
@@ -455,6 +479,7 @@ namespace Pacenstein {
         //         }
         //     }
         // }
+        
 
         sf::Vector2f position  = player.getPos();
         sf::Vector2f direction = player.getDir();
@@ -463,11 +488,16 @@ namespace Pacenstein {
         drawWalls   (worldMap, position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
 
+        // for(const auto & item : pellets){
+        //     auto plt = std::make_shared<PacPellet>(item);
+        //     player.intersect(plt, this->data);
+        // }
+
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
 
-        player.setMoveSpeed(fps.asSeconds() * 1.5); //the constant value is in squares/second
-        player.setRotSpeed (fps.asSeconds() * 1.4); //the constant value is in radians/second
+        player.setMoveSpeed(fps.asSeconds() * 0.5); //the constant value is in squares/second
+        player.setRotSpeed (fps.asSeconds() * 0.4); //the constant value is in radians/second
         
         sf::Text scoreText("Score: " + std::to_string(this->data->score), this->data->assets.getFont("Font"));
         scoreText.setPosition(5, 5);

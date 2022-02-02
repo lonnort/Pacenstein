@@ -6,13 +6,14 @@ namespace Pacenstein {
     {}
 
     Entity::Entity(sf::Vector2f pos, sf::Vector2f dir, sf::Vector2f size, float ms):
-        bounding_box(size),
+        // bounding_box(size),
         position(pos),
         direction(dir),
         size(size),
         moveSpeed(ms)
     {
-        bounding_box.setPosition(pos);
+        // bounding_box.setPosition(pos);
+        // bounding_box.setSize(sf::Vector2f(0.5, 0.5));
     }
 
     Entity::Entity():
@@ -35,5 +36,5 @@ namespace Pacenstein {
     float Entity::getDirX() { return this->direction.x; }
     float Entity::getDirY() { return this->direction.y; }
 
-    sf::FloatRect Entity::getGlobalBounds() { return bounding_box.getGlobalBounds(); }
+    // sf::FloatRect Entity::getGlobalBounds() { return bounding_box.getGlobalBounds(); }
 }

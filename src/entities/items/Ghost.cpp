@@ -1,4 +1,5 @@
 #include "Ghost.hpp"
+#include "GameOverState.hpp"
 #include <cmath>
 
 namespace Pacenstein {
@@ -18,7 +19,13 @@ namespace Pacenstein {
             data->ghostsEaten++;
         }
         else {
-            data->lives--;
+            if(!data->invincible){
+                data->lives--;
+                if(data->lives == 0){
+                    data->machine.addState(state_ref_t(std::make_unique<GameOverState>(data)), true);
+                }
+                data->invincible = true;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 #include "PacPellet.hpp"
+#include <iostream>
 
 namespace Pacenstein {
     PacPellet::PacPellet(float x, float y):

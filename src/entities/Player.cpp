@@ -38,10 +38,17 @@ namespace Pacenstein {
         if (worldMap[int(position.x)][int(position.y - this->direction.y * this->moveSpeed)] == 0) position.y -= this->direction.y * this->moveSpeed;
     }
     
-    bool Player::intersect(std::shared_ptr<Item> other, game_data_ref_t data){
-        bool collision = this->getGlobalBounds().intersects(other->getGlobalBounds());
-        if(collision) other->interact(this->data);
+    bool Player::intersect(Item & other, game_data_ref_t data){
+        bool collision = int(this->position.x) == int(other.getPos().x) && int(this->position.y) == int(other.getPos().y);
+        if(collision) other.interact(this->data);
         return collision;
+    }
+
+    bool Player::inRange(Item & other){
+        sf::RectangleShape playerRect;
+        playerRect.setPosition(sf::Vector2f(this->position.x - 5, this->position.y - 5));
+        playerRect.setSize(sf::Vector2f(10.0, 10.0));
+        return playerRect.getGlobalBounds().contains(other.getPos());
     }
 
     sf::Vector2f Player::getPlane() { return sf::Vector2f(this->plane.x, this->plane.y); }

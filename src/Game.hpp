@@ -62,6 +62,8 @@ namespace Pacenstein {
          */
         bool scattering;
         
+        bool invincible;
+
         /***/
         settings_t settings;
     };
