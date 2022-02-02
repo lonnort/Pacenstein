@@ -16,10 +16,10 @@ namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
         data(data),
         player(data),
-        blinky_ghost(14.5, 3.5),
-        clyde_ghost(6.5, 7.5),
-        inky_ghost(4.5, 18.5),
-        pinky_ghost(14.5, 18.5)
+        blinky_ghost(14.5, 3.5, 0.8),
+        clyde_ghost(6.5, 7.5, 0.8),
+        inky_ghost(4.5, 18.5, 0.8),
+        pinky_ghost(14.5, 18.5, 0.8)
 
     {
         w = std::stoi(data->settings.at("window").at("Width"));
@@ -84,6 +84,7 @@ namespace Pacenstein {
 
         //     if (item == powerPellet) goto scatterState;
         // }
+        
     }
 
     void InGameState::move(const std::string& direction) {
@@ -96,23 +97,23 @@ namespace Pacenstein {
     }
     
     void InGameState::sortSprites(std::vector<int> &order, std::vector<float> &dist, int size) {
-	int gap = size;
-	bool flag = true;
-	while (gap != 1 || flag){
-	    gap = (gap * 10) / 13;
-	    if (gap < 1){
-		gap = 1;
-	     }
-	    flag = false;
-	    for (int i = 0; i < size - gap; i++){
-		int j = i + gap;
+        int gap = size;
+        bool flag = true;
+        while (gap != 1 || flag){
+            gap = (gap * 10) / 13;
+            if (gap < 1){
+                gap = 1;
+            }
+            flag = false;
+	        for (int i = 0; i < size - gap; i++){
+		    int j = i + gap;
                 if (dist[i] < dist[j]){
                     std::swap(dist[i],dist[j]);
                     std::swap(order[i],order[j]);
                     flag = true;
                 }
+	        }
 	    }
-	}
     }
 
     
