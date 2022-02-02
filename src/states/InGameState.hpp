@@ -9,6 +9,7 @@
 #include "Player.hpp"
 #include "Blinky.hpp"
 #include "PacPellet.hpp"
+#include "PowerPellet.hpp"
 
 #include "Definitions.hpp"
 
@@ -100,6 +101,8 @@ namespace Pacenstein {
                                         //   {1.5, 19.5}, {2.5, 19.5}, {3.5, 19.5}, {4.5, 19.5}, {5.5, 19.5}, {6.5, 19.5}, {7.5, 19.5}, {8.5, 19.5}, {9.5, 19.5}, {10.5, 19.5}, {11.5, 19.5}, {12.5, 19.5}, {13.5, 19.5}, {14.5, 19.5}, {15.5, 19.5}, {16.5, 19.5}, {17.5, 19.5}, 
                                           };
 
+        std::vector<PowerPellet> power = {{1.5, 2.5}, {17.5, 2.5}, {1.5, 15.5}, {17.5, 15.5}};
+        
         game_data_ref_t data;
         Player player;
 
@@ -120,6 +123,7 @@ namespace Pacenstein {
         sf::Texture doorTexture;
         sf::Texture blinkyTexture;
         sf::Texture clydeTexture;
+        sf::Texture powerTexture;
         sf::Texture pacTexture;
 
         void drawWalls(map_t worldMap, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);

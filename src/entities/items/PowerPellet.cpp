@@ -16,4 +16,12 @@ namespace Pacenstein {
         data->score += points;
         data->machine.addState(state_ref_t(std::make_unique<ScatterState>(data)), true);
     }
+
+    bool PowerPellet::is_collected(){
+        return collected;
+    }
+
+    sf::Vector2f PowerPellet::getPosition(){
+        return this->getPos();
+    }
 }

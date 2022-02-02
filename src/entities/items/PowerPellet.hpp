@@ -35,5 +35,9 @@ namespace Pacenstein {
          * \param data A reference to the data object.
          */
         void interact(game_data_ref_t data) override;
+        
+        bool is_collected();
+
+        sf::Vector2f getPosition();
     };
 }

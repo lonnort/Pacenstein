@@ -5,6 +5,7 @@
 #include "ScatterState.hpp"
 #include "Ghost.hpp" 
 #include "PacPellet.hpp"
+#include "PowerPellet.hpp" 
 
 #include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -403,7 +404,8 @@ namespace Pacenstein {
         ||  !this->doorTexture.loadFromFile  ((TEXTURES_FILEPATH "door.png"))
         ||  !this->blinkyTexture.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))
         ||  !this->clydeTexture.loadFromFile ((GHOSTS_FILEPATH "clyde_middle_two.png"))
-        ||  !this->pacTexture.loadFromFile   ((PELLET_FILEPATH "pac.png"))) {
+        ||  !this->powerTexture.loadFromFile ((PELLET_FILEPATH "power v2.png"))
+        ||  !this->pacTexture.loadFromFile   ((PELLET_FILEPATH "pac v2.png"))) {
             std::cout << "Failed to load texture!" << '\n';
         }
 
@@ -426,7 +428,14 @@ namespace Pacenstein {
             }
         }
 
+        for(auto p : power){
+            if(!p.is_collected()){
+                sprites.push_back({p.getPosition(), pacTexture});
+            }
+        }
+
 	    sprites.insert(sprites.end(), spooks.begin(), spooks.end());
+
         // for(int i = 0; i < worldMap.size(); i++){
         //     for(int j = 0; j < worldMap[i].size(); j++){
         //         switch (worldMap[i][j]){
@@ -451,8 +460,8 @@ namespace Pacenstein {
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
 
-        player.setMoveSpeed(fps.asSeconds() * 2.0); //the constant value is in squares/second
-        player.setRotSpeed (fps.asSeconds() * 1.6); //the constant value is in radians/second
+        player.setMoveSpeed(fps.asSeconds() * 1.0); //the constant value is in squares/second
+        player.setRotSpeed (fps.asSeconds() * 0.8); //the constant value is in radians/second
         
         sf::Text scoreText("Score: " + std::to_string(this->data->score), this->data->assets.getFont("Font"));
         scoreText.setPosition(5, 5);
