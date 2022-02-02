@@ -127,10 +127,12 @@ namespace Pacenstein {
 
         sf::Texture wallTexture;
         sf::Texture doorTexture;
-        sf::Texture blinkyTexture;
+
+        std::vector<sf::Texture> blinkyTexture;
         sf::Texture clydeTexture;
         sf::Texture inkyTexture;
         sf::Texture pinkyTexture;
+
         sf::Texture powerTexture;
         sf::Texture pacTexture;
 

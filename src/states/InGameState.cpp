@@ -406,7 +406,7 @@ namespace Pacenstein {
     void InGameState::draw(float dt) {
         if (!this->wallTexture.loadFromFile  ((TEXTURES_FILEPATH "wall.png"))
         ||  !this->doorTexture.loadFromFile  ((TEXTURES_FILEPATH "door.png"))
-        ||  !this->blinkyTexture.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))
+        // ||  !this->blinkyTexture.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))
         ||  !this->clydeTexture.loadFromFile ((GHOSTS_FILEPATH "clyde_middle_one.png"))
         ||  !this->inkyTexture.loadFromFile  ((GHOSTS_FILEPATH "inky_middle_one.png"))
         ||  !this->pinkyTexture.loadFromFile ((GHOSTS_FILEPATH "pinky_middle_one.png"))
@@ -415,12 +415,20 @@ namespace Pacenstein {
             std::cout << "Failed to load texture!" << '\n';
         }
 
+        for(int i = 0; i < 1; i++){
+            sf::Texture tmp;
+            if(!tmp.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))){
+                std::cout << "Failed to load texture!" << '\n';
+            }
+            blinkyTexture.push_back(tmp);
+        }
+
         this->data->window.clear();
 
         const auto worldMap = this->data->assets.getImage("Map");
 
         std::vector<Sprite> spooks = {
-            {blinky_ghost.move(worldMap),  blinkyTexture},
+            {blinky_ghost.move(worldMap),  blinkyTexture[0]},
             {clyde_ghost.move(worldMap),  clydeTexture},
             {inky_ghost.move(worldMap),  inkyTexture},
             {pinky_ghost.move(worldMap),  pinkyTexture}
