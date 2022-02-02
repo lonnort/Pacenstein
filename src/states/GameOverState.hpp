@@ -59,6 +59,7 @@ namespace Pacenstein {
          */
         void parseScores(std::vector<std::string> file_content);
 
+    private:
         /**
          * Saves the current score to the score file.
          *
@@ -66,7 +67,6 @@ namespace Pacenstein {
          */
 		void saveScore();
 
-    private:
         game_data_ref_t data;
 
         sf::Sprite title;

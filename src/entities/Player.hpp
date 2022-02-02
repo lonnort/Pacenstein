@@ -45,7 +45,7 @@ namespace Pacenstein {
          * is moved forwards. If the player is against
          * a wall, this function does nothing.
          */
-        void moveUp(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap);
+        void moveUp(const map_t worldMap);
 
         /**
          * Moves the player backwards.
@@ -54,7 +54,7 @@ namespace Pacenstein {
          * is moved backwards. If the player is against
          * a wall, this function does nothing.
          */
-        void moveDown(const std::array<std::array<int, MAP_HEIGHT>, MAP_WIDTH> worldMap);
+        void moveDown(const map_t worldMap);
 
         //Nog niet getest!
         /**
@@ -78,6 +78,7 @@ namespace Pacenstein {
          *
          * \return A double of the x plane.
          */
+        [[deprecated]]
         double getPlaneX();
 
         /**
@@ -85,6 +86,7 @@ namespace Pacenstein {
          *
          * \return A double of the y plane.
          */
+        [[deprecated]]
         double getPlaneY();
 
         /**

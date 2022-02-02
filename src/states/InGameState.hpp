@@ -70,7 +70,7 @@ namespace Pacenstein {
          * \param &dist A reference to a vector filled with distances.
          * \param size A int with size.
          */
-	void sortSprites(std::vector<int> &order, std::vector<float> &dist, int size);
+    	void sortSprites(std::vector<int> &order, std::vector<float> &dist, int size);
 
         /**
          * Updates the in game state outside of key presses.
@@ -116,7 +116,7 @@ namespace Pacenstein {
         int w, h;
 
         sf::Clock clock;
-        sf::Time fps;
+        sf::Time  fps;
 
         std::vector<int> ZBuffer;
 
@@ -138,3 +138,11 @@ namespace Pacenstein {
         void drawEntities(std::vector<Sprite> sprites, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);
     };
 }
+
+
+
+
+
+
+
+
