@@ -280,27 +280,27 @@ namespace Pacenstein {
         std::vector<int>   spriteOrder;
         std::vector<float> spriteDistance;
 
-	// for (uint i = 0; i < sprites.size(); ++i) {
-        //     float dist = ((positionX - sprites[i].x) * (positionX - sprites[i].x) + (positionY - sprites[i].y) * (positionY - sprites[i].y));
-        //     spriteOrder.push_back(i);
-        //     spriteDistance.push_back(dist); // sqrt not taken, uneeded
-        // }
-	// sortSprites(spriteOrder, spriteDistance, spriteOrder.size());
+        // for (uint i = 0; i < sprites.size(); ++i) {
+            //     float dist = ((positionX - sprites[i].x) * (positionX - sprites[i].x) + (positionY - sprites[i].y) * (positionY - sprites[i].y));
+            //     spriteOrder.push_back(i);
+            //     spriteDistance.push_back(dist); // sqrt not taken, uneeded
+            // }
+        // sortSprites(spriteOrder, spriteDistance, spriteOrder.size());
 
-	int counter = 0;
-	for (auto sprite : sprites ) {
-	    counter++;
-	    float dist = ((positionX - sprite.xy.x) * (positionX - sprite.xy.x) + (positionY - sprite.xy.y) * (positionY - sprite.xy.y));
-	    spriteOrder.push_back(counter);
-            spriteDistance.push_back(dist); // sqrt not taken, uneeded
-	}
-	sortSprites(spriteOrder, spriteDistance, spriteOrder.size());
+        int counter = 0;
+        for (auto sprite : sprites ) {
+            counter++;
+            float dist = ((positionX - sprite.xy.x) * (positionX - sprite.xy.x) + (positionY - sprite.xy.y) * (positionY - sprite.xy.y));
+            spriteOrder.push_back(counter);
+                spriteDistance.push_back(dist); // sqrt not taken, uneeded
+        }
+        sortSprites(spriteOrder, spriteDistance, spriteOrder.size());
 
-        //after sorting the sprites, do the projection and draw them
-	for (auto sprite : sprites ) {
-            //translate sprite position to relative to camera
-	    double spriteX = sprite.xy.x - positionX;
-	    double spriteY = sprite.xy.y - positionY;
+            //after sorting the sprites, do the projection and draw them
+        for (auto sprite : sprites ) {
+                //translate sprite position to relative to camera
+            double spriteX = sprite.xy.x - positionX;
+            double spriteY = sprite.xy.y - positionY;
 
             //transform sprite with the inverse camera matrix
             // [ planeX   dirX ] -1                                       [ dirY      -dirX ]
@@ -395,7 +395,7 @@ namespace Pacenstein {
             spriteQuad[3].texCoords = sf::Vector2f(spriteLeft,  spriteBottom);
 
             this->data->window.draw(spriteQuad, &sprite.tex);
-	}
+	    }
     }
 
     void InGameState::draw(float dt) {
@@ -426,7 +426,7 @@ namespace Pacenstein {
             }
         }
 
-	sprites.insert(sprites.end(), spooks.begin(), spooks.end());
+	    sprites.insert(sprites.end(), spooks.begin(), spooks.end());
         // for(int i = 0; i < worldMap.size(); i++){
         //     for(int j = 0; j < worldMap[i].size(); j++){
         //         switch (worldMap[i][j]){
