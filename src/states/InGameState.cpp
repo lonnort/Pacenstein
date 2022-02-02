@@ -16,7 +16,11 @@ namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
         data(data),
         player(data),
-        blinky_ghost(1.5, 3.5)
+        blinky_ghost(14.5, 3.5),
+        clyde_ghost(6.5, 7.5),
+        inky_ghost(4.5, 18.5),
+        pinky_ghost(14.5, 18.5)
+
     {
         w = std::stoi(data->settings.at("window").at("Width"));
         h = std::stoi(data->settings.at("window").at("Height"));
@@ -403,7 +407,9 @@ namespace Pacenstein {
         if (!this->wallTexture.loadFromFile  ((TEXTURES_FILEPATH "wall.png"))
         ||  !this->doorTexture.loadFromFile  ((TEXTURES_FILEPATH "door.png"))
         ||  !this->blinkyTexture.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))
-        ||  !this->clydeTexture.loadFromFile ((GHOSTS_FILEPATH "clyde_middle_two.png"))
+        ||  !this->clydeTexture.loadFromFile ((GHOSTS_FILEPATH "clyde_middle_one.png"))
+        ||  !this->inkyTexture.loadFromFile  ((GHOSTS_FILEPATH "inky_middle_one.png"))
+        ||  !this->pinkyTexture.loadFromFile ((GHOSTS_FILEPATH "pinky_middle_one.png"))
         ||  !this->powerTexture.loadFromFile ((PELLET_FILEPATH "power v2.png"))
         ||  !this->pacTexture.loadFromFile   ((PELLET_FILEPATH "pac v2.png"))) {
             std::cout << "Failed to load texture!" << '\n';
@@ -415,9 +421,9 @@ namespace Pacenstein {
 
         std::vector<Sprite> spooks = {
             {blinky_ghost.move(worldMap),  blinkyTexture},
-	    {{4.5, 15.5}, clydeTexture},
-	    {{4.5, 3.5}, clydeTexture},
-
+            {clyde_ghost.move(worldMap),  clydeTexture},
+            {inky_ghost.move(worldMap),  inkyTexture},
+            {pinky_ghost.move(worldMap),  pinkyTexture}
         };
 
         std::vector<Sprite> sprites = {};
