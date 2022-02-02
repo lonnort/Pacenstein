@@ -402,7 +402,7 @@ namespace Pacenstein {
             spriteQuad[3].texCoords = sf::Vector2f(spriteLeft,  spriteBottom);
 
             this->data->window.draw(spriteQuad, &sprite.tex);
-	}
+    	}
     }
 
     void InGameState::draw(float dt) {
