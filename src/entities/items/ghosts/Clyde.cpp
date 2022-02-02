@@ -1,13 +1,15 @@
 #include "Clyde.hpp"
 
 namespace Pacenstein {
-    Clyde::Clyde(float x, float y):
+    Clyde::Clyde(float x, float y, float speed):
         Ghost(x, y),
-        direction(4)
+        direction(4),
+        movement_speed(speed)
     {}
 
-    Clyde::Clyde(sf::Vector2f xy):
-        Clyde(xy.x, xy.y)
+
+    Clyde::Clyde(sf::Vector2f xy, float speed):
+        Clyde(xy.x, xy.y, speed)
     {}
 
     sf::Sprite Clyde::getGhostSprite(game_data_ref_t data){

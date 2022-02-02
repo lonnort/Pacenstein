@@ -21,14 +21,14 @@ namespace Pacenstein {
          * \param x The x position as a float of Blinky.
          * \param y The y position as a float of Blinky.
          */
-        Blinky(float x, float y);
+        Blinky(float x, float y, float speed = 0.05);
 
         /**
          * Constructor of the Blinky ghost class.
          *
          * \param xy The position of Blinky as a sf::Vector2f.
          */
-        explicit Blinky(sf::Vector2f xy);
+        explicit Blinky(sf::Vector2f xy, float speed = 0.05);
 
         /**
          * Returns the sprite of blinky based on the direction and the corresponding texture.
@@ -61,5 +61,7 @@ namespace Pacenstein {
         uint direction;
 
         sf::Sprite blinkySprite;
+
+        float movement_speed;
     };
 }

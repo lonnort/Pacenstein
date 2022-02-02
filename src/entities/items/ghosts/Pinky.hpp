@@ -18,14 +18,14 @@ namespace Pacenstein {
          * \param x The x position as a float of Pinky.
          * \param y The y position as a float of Pinky.
          */
-        Pinky(float x, float y);
+        Pinky(float x, float y, float speed = 0.05);
 
         /**
          * Constructor of the Pinky ghost class.
          *
          * \param xy The position of Pinky as a sf::Vector2f.
          */
-        explicit Pinky(sf::Vector2f xy);
+        explicit Pinky(sf::Vector2f xy, float speed = 0.05);
 
         /**
          * Returns the sprite of Pinky based on the direction and the corresponding texture.
@@ -58,5 +58,7 @@ namespace Pacenstein {
         uint direction;
 
         sf::Sprite pinkySprite;
+
+        float movement_speed;
     };
 }

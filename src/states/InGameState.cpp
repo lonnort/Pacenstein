@@ -436,7 +436,7 @@ namespace Pacenstein {
 
         for(auto p : power){
             if(!p.is_collected()){
-                sprites.push_back({p.getPosition(), pacTexture});
+                sprites.push_back({p.getPosition(), powerTexture});
             }
         }
 

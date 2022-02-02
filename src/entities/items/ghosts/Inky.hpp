@@ -16,14 +16,14 @@ namespace Pacenstein {
          * \param x The x position as a float of Inky.
          * \param y The y position as a float of Inky.
          */
-        Inky(float x, float y);
+        Inky(float x, float y, float speed = 0.05);
 
         /**
          * Constructor of the Inky ghost class.
          *
          * \param xy The position of Inky as a sf::Vector2f.
          */
-        explicit Inky(sf::Vector2f xy);
+        explicit Inky(sf::Vector2f xy, float speed = 0.05);
 
         /**
          * Returns the sprite of Inky based on the direction and the corresponding texture.
@@ -56,5 +56,7 @@ namespace Pacenstein {
         uint direction;
 
         sf::Sprite inkySprite;
+
+        float movement_speed;
     };
 }

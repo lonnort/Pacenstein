@@ -1,13 +1,14 @@
 #include "Inky.hpp"
 
 namespace Pacenstein {
-    Inky::Inky(float x, float y):
+    Inky::Inky(float x, float y, float speed):
         Ghost(x, y),
-        direction(4)
+        direction(4),
+        movement_speed(speed)
     {}
 
-    Inky::Inky(sf::Vector2f xy):
-        Inky(xy.x, xy.y)
+    Inky::Inky(sf::Vector2f xy, float speed):
+        Inky(xy.x, xy.y, speed)
     {}
 
     sf::Sprite Inky::getGhostSprite(game_data_ref_t data){
