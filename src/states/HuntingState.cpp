@@ -54,7 +54,5 @@ namespace Pacenstein {
         }
     }
 
-    void HuntingState::update(float dt) {
-        // this->data->score++;
-    }
+    void HuntingState::update(float dt) {}
 }

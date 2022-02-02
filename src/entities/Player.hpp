@@ -64,7 +64,7 @@ namespace Pacenstein {
          * \param other The Item to check if the player collides with it.
          * \return A bool of the collision. True if there is a collision, false if not.
          */
-        bool intersect(std::shared_ptr<Item> other, game_data_ref_t data);
+        bool intersect(Item & other, game_data_ref_t data);
 
         /**
          * Returns the plane of the player.

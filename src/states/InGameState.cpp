@@ -435,24 +435,25 @@ namespace Pacenstein {
         };
 
         std::vector<Sprite> sprites = {};
-        // std::vector<std::shared_ptr<Item>>
         
         for(auto & pellet : pellets){
             if(!pellet.is_collected()){
-                auto plt = std::make_shared<PacPellet>(pellet);
-                if(!player.intersect(plt, this->data)){
+                if(!player.intersect(pellet, this->data)){
                     sprites.push_back({pellet.getPosition(), pacTexture});
                     
                 }
             }
         }
 
-        for(auto p : power){
+        for(auto & p : power){
             if(!p.is_collected()){
-                sprites.push_back({p.getPosition(), powerTexture});
+                if(!player.intersect(p, this->data)){
+                    sprites.push_back({p.getPosition(), powerTexture});
+                    
+                }
             }
         }
-
+        
 	    sprites.insert(sprites.end(), spooks.begin(), spooks.end());
 
         // for(int i = 0; i < worldMap.size(); i++){
@@ -468,6 +469,7 @@ namespace Pacenstein {
         //         }
         //     }
         // }
+        
 
         sf::Vector2f position  = player.getPos();
         sf::Vector2f direction = player.getDir();
@@ -476,10 +478,10 @@ namespace Pacenstein {
         drawWalls   (worldMap, position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
 
-        for(const auto & item : pellets){
-            auto plt = std::make_shared<PacPellet>(item);
-            player.intersect(plt, this->data);
-        }
+        // for(const auto & item : pellets){
+        //     auto plt = std::make_shared<PacPellet>(item);
+        //     player.intersect(plt, this->data);
+        // }
 
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
