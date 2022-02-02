@@ -454,6 +454,11 @@ namespace Pacenstein {
             }
         }
 
+        player.intersect(blinky_ghost, this->data);
+        player.intersect(clyde_ghost, this->data);
+        player.intersect(inky_ghost, this->data);
+        player.intersect(pinky_ghost, this->data);
+        
 	    sprites.insert(sprites.end(), spooks.begin(), spooks.end());
 
         // for(int i = 0; i < worldMap.size(); i++){
