@@ -42,6 +42,18 @@ namespace Pacenstein {
         this->data->assets.loadTexture("Pause Background", background_img);
     }
 
+    int InGameState::translateDirection(sf::Vector2f direction) {
+        if ((direction.x <= -0.5 && direction.y >= -0.75) && (direction.x <= -0.5 && direction.y <= 0.75)) {
+            return 1;
+        } else if ((direction.x >= -0.5 && direction.y <= 0.75) && (direction.x <= 0.5 && direction.y <= 0.75)) {
+            return 2;
+        } else if ((direction.x >= 0.75 && direction.y <= 0.5) && (direction.x >= 0.75 && direction.y >= -0.5)) {
+            return 3;
+        } else {
+            return 4;
+        }
+    }
+
     void InGameState::handleInput() {
         sf::Event event;
 

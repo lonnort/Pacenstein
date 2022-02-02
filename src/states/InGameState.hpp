@@ -70,7 +70,14 @@ namespace Pacenstein {
          * \param &dist A reference to a vector filled with distances.
          * \param size A int with size.
          */
-	    void sortSprites(std::vector<int> &order, std::vector<float> &dist, int size);
+	void sortSprites(std::vector<int> &order, std::vector<float> &dist, int size);
+
+     	/**
+         * Translates a sf::Vector2f to a direction understandable by a ghost.
+         *
+         * \param direction sf::Vector2f.
+         */
+	int translateDirection(sf::Vector2f direction);
 
         /**
          * Updates the in game state outside of key presses.
