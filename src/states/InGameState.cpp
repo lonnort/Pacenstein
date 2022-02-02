@@ -466,8 +466,8 @@ namespace Pacenstein {
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
 
-        player.setMoveSpeed(fps.asSeconds() * 1.0); //the constant value is in squares/second
-        player.setRotSpeed (fps.asSeconds() * 0.8); //the constant value is in radians/second
+        player.setMoveSpeed(fps.asSeconds() * 0.5); //the constant value is in squares/second
+        player.setRotSpeed (fps.asSeconds() * 0.4); //the constant value is in radians/second
         
         sf::Text scoreText("Score: " + std::to_string(this->data->score), this->data->assets.getFont("Font"));
         scoreText.setPosition(5, 5);
