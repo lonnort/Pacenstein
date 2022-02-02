@@ -31,6 +31,8 @@ namespace Pacenstein {
         this->data->score = 0;
         this->data->lives = 3;
         this->data->ghostsEaten = 0;
+        this->data->scattering = false;
+        this->data->invincible = false;
     }
 
     void InGameState::generatePauseBackground() {

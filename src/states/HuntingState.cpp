@@ -7,9 +7,7 @@
 namespace Pacenstein {
     HuntingState::HuntingState(game_data_ref_t data): InGameState(data) {}
 
-    void HuntingState::init(){
-        this->data->scattering = false;
-    }
+    void HuntingState::init(){}
 
     void HuntingState::handleInput() {
         sf::Event event;
@@ -63,6 +61,15 @@ namespace Pacenstein {
         if (this->clock.getElapsedTime().asSeconds() > 10){
             this->data->scattering = false;
             first = true;
+        }
+
+        if(this->data->invincible and first2){
+            clock.restart();
+            first2 = false;
+        }
+        if (this->clock.getElapsedTime().asSeconds() > 2){
+            this->data->invincible = false;
+            first2 = true;
         }
     }
 }

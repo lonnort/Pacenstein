@@ -46,6 +46,6 @@ namespace Pacenstein {
     private:
         sf::Clock clock;
         bool first = true;
-
+        bool first2 = true;
     };
 }
