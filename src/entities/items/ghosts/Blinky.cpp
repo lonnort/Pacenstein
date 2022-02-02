@@ -3,12 +3,14 @@
 #include <cstdlib>
 
 namespace Pacenstein {
-    Blinky::Blinky(float x, float y):
-        Ghost(x, y)
+    Blinky::Blinky(float x, float y, float speed):
+        Ghost(x, y),
+        direction(4),
+        movement_speed(speed)
     {}
 
-    Blinky::Blinky(sf::Vector2f xy):
-        Blinky(xy.x, xy.y)
+    Blinky::Blinky(sf::Vector2f xy, float speed):
+        Blinky(xy.x, xy.y, speed)
     {}
 
     sf::Sprite Blinky::getGhostSprite(game_data_ref_t data){
@@ -17,20 +19,6 @@ namespace Pacenstein {
     }     
 
     sf::Vector2f Blinky::move(const map_t & worldMap){
-        float movement_speed = 0.01;
-        // std::vector<std::vector<float>> directions = {{0.0, -1.0}, {1.0, 0.0}, {0.0, 1.0}, {-1.0, 0.0}}; //remove current direction?
-
-        // auto it = std::find(directions.begin(), directions.end(), this->direction);
-        // uint dir = it - directions.begin();
-        // std::cout << dir;
-
-        // uint dir = -1;
-        // for(unsigned int i = 0; i < directions.size(); i++){
-        //     if ( int(this->direction.x) == int(directions[i][0]) && int(this->direction.y) == int(directions[i][1]) ){
-        //         dir = i;
-        //     }
-        // }
-
         switch (this->direction){
             case 1: // Noord
                 if((this->position.y - int(this->position.y)) < 0.5){

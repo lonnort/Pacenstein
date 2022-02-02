@@ -19,14 +19,14 @@ namespace Pacenstein {
          * \param x The x position as a float of Clyde.
          * \param y The y position as a float of Clyde.
          */
-        Clyde(float x, float y);
+        Clyde(float x, float y, float speed = 0.05);
 
         /**
          * Constructor of the Clyde ghost class.
          *
          * \param xy The position of Clyde as a sf::Vector2f.
          */
-        explicit Clyde(sf::Vector2f xy);
+        explicit Clyde(sf::Vector2f xy, float speed = 0.05);
 
         /**
          * Returns the sprite of Clyde based on the direction and the corresponding texture.
@@ -35,6 +35,16 @@ namespace Pacenstein {
          * \return An sf::Sprite of the direction of Clyde.
          */
         sf::Sprite getGhostSprite(game_data_ref_t data);
+
+        /**
+         * Moves Clyde to an new position based on the direction.
+         * 
+         * If Clyde hits a wall, the direction is randomly changed to a new one.
+         *
+         * \param worldMap A reference to the world map to detect walls.
+         * \return An sf::Vector2f of the new position of Clyde.
+         */
+        sf::Vector2f move(const map_t & worldMap) override;
 
     private:
         std::vector<std::string> clydeDirections = {    "Clyde Back One",
@@ -50,8 +60,6 @@ namespace Pacenstein {
 
         sf::Sprite clydeSprite;
 
-        //Function to change direction based on the movement of a ghost.
-
-        //Function for ghost movement.
+        float movement_speed;
     };
 }

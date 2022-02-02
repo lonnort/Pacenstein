@@ -16,14 +16,14 @@ namespace Pacenstein {
          * \param x The x position as a float of Inky.
          * \param y The y position as a float of Inky.
          */
-        Inky(float x, float y);
+        Inky(float x, float y, float speed = 0.05);
 
         /**
          * Constructor of the Inky ghost class.
          *
          * \param xy The position of Inky as a sf::Vector2f.
          */
-        explicit Inky(sf::Vector2f xy);
+        explicit Inky(sf::Vector2f xy, float speed = 0.05);
 
         /**
          * Returns the sprite of Inky based on the direction and the corresponding texture.
@@ -32,6 +32,16 @@ namespace Pacenstein {
          * \return An sf::Sprite of the direction of Inky.
          */
         sf::Sprite getGhostSprite(game_data_ref_t data);
+
+        /**
+         * Moves Inky to an new position based on the direction.
+         * 
+         * If Inky hits a wall, the direction is randomly changed to a new one.
+         *
+         * \param worldMap A reference to the world map to detect walls.
+         * \return An sf::Vector2f of the new position of Inky.
+         */
+        sf::Vector2f move(const map_t & worldMap) override;
 
     private:
         std::vector<std::string> inkyDirections = {     "Inky Back One",
@@ -47,8 +57,6 @@ namespace Pacenstein {
 
         sf::Sprite inkySprite;
 
-        //Function to change direction based on the movement of a ghost.
-
-        //Function for ghost movement.
+        float movement_speed;
     };
 }
