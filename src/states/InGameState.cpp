@@ -453,7 +453,7 @@ namespace Pacenstein {
                 }
             }
         }
-        
+
 	    sprites.insert(sprites.end(), spooks.begin(), spooks.end());
 
         // for(int i = 0; i < worldMap.size(); i++){

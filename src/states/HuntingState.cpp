@@ -2,6 +2,7 @@
 #include "HuntingState.hpp"
 #include "PauseState.hpp"
 #include "ScatterState.hpp"
+#include <iostream>
 
 namespace Pacenstein {
     HuntingState::HuntingState(game_data_ref_t data): InGameState(data) {}
@@ -54,5 +55,14 @@ namespace Pacenstein {
         }
     }
 
-    void HuntingState::update(float dt) {}
+    void HuntingState::update(float dt) {
+        if(this->data->scattering and first){
+            clock.restart();
+            first = false;
+        }
+        if (this->clock.getElapsedTime().asSeconds() > 10){
+            this->data->scattering = false;
+            first = true;
+        }
+    }
 }

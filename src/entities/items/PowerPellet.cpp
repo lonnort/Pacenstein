@@ -14,7 +14,7 @@ namespace Pacenstein {
     void PowerPellet::interact(game_data_ref_t data) {
         collected = true;
         data->score += points;
-        data->machine.addState(state_ref_t(std::make_unique<ScatterState>(data)), false);
+        data->scattering = true;
     }
 
     bool PowerPellet::is_collected(){

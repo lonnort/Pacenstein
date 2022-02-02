@@ -42,5 +42,10 @@ namespace Pacenstein {
          * \param dt The maximum time to update in the game loop.
          */
         void update(float dt) override;
+
+    private:
+        sf::Clock clock;
+        bool first = true;
+
     };
 }
