@@ -39,8 +39,12 @@ namespace Pacenstein {
         sf::Sprite getGhostSprite(game_data_ref_t data);
 
         /**
+         * Moves Blinky to an new position based on the direction.
          * 
-         * 
+         * If Blinky hits a wall, the direction is randomly changed to a new one.
+         *
+         * \param worldMap A reference to the world map to detect walls.
+         * \return An sf::Vector2f of the new position of Blinky.
          */
         sf::Vector2f move(const map_t & worldMap) override;
 
@@ -57,9 +61,5 @@ namespace Pacenstein {
         uint direction = 1;
 
         sf::Sprite blinkySprite;
-
-        //Function to change direction based on the movement of a ghost.
-
-        //Function for ghost movement.
     };
 }
