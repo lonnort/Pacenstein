@@ -35,6 +35,16 @@ namespace Pacenstein {
          */
         sf::Sprite getGhostSprite(game_data_ref_t data);
 
+        /**
+         * Moves Pinky to an new position based on the direction.
+         * 
+         * If Pinky hits a wall, the direction is randomly changed to a new one.
+         *
+         * \param worldMap A reference to the world map to detect walls.
+         * \return An sf::Vector2f of the new position of Pinky.
+         */
+        sf::Vector2f move(const map_t & worldMap) override;
+
     private:
         std::vector<std::string> pinkyDirections = {    "Pinky Back One",
                                                         "Pinky Back Two",
@@ -48,9 +58,5 @@ namespace Pacenstein {
         uint direction;
 
         sf::Sprite pinkySprite;
-
-        //Function to change direction based on the movement of a ghost.
-
-        //Function for ghost movement.
     };
 }
