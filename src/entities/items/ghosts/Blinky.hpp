@@ -58,7 +58,7 @@ namespace Pacenstein {
                                                         "Blinky Right One",
                                                         "Blinky Right Two" };
                                     
-        uint direction = 1;
+        uint direction;
 
         sf::Sprite blinkySprite;
     };

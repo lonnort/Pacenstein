@@ -8,6 +8,9 @@
 #include "Game.hpp"
 #include "Player.hpp"
 #include "Blinky.hpp"
+#include "Clyde.hpp"
+#include "Inky.hpp"
+#include "Pinky.hpp"
 #include "PacPellet.hpp"
 
 #include "Definitions.hpp"
@@ -115,11 +118,16 @@ namespace Pacenstein {
         std::vector<int> ZBuffer;
 
         Blinky blinky_ghost;
+        Clyde clyde_ghost;
+        Inky inky_ghost;
+        Pinky pinky_ghost;
 
         sf::Texture wallTexture;
         sf::Texture doorTexture;
         sf::Texture blinkyTexture;
         sf::Texture clydeTexture;
+        sf::Texture inkyTexture;
+        sf::Texture pinkyTexture;
         sf::Texture pacTexture;
 
         void drawWalls(map_t worldMap, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);

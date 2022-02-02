@@ -4,7 +4,8 @@
 
 namespace Pacenstein {
     Blinky::Blinky(float x, float y):
-        Ghost(x, y)
+        Ghost(x, y),
+        direction(4)
     {}
 
     Blinky::Blinky(sf::Vector2f xy):
