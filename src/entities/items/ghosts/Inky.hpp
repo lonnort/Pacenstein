@@ -8,7 +8,7 @@ namespace Pacenstein {
      *
      * Inky is a subclass of Ghost, Inky is the blue ghost.
      */
-    class Inky : Ghost {
+    class Inky : public Ghost {
     public:
         /**
          * Constructor of the Inky ghost class.
