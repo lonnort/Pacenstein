@@ -148,5 +148,6 @@ namespace Pacenstein {
 
         void drawWalls(map_t worldMap, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);
         void drawEntities(std::vector<Sprite> sprites, sf::Vector2f position, sf::Vector2f direction, sf::Vector2f plane);
+    	void drawMinimap(sf::Vector2f player_position, std::vector<Sprite> sprites);
     };
 }

@@ -46,6 +46,52 @@ namespace Pacenstein {
         this->data->assets.loadTexture("Pause Background", background_img);
     }
 
+void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> spooks) {
+	sf::Texture texture;
+	if (!texture.loadFromFile("./res/map.png")) {
+	    std::cout << "failed to load" << '\n';
+	}
+	
+	int scaler = 8;
+	int left = 1000;
+	if (w == 1920) {
+	    scaler = 15;
+	    left = 1600;
+	    
+	}
+
+	int player_x = int(player_position.x) * scaler;
+	int player_y = int(player_position.y) * scaler;
+	
+	sf::RectangleShape player;
+	player.setSize({float(scaler),float(scaler)});
+	player.setPosition({left + float(player_x) , float(player_y)});
+	
+	player.setFillColor(sf::Color::Green);
+
+	
+	
+	// Create a sprite
+	sf::Sprite sprite;
+	sprite.setTexture(texture);
+	sprite.setScale(scaler,scaler);
+	sprite.setPosition(left, 0);
+	
+	this->data->window.draw(sprite);
+	for (Sprite spook : spooks) {
+	    int spook_x = int(spook.xy.x) * scaler;
+	    int spook_y = int(spook.xy.y) * scaler;
+
+	    sf::RectangleShape tmp_spook;
+	    tmp_spook.setSize({float(scaler),float(scaler)});
+	    tmp_spook.setPosition({left + float(spook_x) , float(spook_y)});
+	
+	    tmp_spook.setFillColor(sf::Color::Red);
+	    this->data->window.draw(tmp_spook);
+	}
+	this->data->window.draw(player);
+    }
+    
     int InGameState::translateDirection(sf::Vector2f direction) {
         if ((direction.x <= -0.5 && direction.y >= -0.75) && (direction.x <= -0.5 && direction.y <= 0.75)) {
             return 2;
@@ -264,8 +310,11 @@ namespace Pacenstein {
 
 	    // original value was 288 instead of 540
 	    // float y = 540 - (64 * scaleY) / 2;
-	    float y = 360 - (64 * scaleY) / 2;
-
+	    int scaler = 360;
+	    if (w == 1920) {
+		scaler = 540;
+	    }
+	    float y = scaler - (64 * scaleY) / 2;
 
             //Draw the walls
             WallTexture.setScale(1, scaleY);
@@ -544,29 +593,36 @@ namespace Pacenstein {
         }
 
         // std::vector<Ghost> ghosts = {blinky_ghost, clyde_ghost, inky_ghost, pinky_ghost};
+        std::vector<Sprite> spooks = {};
+
 
         if(!blinky_ghost.is_collected()){
             if(!player.intersect(blinky_ghost, this->data)){
                 auto blinkyTexture2 = get_texture(blinky_ghost.getDirection(), translateDirection(player.getDir()), "blinky");
                 sprites.push_back({blinky_ghost.move(worldMap), blinkyTexture2});
+                spooks.push_back({blinky_ghost.move(worldMap), blinkyTexture2});
+
             }
         }
         if(!clyde_ghost.is_collected()){
             if(!player.intersect(clyde_ghost, this->data)){
                 auto clydeTexture2 = get_texture(clyde_ghost.getDirection(), translateDirection(player.getDir()), "clyde");
                 sprites.push_back({clyde_ghost.move(worldMap), clydeTexture2});
+		spooks.push_back({clyde_ghost.move(worldMap), clydeTexture2});
             }
         }
         if(!inky_ghost.is_collected()){
             if(!player.intersect(inky_ghost, this->data)){
                 auto inkyTexture2 = get_texture(inky_ghost.getDirection(), translateDirection(player.getDir()), "inky");
                 sprites.push_back({inky_ghost.move(worldMap), inkyTexture2});
+		spooks.push_back({inky_ghost.move(worldMap), inkyTexture2});
             }
         }
         if(!pinky_ghost.is_collected()){
             if(!player.intersect(pinky_ghost, this->data)){
                 auto pinkyTexture2 = get_texture(pinky_ghost.getDirection(), translateDirection(player.getDir()), "pinky");
                 sprites.push_back({pinky_ghost.move(worldMap), pinkyTexture2});
+		spooks.push_back({pinky_ghost.move(worldMap), pinkyTexture2});
             }
         }
 
@@ -598,6 +654,7 @@ namespace Pacenstein {
 
         drawWalls   (worldMap, position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
+	drawMinimap(position, spooks);
 
         // for(const auto & item : pellets){
         //     auto plt = std::make_shared<PacPellet>(item);
