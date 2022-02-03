@@ -310,8 +310,11 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
 
 	    // original value was 288 instead of 540
 	    // float y = 540 - (64 * scaleY) / 2;
-	    float y = 360 - (64 * scaleY) / 2;
-
+	    int scaler = 360;
+	    if (w == 1920) {
+		scaler = 540;
+	    }
+	    float y = scaler - (64 * scaleY) / 2;
 
             //Draw the walls
             WallTexture.setScale(1, scaleY);
