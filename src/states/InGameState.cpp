@@ -543,7 +543,7 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
         ||  !this->inkyTexture.loadFromFile  ((GHOSTS_FILEPATH "inky_middle_one.png"))
         ||  !this->pinkyTexture.loadFromFile ((GHOSTS_FILEPATH "pinky_middle_one.png"))
         ||  !this->powerTexture.loadFromFile ((PELLET_FILEPATH "power v2.png"))
-        ||  !this->pacTexture.loadFromFile   ((PELLET_FILEPATH "pac v2.png"))) {
+        ||  !this->pacTexture.loadFromFile   ((PELLET_FILEPATH "pac.png"))) {
             std::cout << "Failed to load texture!" << '\n';
         }
 
