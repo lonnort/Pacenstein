@@ -46,8 +46,13 @@ namespace Pacenstein {
     void CreditsMenuState::update(float dt) {}
 
     void CreditsMenuState::draw(float dt) {
+        std::string credits = "A game made by: \n\nJarno Brocker\nLennard Duinkerken\nDaan Roth\nEmma Raijmakers";
+        sf::Text creditsText(credits, this->data->assets.getFont("Font"));
+        creditsText.setPosition(std::stoi(data->settings.at("window").at("Width")) / 2 - 125, 200);
+
         this->data->window.clear();
 
+        this->data->window.draw(creditsText);
         this->data->window.draw(this->title);
         this->data->window.draw(this->backButton);
 

@@ -2,6 +2,7 @@
 #include "HuntingState.hpp"
 #include "PauseState.hpp"
 #include "ScatterState.hpp"
+#include "GameOverState.hpp"
 #include <iostream>
 
 namespace Pacenstein {
@@ -70,6 +71,10 @@ namespace Pacenstein {
         if (this->clock.getElapsedTime().asSeconds() > 2){
             this->data->invincible = false;
             first2 = true;
+        }
+
+        if(this->data->pacPelletsLeft == 0 && this->data->powerPelletsLeft == 0 && !this->data->scattering){
+            this->data->machine.addState(state_ref_t(std::make_unique<GameOverState>(this->data)), true);
         }
     }
 }

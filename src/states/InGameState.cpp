@@ -33,6 +33,9 @@ namespace Pacenstein {
         this->data->ghostsEaten = 0;
         this->data->scattering = false;
         this->data->invincible = false;
+        this->data->pacPelletsLeft = pellets.size();
+        this->data->powerPelletsLeft = power.size();
+
     }
 
     void InGameState::generatePauseBackground() {
@@ -447,7 +450,6 @@ namespace Pacenstein {
             {clyde_ghost.move(worldMap),  clydeTexture},
             {inky_ghost.move(worldMap),  inkyTexture},
             {pinky_ghost.move(worldMap),  pinkyTexture}
-
         };
 
         std::vector<Sprite> sprites = {};
@@ -470,6 +472,8 @@ namespace Pacenstein {
                 }
             }
         }
+
+
 
         player.intersect(blinky_ghost, this->data);
         player.intersect(clyde_ghost, this->data);

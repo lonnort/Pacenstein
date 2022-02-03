@@ -12,6 +12,7 @@ namespace Pacenstein {
     {}
 
     void PowerPellet::interact(game_data_ref_t data) {
+        data->powerPelletsLeft--;
         collected = true;
         data->score += points;
         data->scattering = true;

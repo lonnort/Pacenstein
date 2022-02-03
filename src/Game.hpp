@@ -62,9 +62,24 @@ namespace Pacenstein {
          */
         bool scattering;
         
+        /**
+         * Invincible is a bool, where the state of being invincible is saved when the game is running.
+         */
         bool invincible;
 
-        /***/
+        /**
+         * pacPelletsLeft saves the number of pac pellets left for the player to collect.
+         */
+        uint pacPelletsLeft;
+
+        /**
+         * powerPelletsLeft saves the number of pac pellets left for the player to collect.
+         */
+        uint powerPelletsLeft;
+
+        /**
+         * Settings saves the settings of the game.
+         */
         settings_t settings;
     };
 
