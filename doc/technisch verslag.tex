@@ -2,6 +2,7 @@
 
 \documentclass{report}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 
 \usepackage{titlesec}
 \usepackage{hyperref}
@@ -35,7 +36,7 @@
   urlcolor=blue
 }
 
-\graphicspath{{technisch verslag imgs/}}
+\graphicspath{technisch verslag imgs/}
 
 \usemintedstyle{monokai}
 
@@ -72,7 +73,11 @@
 
   \section{Raycasting} % (fold)
   \label{sec:raycasting}
-
+  \subsection{Waarom Raycasting} % (fold)
+  \label{sub:waarom_raycasting}
+  Dit project gebruikt raycasting om een 2d wereld, op het scherm er uit te laten zien als een 3d wereld. Raycasting is hiervoor gebruikt omdat het een relatief simpele methode is om de wereld 3d te maken. Dit project gebruikt geen hardware acceleratie, dus het is belangrijk dat het een lichte simpele methode is. Vandaar de keuze voor raycasting.
+  \includegraphics{technisch verslag imgs/raycasteruntextured.png}
+  % subsection waarom_raycasting (end)
   % section raycasting (end)
 
   \section{Game Logic} % (fold)
