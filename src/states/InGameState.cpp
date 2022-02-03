@@ -559,18 +559,6 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
 
         const auto worldMap = this->data->assets.getImage("Map");
 
-        // auto blinkyTexture2 = get_texture(blinky_ghost.getDirection(), translateDirection(player.getDir()), "blinky");
-        // auto clydeTexture2 = get_texture(clyde_ghost.getDirection(), translateDirection(player.getDir()), "clyde");
-        // auto inkyTexture2 = get_texture(inky_ghost.getDirection(), translateDirection(player.getDir()), "inky");
-        // auto pinkyTexture2 = get_texture(pinky_ghost.getDirection(), translateDirection(player.getDir()), "pinky");
-        
-        // std::vector<Sprite> spooks = {
-            // {blinky_ghost.move(worldMap),   blinkyTexture2},
-            // {clyde_ghost.move(worldMap),    clydeTexture2},
-            // {inky_ghost.move(worldMap),     inkyTexture2},
-            // {pinky_ghost.move(worldMap),    pinkyTexture2}
-        // };
-
         std::vector<Sprite> sprites = {};
         
         for(auto & pellet : pellets){
@@ -592,9 +580,7 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
             }
         }
 
-        // std::vector<Ghost> ghosts = {blinky_ghost, clyde_ghost, inky_ghost, pinky_ghost};
         std::vector<Sprite> spooks = {};
-
 
         if(!blinky_ghost.is_collected()){
             if(!player.intersect(blinky_ghost, this->data)){
@@ -626,28 +612,6 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
             }
         }
 
-        // player.intersect(blinky_ghost, this->data);
-        // player.intersect(clyde_ghost, this->data);
-        // player.intersect(inky_ghost, this->data);
-        // player.intersect(pinky_ghost, this->data);
-        
-	    // sprites.insert(sprites.end(), spooks.begin(), spooks.end());
-
-        // for(int i = 0; i < worldMap.size(); i++){
-        //     for(int j = 0; j < worldMap[i].size(); j++){
-        //         switch (worldMap[i][j]){
-        //         case 2:
-        //             sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
-        //             break;
-                
-        //         case 4:
-        //             break;
-        //             sprites.push_back({0.5 + j, 0.5 + i, pacTexture});
-        //         }
-        //     }
-        // }
-        
-
         sf::Vector2f position  = player.getPos();
         sf::Vector2f direction = player.getDir();
         sf::Vector2f plane     = player.getPlane();
@@ -655,11 +619,6 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
         drawWalls   (worldMap, position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
 	drawMinimap(position, spooks);
-
-        // for(const auto & item : pellets){
-        //     auto plt = std::make_shared<PacPellet>(item);
-        //     player.intersect(plt, this->data);
-        // }
 
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
@@ -686,7 +645,5 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
         }
 
         this->data->window.display();
-
-        // std::cout << this->data->ghostsEaten << "\n";
     }
 }
