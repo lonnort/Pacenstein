@@ -110,7 +110,7 @@ namespace Pacenstein {
          * \param newRotSpeed A const double of the new rotation speed.
          */
         void setRotSpeed(const double newRotSpeed);
-        
+
     private:
         game_data_ref_t data;
 

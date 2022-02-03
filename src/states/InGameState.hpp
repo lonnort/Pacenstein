@@ -84,7 +84,10 @@ namespace Pacenstein {
          *
          * \param dt A float.
          */
+
         void draw(float dt);
+
+        sf::Texture get_texture(int ghost_derection, float player_derection, std::string name);
 
 
     protected:

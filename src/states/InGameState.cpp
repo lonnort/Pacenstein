@@ -11,6 +11,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include <cmath>
+#include <string>
 
 namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
@@ -421,6 +422,10 @@ namespace Pacenstein {
 	    }
     }
 
+    sf::Texture InGameState::get_texture(int ghost_derection, float player_derection, std::string name){
+        std::cout << player_derection << "\n";
+    }
+
     void InGameState::draw(float dt) {
         if (!this->wallTexture.loadFromFile  ((TEXTURES_FILEPATH "wall.png"))
         ||  !this->doorTexture.loadFromFile  ((TEXTURES_FILEPATH "door.png"))
@@ -444,6 +449,8 @@ namespace Pacenstein {
         this->data->window.clear();
 
         const auto worldMap = this->data->assets.getImage("Map");
+
+        auto blinkyTexture2 = get_texture(blinky_ghost.getDirection(), player.getDir().x, "blinky");
 
         std::vector<Sprite> spooks = {
             {blinky_ghost.move(worldMap),  blinkyTexture[0]},

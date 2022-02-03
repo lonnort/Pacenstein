@@ -48,6 +48,8 @@ namespace Pacenstein {
          */
         sf::Vector2f move(const map_t & worldMap) override;
 
+        int getDirection();
+
     private:
         std::vector<std::string> blinkyDirections = {   "Blinky Back One",
                                                         "Blinky Back Two",

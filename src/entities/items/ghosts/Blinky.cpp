@@ -18,6 +18,10 @@ namespace Pacenstein {
         return blinkySprite;
     }     
 
+    int Blinky::getDirection(){
+        return this->direction;
+    }
+
     sf::Vector2f Blinky::move(const map_t & worldMap){
         switch (this->direction){
             case 1: // Noord
