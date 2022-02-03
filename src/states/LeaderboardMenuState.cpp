@@ -138,7 +138,7 @@ namespace Pacenstein {
                         end++;
                     }
                 }
-                else {
+                else if (event.mouseWheel.delta > 0){
                     if(begin > 0) {
                         begin--;
                         end--;

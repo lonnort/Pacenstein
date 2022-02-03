@@ -102,7 +102,7 @@ namespace Pacenstein {
         else this->data->window.draw(this->background);
 
         this->data->window.draw(this->title);
-        this->data->window.draw(this->highscoreText);
+        // this->data->window.draw(this->highscoreText);
         this->data->window.draw(this->giveUpButton);
         this->data->window.draw(this->continueButton);
         this->data->window.draw(this->settingsButton);
