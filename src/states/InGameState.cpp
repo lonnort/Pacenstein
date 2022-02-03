@@ -542,7 +542,7 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
         ||  !this->clydeTexture.loadFromFile ((GHOSTS_FILEPATH "clyde_middle_one.png"))
         ||  !this->inkyTexture.loadFromFile  ((GHOSTS_FILEPATH "inky_middle_one.png"))
         ||  !this->pinkyTexture.loadFromFile ((GHOSTS_FILEPATH "pinky_middle_one.png"))
-        ||  !this->powerTexture.loadFromFile ((PELLET_FILEPATH "power v2.png"))
+        ||  !this->powerTexture.loadFromFile ((PELLET_FILEPATH "power.png"))
         ||  !this->pacTexture.loadFromFile   ((PELLET_FILEPATH "pac.png"))) {
             std::cout << "Failed to load texture!" << '\n';
         }
@@ -616,6 +616,12 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
         sf::Vector2f direction = player.getDir();
         sf::Vector2f plane     = player.getPlane();
 
+	int translated_player_direction = translateDirection(direction);
+
+	if (translated_player_direction == 3 || translated_player_direction == 4) {
+	    reverse(sprites.begin(),sprites.end());
+	}
+
         drawWalls   (worldMap, position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
 	drawMinimap(position, spooks);
@@ -623,8 +629,8 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
 
-        player.setMoveSpeed(fps.asSeconds() * 0.5); //the constant value is in squares/second
-        player.setRotSpeed (fps.asSeconds() * 0.4); //the constant value is in radians/second
+        player.setMoveSpeed(fps.asSeconds() * 1.5); //the constant value is in squares/second
+        player.setRotSpeed (fps.asSeconds() * 1.5); //the constant value is in radians/second
         
         sf::Text scoreText("Score: " + std::to_string(this->data->score == 70 ? 69 : this->data->score), this->data->assets.getFont("Font"));
         scoreText.setPosition(5, 5);
