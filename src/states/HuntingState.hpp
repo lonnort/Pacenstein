@@ -45,7 +45,8 @@ namespace Pacenstein {
 
     private:
         sf::Clock clock;
-        bool first = true;
-        bool first2 = true;
+        sf::Clock spooks_clock;
+        bool first_spo = true;
+        bool first_inv = true;
     };
 }

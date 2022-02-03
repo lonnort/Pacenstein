@@ -46,50 +46,50 @@ namespace Pacenstein {
         this->data->assets.loadTexture("Pause Background", background_img);
     }
 
-void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> spooks) {
-	sf::Texture texture;
-	if (!texture.loadFromFile("./res/map.png")) {
-	    std::cout << "failed to load" << '\n';
-	}
-	
-	int scaler = 8;
-	int left = 1000;
-	if (w == 1920) {
-	    scaler = 15;
-	    left = 1600;
-	    
-	}
+    void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> spooks) {
+        sf::Texture texture;
+        if (!texture.loadFromFile("./res/map.png")) {
+            std::cout << "failed to load" << '\n';
+        }
+        
+        int scaler = 8;
+        int left = 1000;
+        if (w == 1920) {
+            scaler = 15;
+            left = 1600;
+            
+        }
 
-	int player_x = int(player_position.x) * scaler;
-	int player_y = int(player_position.y) * scaler;
-	
-	sf::RectangleShape player;
-	player.setSize({float(scaler),float(scaler)});
-	player.setPosition({left + float(player_x) , float(player_y)});
-	
-	player.setFillColor(sf::Color::Green);
+        int player_x = int(player_position.x) * scaler;
+        int player_y = int(player_position.y) * scaler;
+        
+        sf::RectangleShape player;
+        player.setSize({float(scaler),float(scaler)});
+        player.setPosition({left + float(player_x) , float(player_y)});
+        
+        player.setFillColor(sf::Color::Green);
 
-	
-	
-	// Create a sprite
-	sf::Sprite sprite;
-	sprite.setTexture(texture);
-	sprite.setScale(scaler,scaler);
-	sprite.setPosition(left, 0);
-	
-	this->data->window.draw(sprite);
-	for (Sprite spook : spooks) {
-	    int spook_x = int(spook.xy.x) * scaler;
-	    int spook_y = int(spook.xy.y) * scaler;
+        
+        
+        // Create a sprite
+        sf::Sprite sprite;
+        sprite.setTexture(texture);
+        sprite.setScale(scaler,scaler);
+        sprite.setPosition(left, 0);
+        
+        this->data->window.draw(sprite);
+        for (Sprite spook : spooks) {
+            int spook_x = int(spook.xy.x) * scaler;
+            int spook_y = int(spook.xy.y) * scaler;
 
-	    sf::RectangleShape tmp_spook;
-	    tmp_spook.setSize({float(scaler),float(scaler)});
-	    tmp_spook.setPosition({left + float(spook_x) , float(spook_y)});
-	
-	    tmp_spook.setFillColor(sf::Color::Red);
-	    this->data->window.draw(tmp_spook);
-	}
-	this->data->window.draw(player);
+            sf::RectangleShape tmp_spook;
+            tmp_spook.setSize({float(scaler),float(scaler)});
+            tmp_spook.setPosition({left + float(spook_x) , float(spook_y)});
+        
+            tmp_spook.setFillColor(sf::Color::Red);
+            this->data->window.draw(tmp_spook);
+        }
+        this->data->window.draw(player);
     }
     
     int InGameState::translateDirection(sf::Vector2f direction) {
@@ -308,13 +308,13 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
                 textureSectionX = 64 - textureSectionX;
             }
 
-	    // original value was 288 instead of 540
-	    // float y = 540 - (64 * scaleY) / 2;
-	    int scaler = 360;
-	    if (w == 1920) {
-		scaler = 540;
-	    }
-	    float y = scaler - (64 * scaleY) / 2;
+            // original value was 288 instead of 540
+            // float y = 540 - (64 * scaleY) / 2;
+            int scaler = 360;
+            if (w == 1920) {
+                scaler = 540;
+            }
+            float y = scaler - (64 * scaleY) / 2;
 
             //Draw the walls
             WallTexture.setScale(1, scaleY);
@@ -495,40 +495,50 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
             texture = 4; // left
         }
         sf::Texture return_texture;
+        
+        std::string spooks_feets = "one";
+        if(!spooks_one){
+            spooks_feets = "two";
+        }
+
         if(data->scattering){
+            std::string color = "blue";
+            if(white_spooks){
+                color = "white";
+            }
             switch(texture){
                 case 1: // front
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_middle_one.png"));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_" + color + "_middle_" + spooks_feets + ".png"));
                     break;
                 case 2: // back
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_back_one.png"));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_" + color + "_back_" + spooks_feets + ".png"));
                     break;
                 case 3: // right
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_right_one.png"));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_" + color + "_right_" + spooks_feets + ".png"));
                     break;
                 case 4: // left
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_left_one.png"));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_" + color + "_left_" + spooks_feets + ".png"));
                     break;
                 default:
-                    std::cout << "HELLPPPPPPPPPPPPPPP\n";
+                    std::cout << "error with spook texture!\n";
                     break;
             }
         }else{
             switch(texture){
                 case 1: // front
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_middle_one.png")));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_middle_" + spooks_feets + ".png")));
                     break;
                 case 2: // back
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_back_one.png")));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_back_" + spooks_feets + ".png")));
                     break;
                 case 3: // right
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_right_one.png")));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_right_" + spooks_feets + ".png")));
                     break;
                 case 4: // left
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_left_one.png")));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_left_" + spooks_feets + ".png")));
                     break;
                 default:
-                    std::cout << "HELLPPPPPPPPPPPPPPP\n";
+                    std::cout << "error with spook texture!\n";
                     break;
             }
         }
@@ -538,21 +548,9 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
     void InGameState::draw(float dt) {
         if (!this->wallTexture.loadFromFile  ((TEXTURES_FILEPATH "wall.png"))
         ||  !this->doorTexture.loadFromFile  ((TEXTURES_FILEPATH "door.png"))
-        // ||  !this->blinkyTexture.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))
-        ||  !this->clydeTexture.loadFromFile ((GHOSTS_FILEPATH "clyde_middle_one.png"))
-        ||  !this->inkyTexture.loadFromFile  ((GHOSTS_FILEPATH "inky_middle_one.png"))
-        ||  !this->pinkyTexture.loadFromFile ((GHOSTS_FILEPATH "pinky_middle_one.png"))
         ||  !this->powerTexture.loadFromFile ((PELLET_FILEPATH "power.png"))
         ||  !this->pacTexture.loadFromFile   ((PELLET_FILEPATH "pac.png"))) {
             std::cout << "Failed to load texture!" << '\n';
-        }
-
-        for(int i = 0; i < 1; i++){
-            sf::Texture tmp;
-            if(!tmp.loadFromFile((GHOSTS_FILEPATH "blinky_middle_one.png"))){
-                std::cout << "Failed to load texture!" << '\n';
-            }
-            blinkyTexture.push_back(tmp);
         }
 
         this->data->window.clear();
@@ -594,21 +592,21 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
             if(!player.intersect(clyde_ghost, this->data)){
                 auto clydeTexture2 = get_texture(clyde_ghost.getDirection(), translateDirection(player.getDir()), "clyde");
                 sprites.push_back({clyde_ghost.move(worldMap), clydeTexture2});
-		spooks.push_back({clyde_ghost.move(worldMap), clydeTexture2});
+		        spooks.push_back({clyde_ghost.move(worldMap), clydeTexture2});
             }
         }
         if(!inky_ghost.is_collected()){
             if(!player.intersect(inky_ghost, this->data)){
                 auto inkyTexture2 = get_texture(inky_ghost.getDirection(), translateDirection(player.getDir()), "inky");
                 sprites.push_back({inky_ghost.move(worldMap), inkyTexture2});
-		spooks.push_back({inky_ghost.move(worldMap), inkyTexture2});
+		        spooks.push_back({inky_ghost.move(worldMap), inkyTexture2});
             }
         }
         if(!pinky_ghost.is_collected()){
             if(!player.intersect(pinky_ghost, this->data)){
                 auto pinkyTexture2 = get_texture(pinky_ghost.getDirection(), translateDirection(player.getDir()), "pinky");
                 sprites.push_back({pinky_ghost.move(worldMap), pinkyTexture2});
-		spooks.push_back({pinky_ghost.move(worldMap), pinkyTexture2});
+		        spooks.push_back({pinky_ghost.move(worldMap), pinkyTexture2});
             }
         }
 
@@ -624,7 +622,7 @@ void InGameState::drawMinimap(sf::Vector2f player_position, std::vector<Sprite> 
 
         drawWalls   (worldMap, position, direction, plane);
         drawEntities(sprites,  position, direction, plane);
-	drawMinimap(position, spooks);
+	    drawMinimap(position, spooks);
 
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();

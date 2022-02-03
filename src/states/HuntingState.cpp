@@ -55,26 +55,36 @@ namespace Pacenstein {
     }
 
     void HuntingState::update(float dt) {
-        if(this->data->scattering and first){
+        if(this->data->scattering and first_spo){
             clock.restart();
-            first = false;
+            first_spo = false;
         }
-        if (this->clock.getElapsedTime().asSeconds() > 10){
+        if (this->clock.getElapsedTime().asSeconds() > 8){
+            clock.restart();
+            white_spooks = true;
+        }
+        if (this->clock.getElapsedTime().asSeconds() > 2 and white_spooks){
             this->data->scattering = false;
-            first = true;
+            first_spo = true;
+            white_spooks = false;
         }
 
-        if(this->data->invincible and first2){
+        if(this->data->invincible and first_inv){
             clock.restart();
-            first2 = false;
+            first_inv = false;
         }
         if (this->clock.getElapsedTime().asSeconds() > 2){
             this->data->invincible = false;
-            first2 = true;
+            first_inv = true;
         }
 
         if(this->data->pacPelletsLeft == 0 && this->data->powerPelletsLeft == 0 && !this->data->scattering){
             this->data->machine.addState(state_ref_t(std::make_unique<GameOverState>(this->data)), true);
+        }
+
+        if(this->spooks_clock.getElapsedTime().asMilliseconds() > 300){
+            spooks_one = !spooks_one;
+            this->spooks_clock.restart();
         }
     }
 }

@@ -118,6 +118,9 @@ namespace Pacenstein {
         
         game_data_ref_t data;
         Player player;
+        
+        bool white_spooks = false;
+        bool spooks_one = true;
 
         void move(const std::string& direction);
         void generatePauseBackground();

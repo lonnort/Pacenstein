@@ -4,7 +4,7 @@
 
 namespace Pacenstein {
     Player::Player(game_data_ref_t data):
-        Entity(2,2,-1,0,0,0),
+        Entity(9.5,15.5,-1,0,0,0),
         data(data),
         plane({0.0, 0.66}),
         rotSpeed(0)
