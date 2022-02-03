@@ -17,10 +17,10 @@ namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
         data(data),
         player(data),
-        blinky_ghost(14.5, 3.5, 0.05),
-        clyde_ghost(6.5, 7.5, 0.05),
-        inky_ghost(4.5, 18.5, 0.05),
-        pinky_ghost(14.5, 18.5, 0.05)
+        blinky_ghost(14.5, 3.5, 0.03),
+        clyde_ghost(6.5, 7.5, 0.03),
+        inky_ghost(4.5, 18.5, 0.03),
+        pinky_ghost(14.5, 18.5, 0.03)
 
     {
         w = std::stoi(data->settings.at("window").at("Width"));
