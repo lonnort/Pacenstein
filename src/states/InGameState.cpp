@@ -17,10 +17,10 @@ namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
         data(data),
         player(data),
-        blinky_ghost(14.5, 3.5, 0.02),
-        clyde_ghost(6.5, 7.5, 0.02),
-        inky_ghost(4.5, 18.5, 0.02),
-        pinky_ghost(14.5, 18.5, 0.02)
+        blinky_ghost(14.5, 3.5, 0.05),
+        clyde_ghost(6.5, 7.5, 0.05),
+        inky_ghost(4.5, 18.5, 0.05),
+        pinky_ghost(14.5, 18.5, 0.05)
 
     {
         w = std::stoi(data->settings.at("window").at("Width"));
@@ -423,7 +423,6 @@ namespace Pacenstein {
     }
 
     sf::Texture InGameState::get_texture(int ghost_derection, int player_derection, std::string name){
-        std::cout << name << " = " << ghost_derection << " + " << player_derection << "\n";
         int texture = 0; // nothing
         if(ghost_derection == player_derection){
             texture = 2; // back
@@ -450,12 +449,16 @@ namespace Pacenstein {
         if(data->scattering){
             switch(texture){
                 case 1: // front
-                case 3: // right
-                case 4: // left
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_one.png"));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_middle_one.png"));
                     break;
                 case 2: // back
-                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_one.png"));
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_back_one.png"));
+                    break;
+                case 3: // right
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_right_one.png"));
+                    break;
+                case 4: // left
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_left_one.png"));
                     break;
                 default:
                     std::cout << "HELLPPPPPPPPPPPPPPP\n";
