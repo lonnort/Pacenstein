@@ -50,6 +50,8 @@ namespace Pacenstein {
 
         int getDirection();
 
+        bool is_collected();
+
     private:
         std::vector<std::string> blinkyDirections = {   "Blinky Back One",
                                                         "Blinky Back Two",

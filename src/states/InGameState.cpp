@@ -17,10 +17,10 @@ namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
         data(data),
         player(data),
-        blinky_ghost(14.5, 3.5, 0.8),
-        clyde_ghost(6.5, 7.5, 0.8),
-        inky_ghost(4.5, 18.5, 0.8),
-        pinky_ghost(14.5, 18.5, 0.8)
+        blinky_ghost(14.5, 3.5, 0.02),
+        clyde_ghost(6.5, 7.5, 0.02),
+        inky_ghost(4.5, 18.5, 0.02),
+        pinky_ghost(14.5, 18.5, 0.02)
 
     {
         w = std::stoi(data->settings.at("window").at("Width"));
@@ -48,13 +48,13 @@ namespace Pacenstein {
 
     int InGameState::translateDirection(sf::Vector2f direction) {
         if ((direction.x <= -0.5 && direction.y >= -0.75) && (direction.x <= -0.5 && direction.y <= 0.75)) {
-            return 1;
-        } else if ((direction.x >= -0.5 && direction.y <= 0.75) && (direction.x <= 0.5 && direction.y <= 0.75)) {
             return 2;
+        } else if ((direction.x >= -0.5 && direction.y <= 0.75) && (direction.x <= 0.5 && direction.y <= 0.75)) {
+            return 1;
         } else if ((direction.x >= 0.75 && direction.y <= 0.5) && (direction.x >= 0.75 && direction.y >= -0.5)) {
-            return 3;
-        } else {
             return 4;
+        } else {
+            return 3;
         }
     }
 
@@ -422,8 +422,65 @@ namespace Pacenstein {
 	    }
     }
 
-    sf::Texture InGameState::get_texture(int ghost_derection, float player_derection, std::string name){
-        std::cout << player_derection << "\n";
+    sf::Texture InGameState::get_texture(int ghost_derection, int player_derection, std::string name){
+        std::cout << name << " = " << ghost_derection << " + " << player_derection << "\n";
+        int texture = 0; // nothing
+        if(ghost_derection == player_derection){
+            texture = 2; // back
+        }else if ((player_derection == 1 && ghost_derection == 3) ||
+                  (player_derection == 2 && ghost_derection == 4) ||
+                  (player_derection == 3 && ghost_derection == 1) ||
+                  (player_derection == 4 && ghost_derection == 2))
+        {
+            texture = 1; // front
+        }else if ((player_derection == 1 && ghost_derection == 2) ||
+                  (player_derection == 2 && ghost_derection == 3) ||
+                  (player_derection == 3 && ghost_derection == 4) ||
+                  (player_derection == 4 && ghost_derection == 1))
+        {
+            texture = 3; // right
+        }else if ((player_derection == 1 && ghost_derection == 4) ||
+                  (player_derection == 2 && ghost_derection == 1) ||
+                  (player_derection == 3 && ghost_derection == 2) ||
+                  (player_derection == 4 && ghost_derection == 3))
+        {
+            texture = 4; // left
+        }
+        sf::Texture return_texture;
+        if(data->scattering){
+            switch(texture){
+                case 1: // front
+                case 3: // right
+                case 4: // left
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_one.png"));
+                    break;
+                case 2: // back
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH "dead_blue_one.png"));
+                    break;
+                default:
+                    std::cout << "HELLPPPPPPPPPPPPPPP\n";
+                    break;
+            }
+        }else{
+            switch(texture){
+                case 1: // front
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_middle_one.png")));
+                    break;
+                case 2: // back
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_back_one.png")));
+                    break;
+                case 3: // right
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_right_one.png")));
+                    break;
+                case 4: // left
+                    return_texture.loadFromFile ((GHOSTS_FILEPATH + (name + "_left_one.png")));
+                    break;
+                default:
+                    std::cout << "HELLPPPPPPPPPPPPPPP\n";
+                    break;
+            }
+        }
+        return return_texture;
     }
 
     void InGameState::draw(float dt) {
@@ -450,14 +507,17 @@ namespace Pacenstein {
 
         const auto worldMap = this->data->assets.getImage("Map");
 
-        auto blinkyTexture2 = get_texture(blinky_ghost.getDirection(), player.getDir().x, "blinky");
-
-        std::vector<Sprite> spooks = {
-            {blinky_ghost.move(worldMap),  blinkyTexture[0]},
-            {clyde_ghost.move(worldMap),  clydeTexture},
-            {inky_ghost.move(worldMap),  inkyTexture},
-            {pinky_ghost.move(worldMap),  pinkyTexture}
-        };
+        // auto blinkyTexture2 = get_texture(blinky_ghost.getDirection(), translateDirection(player.getDir()), "blinky");
+        // auto clydeTexture2 = get_texture(clyde_ghost.getDirection(), translateDirection(player.getDir()), "clyde");
+        // auto inkyTexture2 = get_texture(inky_ghost.getDirection(), translateDirection(player.getDir()), "inky");
+        // auto pinkyTexture2 = get_texture(pinky_ghost.getDirection(), translateDirection(player.getDir()), "pinky");
+        
+        // std::vector<Sprite> spooks = {
+            // {blinky_ghost.move(worldMap),   blinkyTexture2},
+            // {clyde_ghost.move(worldMap),    clydeTexture2},
+            // {inky_ghost.move(worldMap),     inkyTexture2},
+            // {pinky_ghost.move(worldMap),    pinkyTexture2}
+        // };
 
         std::vector<Sprite> sprites = {};
         
@@ -480,14 +540,39 @@ namespace Pacenstein {
             }
         }
 
+        // std::vector<Ghost> ghosts = {blinky_ghost, clyde_ghost, inky_ghost, pinky_ghost};
 
+        if(!blinky_ghost.is_collected()){
+            if(!player.intersect(blinky_ghost, this->data)){
+                auto blinkyTexture2 = get_texture(blinky_ghost.getDirection(), translateDirection(player.getDir()), "blinky");
+                sprites.push_back({blinky_ghost.move(worldMap), blinkyTexture2});
+            }
+        }
+        if(!clyde_ghost.is_collected()){
+            if(!player.intersect(clyde_ghost, this->data)){
+                auto clydeTexture2 = get_texture(clyde_ghost.getDirection(), translateDirection(player.getDir()), "clyde");
+                sprites.push_back({clyde_ghost.move(worldMap), clydeTexture2});
+            }
+        }
+        if(!inky_ghost.is_collected()){
+            if(!player.intersect(inky_ghost, this->data)){
+                auto inkyTexture2 = get_texture(inky_ghost.getDirection(), translateDirection(player.getDir()), "inky");
+                sprites.push_back({inky_ghost.move(worldMap), inkyTexture2});
+            }
+        }
+        if(!pinky_ghost.is_collected()){
+            if(!player.intersect(pinky_ghost, this->data)){
+                auto pinkyTexture2 = get_texture(pinky_ghost.getDirection(), translateDirection(player.getDir()), "pinky");
+                sprites.push_back({pinky_ghost.move(worldMap), pinkyTexture2});
+            }
+        }
 
-        player.intersect(blinky_ghost, this->data);
-        player.intersect(clyde_ghost, this->data);
-        player.intersect(inky_ghost, this->data);
-        player.intersect(pinky_ghost, this->data);
+        // player.intersect(blinky_ghost, this->data);
+        // player.intersect(clyde_ghost, this->data);
+        // player.intersect(inky_ghost, this->data);
+        // player.intersect(pinky_ghost, this->data);
         
-	    sprites.insert(sprites.end(), spooks.begin(), spooks.end());
+	    // sprites.insert(sprites.end(), spooks.begin(), spooks.end());
 
         // for(int i = 0; i < worldMap.size(); i++){
         //     for(int j = 0; j < worldMap[i].size(); j++){
@@ -541,5 +626,7 @@ namespace Pacenstein {
         }
 
         this->data->window.display();
+
+        // std::cout << this->data->ghostsEaten << "\n";
     }
 }

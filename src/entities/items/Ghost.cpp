@@ -17,6 +17,7 @@ namespace Pacenstein {
         if(data->scattering) {
             data->score += points * std::pow(2, data->ghostsEaten);
             data->ghostsEaten++;
+            collected = true;
         }
         else {
             if(!data->invincible){

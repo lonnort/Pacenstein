@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <string>
+#include <cstdint>
 #include "AssetManager.hpp"
 #include "InputManager.hpp"
 #include "StateMachine.hpp"
@@ -45,7 +46,7 @@ namespace Pacenstein {
         /**
          * Score is an unsigned int, where the score is saved when the game is running.
          */
-        uint score;
+        uint64_t score;
 
         /**
          * Lives is an unsigned int, where the lives are saved when the game is running.

@@ -43,6 +43,10 @@ namespace Pacenstein {
          */
         sf::Vector2f move(const map_t & worldMap) override;
 
+        int getDirection();
+
+        bool is_collected();
+
     private:
         std::vector<std::string> inkyDirections = {     "Inky Back One",
                                                         "Inky Back Two",
