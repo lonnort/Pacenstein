@@ -43,9 +43,19 @@ namespace Pacenstein {
          */
         sf::Vector2f move(const map_t & worldMap) override;
 
-        int getDirection();
+        /**
+         * Returns the direction of Inky.
+         *
+         * \return An int of the direction of Inky.
+         */
+        int getDirection() override;
 
-        bool is_collected();
+        /**
+         * Returns if Inky is collected/eaten by the player.
+         *
+         * \return A bool of if Inky is collected.
+         */
+        bool is_collected() override;
 
     private:
         std::vector<std::string> inkyDirections = {     "Inky Back One",

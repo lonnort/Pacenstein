@@ -38,5 +38,9 @@ namespace Pacenstein {
         void interact(game_data_ref_t data) override;
 
         virtual sf::Vector2f move(const map_t & worldMap) = 0;
+
+        virtual int getDirection() = 0;
+
+        virtual bool is_collected() = 0;
     };
 }
