@@ -59,7 +59,7 @@ namespace Pacenstein {
             clock.restart();
             first_spo = false;
         }
-        if (this->clock.getElapsedTime().asSeconds() > 8){
+        if (this->clock.getElapsedTime().asSeconds() > 15) {
             clock.restart();
             white_spooks = true;
         }

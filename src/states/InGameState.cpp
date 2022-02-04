@@ -17,10 +17,10 @@ namespace Pacenstein {
     InGameState::InGameState(game_data_ref_t data):
         data(data),
         player(data),
-        blinky_ghost(14.5, 3.5, 0.03),
-        clyde_ghost(6.5, 7.5, 0.03),
-        inky_ghost(4.5, 18.5, 0.03),
-        pinky_ghost(14.5, 18.5, 0.03)
+        blinky_ghost(14.5, 3.5, 0.02),
+        clyde_ghost(6.5, 7.5, 0.021),
+        inky_ghost(4.5, 18.5, 0.022),
+        pinky_ghost(14.5, 18.5, 0.023)
 
     {
         w = std::stoi(data->settings.at("window").at("Width"));
@@ -627,8 +627,8 @@ namespace Pacenstein {
         this->fps = this->clock.getElapsedTime();
         this->clock.restart();
 
-        player.setMoveSpeed(fps.asSeconds() * 1.5); //the constant value is in squares/second
-        player.setRotSpeed (fps.asSeconds() * 1.5); //the constant value is in radians/second
+        player.setMoveSpeed(fps.asSeconds() * 0.9); //the constant value is in squares/second
+        player.setRotSpeed (fps.asSeconds() * 1.0); //the constant value is in radians/second
         
         sf::Text scoreText("Score: " + std::to_string(this->data->score == 70 ? 69 : this->data->score), this->data->assets.getFont("Font"));
         scoreText.setPosition(5, 5);

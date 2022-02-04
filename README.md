@@ -3,6 +3,12 @@
 ## Introduction
 This is a schoolproject made for Hogeschool Utrecht. With our take on this project we made a first-person PacMan game. Except instead of simply making PacMan in 2D, we did it in 3D. This was done using raycasting techniques, like the original Doom, or Wolfenstein 3D.
 
+## Copyright notice
+Lode Vandenvenne has some great explanations on raycasting, and we used their website for most of our raycasting engine. Check their website for a lot of tutorials and clear explanations.
+
+- Lode Vandevenne's website: [lodev.org](lodev.org)
+- Lode Vandevenne's raycasting tutorials: [lodev raycasting](https://lodev.org/cgtutor/raycasting.html)
+
 ## Playing the game
 You can download a Windows or Linux executable by going to the release page and run it. Or you can build the source yourself.
 
