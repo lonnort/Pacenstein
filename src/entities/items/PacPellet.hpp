@@ -36,8 +36,18 @@ namespace Pacenstein {
          */
         void interact(game_data_ref_t data) override;
 
+        /**
+         * Returns if a PacPellet is collected by the player.
+         *
+         * \return A bool of if the pellet is collected.
+         */
         bool is_collected();
 
+        /**
+         * Returns the position of a PacPellet.
+         *
+         * \return An sf::Vector2f of the position of a pellet.
+         */
         sf::Vector2f getPosition();
     };
 }

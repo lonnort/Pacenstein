@@ -46,9 +46,19 @@ namespace Pacenstein {
          */
         sf::Vector2f move(const map_t & worldMap) override;
 
-        int getDirection();
+        /**
+         * Returns the direction of Clyde..
+         *
+         * \return An int of the direction of Clyde.
+         */
+        int getDirection() override;
 
-        bool is_collected();
+        /**
+         * Returns if Clyde is collected/eaten by the player.
+         *
+         * \return A bool of if Clyde is collected.
+         */
+        bool is_collected() override;
 
     private:
         std::vector<std::string> clydeDirections = {    "Clyde Back One",
