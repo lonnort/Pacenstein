@@ -70,25 +70,30 @@ namespace Pacenstein {
          * \param &dist A reference to a vector filled with distances.
          * \param size A int with size.
          */
-	void sortSprites(std::vector<int> &order, std::vector<float> &dist, int size);
+    	void sortSprites(std::vector<int> &order, std::vector<float> &dist, int size);
 
      	/**
          * Translates a sf::Vector2f to a direction understandable by a ghost.
          *
          * \param direction sf::Vector2f.
          */
-	int translateDirection(sf::Vector2f direction);
+    	int translateDirection(sf::Vector2f direction);
 
         /**
          * Updates the in game state outside of key presses.
          *
          * \param dt A float.
          */
-
         void draw(float dt);
 
+        /**
+         * Get the correct texture for the ghosts, based on their direction and the player's direction.
+         * 
+         * \param ghost_direction  The direction the ghost is facing.
+         * \param player_direction The direction the player is facing.
+         * \param name             The name of the texture to get.
+         */
         sf::Texture get_texture(int ghost_derection, int player_derection, std::string name);
-
 
     protected:
     
