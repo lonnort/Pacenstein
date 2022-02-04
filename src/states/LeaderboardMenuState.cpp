@@ -11,7 +11,7 @@ namespace Pacenstein {
     void LeaderboardMenuState::parseScores(std::vector<std::string> file_content) {
         for (auto& line : file_content) {
             std::string player_name = "";
-            int points = 0;
+            uint64_t points = 0;
 
             std::stringstream ss(line);
             ss >> player_name >> points;

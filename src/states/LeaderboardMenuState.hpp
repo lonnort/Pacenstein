@@ -75,7 +75,7 @@ namespace Pacenstein {
         int begin = 0;
         int end = 12;
 
-        std::vector<std::pair<std::string, int>> scores;
+        std::vector<std::pair<std::string, uint64_t>> scores;
 
         void parseScores(std::vector<std::string> file_content);
         void refresh_leaderboard();
